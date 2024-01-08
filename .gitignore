@@ -14,4 +14,3 @@ yarn.lock
 .idea
 mix-manifest.json
 **/.DS_Store
-modules_statuses.json

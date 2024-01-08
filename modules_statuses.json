@@ -1,0 +1,23 @@
+{
+    "Core": true,
+    "Dashboard": true,
+    "Media": true,
+    "Menu": true,
+    "Page": true,
+    "Setting": true,
+    "Tag": true,
+    "Translation": true,
+    "User": true,
+    "Workshop": true,
+    "Dynamicfield": true,
+    "Slider": true,
+    "Cryperrswap": false,
+    "Customer": true,
+    "Wallet": true,
+    "Staking": true,
+    "Trade": true,
+    "Peertopeer": true,
+    "Logviewer": true,
+    "Affiliate": true,
+    "MarketMaker": true
+}
