@@ -1,0 +1,142 @@
+@import "./variables.scss";
+
+// Modal global theme custom   
+.modal {
+    .modal-dialog {
+        width: 100%;
+        max-width: 430px;
+        margin: 0;
+        padding: 0 15px;
+
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        @include media-down(sm) {
+            padding: 0;
+            bottom: 0;
+            top: unset;
+            transform: translate(-50%, 50%);
+        }
+    }
+
+    &.fade .modal-dialog {
+        transform: translate(-50%, -50%);
+
+        @include media-down(sm) {
+            transform: translate(-50%, 100%);
+        }
+    }
+
+    &.show .modal-dialog {
+        transform: translate(-50%, -50%);
+
+        @include media-down(sm) {
+            transform: translate(-50%, 0%);
+        }
+    }
+
+    .modal-content {
+        background: #0d0d0d;
+        border: 1px solid $primary;
+        border-radius: 10px;
+        overflow: hidden;
+
+        @include media-down(sm) {
+            border-radius: 8px 8px 0 0;
+        }
+    }
+
+    .modal-header {
+        padding: 42px 15px 16px;
+        position: relative;
+        border: unset;
+
+        .icon-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+
+            width: 24px;
+            height: 24px;
+
+            cursor: pointer;
+        }
+
+        .modal-title {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    .modal-body {
+        padding: 24px;
+
+        @include media-down(sm) {
+            padding: 15px;
+        }
+    }
+}
+
+// Other modal custom
+
+// Modal qr code
+.modalQrCode {
+    .modal-body {
+        padding: 24px;
+    }
+}
+
+// Modal tx detail
+#modalTxDetail {
+    .modal-body {
+        .count-num {
+            color: #fff;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(93.76deg, #FFC700 30.42%, #FF9F59 75.73%);
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+        }
+    }
+}
+
+// Modal Staking detail
+#modalStakingDetail {
+    .modal-body {
+        .count-num {
+            color: #fff;
+            width: 17px;
+            height: 17px;
+            background: linear-gradient(93.76deg, #FFC700 30.42%, #FF9F59 75.73%);
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+
+            &.line {
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 8px;
+
+                    width: 1px;
+                    height: 38px;
+                    background: #FFC700;
+                }
+            }
+        }
+    }
+}

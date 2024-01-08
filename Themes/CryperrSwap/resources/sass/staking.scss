@@ -1,0 +1,227 @@
+@import "./variables.scss";
+
+.staking-list {
+    width: 100%;
+    min-height: calc(100vh - 112px - 323px);
+
+    .filter-header {
+        display: flex;
+        flex-flow: nowrap;
+        justify-content: space-between;
+        align-items: center;
+
+        a {
+            color: $span;
+            margin-right: 24px;
+
+            &.active {
+                color: $text;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .right-search {
+        .input-group {
+            height: 40px;
+
+            @include media-down(sm) {
+                min-width: 32px;
+                height: 32px;
+                padding: 4px;
+                background: transparent;
+                border: 1px solid #989898;
+                border-radius: 4px;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: .3s ease;
+            }
+
+            img {
+                @include media-down(sm) {
+                    width: 16px;
+                    height: auto;
+                }
+            }
+
+            input {
+                display: block;
+
+                @include media-down(sm) {
+                    display: none;
+                    margin-left: 6px;
+                }
+            }
+        }
+    }
+
+    .wrap-table {
+        display: block;
+
+        @include media-down(md) {
+            display: none;
+        }
+
+        .btn-duration {
+            font-size: 14px;
+            height: 37px;
+            padding: 6px;
+            min-width: 37px;
+            border: 1px solid #989898;
+            border-radius: 4px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+            &:hover {
+                border: 1px solid #FFC700;
+            }
+
+            &.active,
+            &.active:hover {
+                border: 1px solid $primary;
+            }
+
+            @include media-down(sm) {
+                font-size: 13px;
+                min-width: 70px;
+                padding: 0 10px;
+                height: 36px;
+            }
+        }
+    }
+
+    .package-list {
+        display: none;
+
+        @include media-down(md) {
+            display: block;
+        }
+
+        .package-item {
+            padding: 16px 0;
+            border-bottom: 1px solid $span;
+
+            .durations {
+                display: flex;
+                flex-direction: row;
+                overflow: scroll;
+
+                a {
+                    font-size: 14px;
+                    height: 36px;
+                    padding: 0px;
+                    min-width: 36px;
+                    border: 1px solid #989898;
+                    border-radius: 4px;
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: row;
+                    margin-left: 8px;
+
+                    &:hover {
+                        border: 1px solid #989898;
+                    }
+
+                    &.active,
+                    &.active:hover {
+                        border: 1px solid $primary;
+                    }
+
+                    &.flexible {
+                        padding: 0 8px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.staking-detail {
+    .staking-card {
+        padding: 16px 24px;
+        background: $secondary;
+        border-radius: 8px;
+
+        @include media-down(sm) {
+            background: transparent;
+            padding: 0;
+        }
+
+        .duration {
+            a {
+                @include media-down(sm) {
+                    font-size: 16px;
+                    padding: 4px 8px;
+                    height: 40px;
+                }
+
+                &.active,
+                &.active:hover {
+                    background-color: $primary !important;
+                    border: 1px solid $primary !important;
+                }
+            }
+        }
+    }
+
+    .summary-card {
+        padding: 16px 24px;
+        background: $secondary;
+        border-radius: 8px;
+
+        @include media-down(sm) {
+            background: transparent;
+            padding: 0;
+        }
+
+        .steps {
+            padding-left: 24px;
+
+            &-item {
+                font-weight: 500;
+                font-size: 14px;
+                margin-bottom: 8px;
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+
+                @media (min-width: 991px) {
+                    line-height: 27px;
+                    font-size: 16px;
+                    margin-bottom: 16px;
+                }
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: -24px;
+                    transform: translateY(-50%);
+
+                    width: 15px;
+                    height: 15px;
+                    background: linear-gradient(93.76deg, #FFC700 30.42%, #FF9F59 75.73%);
+                    border-radius: 100%;
+                }
+
+                &:not(:last-child)::before {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: -17px;
+
+                    width: 1px;
+                    height: 36px;
+                    background: #FFC700;
+                }
+            }
+        }
+    }
+}

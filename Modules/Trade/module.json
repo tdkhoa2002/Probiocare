@@ -1,0 +1,16 @@
+{
+    "name": "Trade",
+    "alias": "trade",
+    "version": "1.0.0",
+	"description": "",
+    "keywords": [],
+    "priority": 1,
+    "providers": [
+        "Modules\\Trade\\Providers\\TradeServiceProvider",
+        "Modules\\Trade\\Providers\\EventServiceProvider",
+        "Modules\\Trade\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

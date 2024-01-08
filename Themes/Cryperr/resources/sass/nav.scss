@@ -1,0 +1,124 @@
+@import './variables.scss';
+
+.home-nav-bar.navbar-expand-lg {
+    height: 70px;
+    min-height: 70px;
+    background: #FAFAFA;
+    border-bottom: 1px solid #000000;
+
+    @include media-down(lg) {
+        height: 70px;
+        min-height: 70px;
+    }
+
+    .navbar-brand img {
+        // width: 80px;
+        height: 40px;
+
+        @include media-down(lg) {
+            // width: 50px;
+            max-height: 50px;
+        }
+    }
+
+    .nav-body {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        overflow: hidden;
+
+        .right-nav {
+            width: auto;
+            max-width: 250px;
+        }
+    }
+
+    .navbar-toggler {
+        height: fit-content;
+        padding: 4px;
+        margin: auto 0;
+
+        &:focus {
+            box-shadow: unset;
+        }
+    }
+
+    .navbar-nav {
+        display: flex;
+        justify-content: left;
+        flex: 1;
+
+        .nav-item {
+            .nav-link {
+                color: $text;
+                font-size: 18px;
+                font-weight: 500;
+                padding: 8 20px;
+
+                @include media-up(lg) {
+                    padding-right: 20px;
+                    padding-left: 20px;
+                }
+
+                &::after {
+                    display: none;
+                }
+
+                img {
+                    width: 12px;
+                    margin-left: 4px;
+                }
+
+                &.active {
+                    color: $primary;
+                }
+            }
+        }
+    }
+
+    .right-nav-mobile {
+        display: flex;
+        align-items: center;
+
+        .user-info {
+            display: none;
+            margin-right: 12px;
+
+            @include media-down(lg) {
+                display: block;
+            }
+        }
+    }
+}
+
+.mobile-drawer-menu {
+    .navbar-nav-scroll {
+        max-height: unset;
+    }
+
+    .dropdown-menu {
+        height: 0;
+        padding-left: 16px;
+        transition: .3s ease-in-out;
+
+        &.show {
+            height: 100%;
+            max-height: 100px;
+        }
+    }
+
+    .offcanvas-footer {
+        text-align: center;
+    }
+}
+
+.avatar-profile {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #00e5ff;
+    color: #fff;
+    border-radius: 50%;
+    display: inline-block;
+}

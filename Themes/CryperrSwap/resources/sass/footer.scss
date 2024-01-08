@@ -1,0 +1,102 @@
+footer {
+    background: $dark;
+    overflow: hidden;
+
+    .above {
+        padding: 24px 0;
+        border-bottom: 1px solid rgba(#989898, 0.4);
+
+        .footer-logo {
+            max-width: 200px;
+            // height: 40px;
+            margin-bottom: 24px;
+        }
+
+        .footer-description {
+            color: #FAFAFA;
+            font-weight: 300;
+            font-size: 16px;
+            max-width: 290px;
+        }
+
+        .footer-menu-title {
+            color: #FAFAFA;
+            font-weight: 500;
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .menu-list {
+            padding-left: 24px;
+
+            li::before {
+                content: "\2022";
+                color: #FAFAFA;
+                display: inline-block;
+                width: 1em;
+                margin-left: -1em;
+            }
+
+            li {
+                margin-bottom: 12px;
+
+                a {
+                    color: #FAFAFA;
+                    font-size: 16px;
+                    font-weight: 300;
+                }
+            }
+        }
+    }
+
+    .below {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        padding: 24px 0;
+
+        .left {
+            @include media-down(sm) {
+                width: 100%;
+            }
+
+            .title {
+                font-size: 14px;
+                font-weight: 300;
+                color: $span;
+
+                @include media-down(sm) {
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+        }
+
+        .right {
+            @include media-down(sm) {
+                width: 100%;
+                margin-bottom: 16px;
+                display: flex;
+                justify-content: center;
+            }
+
+            .social-list {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-flow: row wrap;
+
+                li {
+                    margin-left: 16px;
+
+                    img {
+                        width: 24px;
+                        height: 24px;
+                        object-fit: contain;
+                    }
+                }
+            }
+        }
+    }
+
+}

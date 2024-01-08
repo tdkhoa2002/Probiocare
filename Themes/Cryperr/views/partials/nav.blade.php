@@ -1,0 +1,134 @@
+@php
+$logo = (setting('core::logo')) ? setting('core::logo') : Theme::url('images/logo.png');
+
+$checkAuth = auth()->guard('customer')->check();
+$balance_usd = 0;
+
+if($checkAuth){
+    $customer = auth()->guard('customer')->user();
+    if($customer->wallets){
+        foreach ($customer->wallets as $wallet) {
+            $walletCurrency = $wallet->currency;
+            if($walletCurrency){
+                $balance_usd += $wallet->balance * $wallet->currency->usd_rate;   
+            }
+        }
+    }
+}
+@endphp
+
+<script>
+    $(document).ready(function(){
+    var total_balance = {{$balance_usd}};
+    // alert(total_balance);
+    $('#total_balance_usd').text(total_balance);
+    })
+</script>
+
+<nav class="home-nav-bar navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <div class="nav-body">
+            <a class="navbar-brand" href="/">
+                <img src="{{ $logo }}" alt="" />
+            </a>
+            <div class="right-nav-mobile">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" href="#drawerMenu" role="button"
+                    aria-controls="drawerMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <!-- Desktop menu -->
+            <div class="collapse navbar-collapse justify-content-between">
+                <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Trading <img src="{{ Theme::url('/images/down-outline.png') }}" alt="" />
+                        </a>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Staking</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li> -->
+                    @menu('main_menu', 'main_menu')
+                </ul>
+
+                <div class="right-nav">
+                    @if (!$checkAuth)
+                    <div class="d-flex">
+                        <a class="btn btn-signin {{ Route::currentRouteName() !='fe.customer.customer.register' ?' btn-primary':"" }} me-2" style="white-space: nowrap"
+                            href="{{route('fe.customer.customer.login')}}">Sign In</a>
+                        <a class="btn btn-signup {{ Route::currentRouteName() =='fe.customer.customer.register' ?' btn-primary':"" }} btn-text" style="white-space: nowrap"
+                            href="{{route('fe.customer.customer.register')}}">Sign Up</a>
+                    </div>
+                    @else
+                    <div class="d-flex align-items-center">
+                        <a href="{{route('fe.customer.customer.account')}}">
+                            <div class="d-flex align-items-center">
+                                {{-- <img width="32px" height="32px" src="{{ $logo }}" alt=""> --}}
+                                <span class="avatar-profile">{{ substr($customer->profile->firstname, 0, 1) }}</span>
+                                <span class="ms-2">{{$customer->profile->firstname}}
+                                    {{$customer->profile->lastname}}</span>
+                            </div>
+                        </a>
+                    </div>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Mobile drawer menu -->
+            <div class="mobile-drawer-menu offcanvas offcanvas-start d-lg-none" tabindex="-1" id="drawerMenu"
+                aria-labelledby="drawerMenuLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="drawerMenuLabel">
+                        <a class="navbar-brand" href="/">
+                            <img src="{{ $logo }}" alt="" />
+                        </a>
+                    </h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav my-2 my-lg-0">
+                        @menu('main_menu', 'main_menu')
+
+                        {{-- <li class="nav-item"><a class="nav-link " aria-current="page"
+                                href="{{route('fe.wallet.wallet.list')}}">Wallet</a></li>
+                        <li class="nav-item"><a class="nav-link " aria-current="page"
+                                href="{{route('fe.staking.staking.mystaking')}}">My Staking</a></li>
+                        <li class="nav-item"><a class="nav-link " aria-current="page"
+                                href="{{route('fe.customer.customer.account')}}">Account</a></li>
+                        <li class="nav-item"><a class="nav-link " aria-current="page"
+                                href="{{route('fe.customer.customer.setting')}}">Setting</a></li> --}}
+
+                    </ul>
+                </div>
+                <div class="offcanvas-footer pb-2">
+                    @if (!$checkAuth)
+                    <a class="btn btn-primary btn-sign-with-email"
+                        href="{{route('fe.customer.customer.register')}}">Sign up with Email</a>
+                    <a class="btn btn-outline btn-sign-with-email" href="{{route('fe.customer.customer.login')}}">Sign
+                        in</a>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

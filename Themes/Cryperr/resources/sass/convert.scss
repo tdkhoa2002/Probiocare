@@ -1,0 +1,171 @@
+.wrapper-page-convert {
+    padding: 15px;
+    .box-conent-convert {
+        border-radius: 15px;
+        background-color: $secondary;
+        margin: 20px auto;
+        @media (min-width: 768px) {
+            max-width: 630px;
+            margin: 40px auto;
+        }
+        .content-convert {
+            padding: 15px;
+        }
+        .header-box {
+            position: relative;
+            .reload {
+                cursor: pointer;
+                position: absolute;
+                right: 10px;
+                top: 10px;
+            }
+        }
+        .error {
+            color: $error;
+        }
+    }
+}
+.body-box-swap {
+    margin-top: 20px;
+    .item-input {
+        padding: 5px 0;
+        .swap-title {
+            display: flex;
+            justify-content: space-between;
+            .label {
+                font-size: 18px;
+                font-weight: bold;
+            }
+        }
+        .swap-input {
+            display: flex;
+            background-color: $light;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 5px;
+            justify-content: space-between;
+            align-items: center;
+            .box-currency {
+                cursor: pointer;
+            }
+            .box-input {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                text-align: right;
+                input {
+                    text-align: right;
+                    background-color: $light;
+                    font-size: 18px;
+                }
+                .swap-input_desc {
+                    font-size: 12px;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+    .box-quick-amount {
+        margin: 20px 0;
+        .quick-amount {
+            display: flex;
+            justify-content: space-between;
+            .item {
+                background-color: $light;
+                padding: 5px 20px;
+                border-radius: 10px;
+                font-weight: 500;
+                font-size: 20px;
+                text-align: center;
+                cursor: pointer;
+                @media (min-width: 520px) {
+                    padding: 8px 30px;
+                }
+            }
+        }
+    }
+    .sumary {
+        font-weight: 300;
+        margin-top: 5px;
+        margin-bottom: 24px;
+    }
+    .box-icon-change {
+        padding: 20px 0;
+        text-align: center;
+    }
+    .box-action {
+        margin: 20px 0;
+        button {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: $primary;
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+        }
+    }
+    .box-price-modal {
+        background-color: $light;
+        padding: 15px;
+        border-radius: 10px;
+    }
+    .box-price {
+        display: flex;
+        margin-bottom: 10px;
+        justify-content: space-between;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+.wrapper-select-token {
+    .wrap-content {
+        .select-input {
+            width: 100%;
+            height: 40px;
+            padding: 0 16px;
+            background: $light;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            input {
+                color: $dark;
+                width: 100%;
+                height: 100%;
+                background: $light !important;
+                border: 0;
+            }
+        }
+        .select-box {
+            .select-items {
+                margin-bottom: 24px;
+                height: 500px;
+                overflow-y: scroll;
+                .select-item {
+                    padding: 4px 8px;
+                    margin-bottom: 13px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    cursor: pointer;
+                    .select-img {
+                        width: 32px;
+                    }
+                    .select-info {
+                        width: calc(100% - 32px);
+                        padding-left: 8px;
+                        .select-name {
+                            font-size: 16px;
+                            font-weight: 600;
+                        }
+                        .select-desc {
+                            font-size: 12px;
+                            font-weight: 400;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

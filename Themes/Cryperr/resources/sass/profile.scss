@@ -1,0 +1,47 @@
+@import "./variables.scss";
+
+.profile {
+    .wrap-user-info {
+        display: flex;
+        flex-direction: row;
+
+        .avatar {
+            width: 68px;
+            height: 68px;
+            margin-right: 8px;
+
+            @include media-down(sm) {
+                width: 54px;
+                height: 54px;
+            }
+        }
+
+        .name {
+            @include media-down(sm) {
+                max-width: 66%;
+                word-break: break-all;
+            }
+        }
+
+        .email {
+            @include media-down(sm) {
+                max-width: 66%;
+                word-break: break-all;
+            }
+        }
+    }
+
+    .form-profile {}
+
+    .box-security {
+        .account-risk {
+            .risk {
+                width: 40px;
+                height: 8px;
+                background: #26A670;
+                border-radius: 30px;
+                margin-right: 8px;
+            }
+        }
+    }
+}

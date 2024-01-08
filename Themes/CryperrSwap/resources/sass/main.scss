@@ -1,0 +1,79 @@
+@import './variables.scss';
+
+// Custom
+@import './custom.scss';
+@import "./form.scss";
+@import "./table.scss";
+@import './card.scss';
+@import "./modal.scss";
+@import "./button.scss";
+
+// Layout
+@import "./layout.scss";
+
+// Components
+@import './nav.scss';
+@import './footer.scss';
+@import "./components.scss";
+@import "./navigator.scss";
+
+// Page
+@import "./auth.scss";
+@import './home.scss';
+@import "./trading.scss";
+@import "./trading-pair.scss";
+@import "./wallet.scss";
+@import "./deposit.scss";
+@import "./withdraw.scss";
+@import "./wallet-history.scss";
+@import "./staking.scss";
+@import "./my-staking.scss";
+@import "./kyc.scss";
+@import "./profile.scss";
+@import "./p2p.scss";
+@import "./blog.scss";
+@import "./swap.scss";
+
+
+* {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font-weight: 400;
+    color: $text;
+}
+
+body {
+    background: $background-color;
+    font-size: 14px;
+    color: #fff;
+}
+
+a {
+    text-decoration: unset;
+}
+
+p {
+    margin: 0;
+}
+
+ol,
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    max-width: 100%;
+    vertical-align: baseline;
+}
+
+.text-primary{
+    color: $text-primary;
+    
+}
+
+select:invalid { color: gray; font-weight: 300; }

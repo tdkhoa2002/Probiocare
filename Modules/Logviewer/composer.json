@@ -1,0 +1,49 @@
+{
+  "name": "linhdev92/logviewer",
+  "description": "A Log Viewer modules for Asgardcms",
+  "keywords": [
+        "log viewer",
+        "module asgard",
+        "log viewer for asgardcms",
+        "laravel module",
+        "log viewer module"
+    ],
+  "type": "asgard-module",
+  "license": "MIT",
+  "require": {
+    "php": "^8.0.2",
+    "nwidart/laravel-modules": "^8.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~6.0",
+    "orchestra/testbench": "3.5.*"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Modules\\Logviewer\\": ".",
+      "Modules\\": "Modules/"
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "authors": [
+    {
+      "name": "Linh Nguyen",
+      "email": "linhdev92@gmail.com"
+    }
+  ],
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Modules\\Logviewer\\Providers\\LogviewerServiceProvider"
+      ],
+      "aliases": {
+      }
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Modules\\Logviewer\\": ""
+    }
+  }
+}

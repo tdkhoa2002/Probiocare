@@ -1,0 +1,307 @@
+@import './variables.scss';
+
+// container
+.container-custom {
+    width: 100%;
+    max-width: $container-width;
+    margin: 0 auto;
+    padding-left: $container-padding;
+    padding-right: $container-padding;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.text-truncate {
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.right-border {
+    position: relative;
+    padding-right: 4px;
+
+    &::after {
+        content: "";
+        display: block;
+        width: 3px;
+        height: 18px;
+        background: linear-gradient(93.76deg, #FFC700 30.42%, #FF9F59 75.73%);
+
+        position: absolute;
+        right: -3px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+.left-border {
+    position: relative;
+    padding-left: 4px;
+
+    &::before {
+        content: "";
+        display: block;
+        width: 3px;
+        height: 80%;
+        background: linear-gradient(93.76deg, #FFC700 30.42%, #FF9F59 75.73%);
+        position: absolute;
+        left: -3px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+.bottom-border {
+    position: relative;
+
+    &::after {
+        content: "";
+        display: inline-block;
+        width: 90%;
+        height: 3px;
+        background: linear-gradient(93.76deg, #FFC700 30.42%, #FF9F59 75.73%);
+        
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+// Text
+.text {
+    color: $text !important;
+}
+
+.text-primary {
+    color: $primary !important;
+}
+
+.text-secondary {
+    color: $secondary !important;
+}
+
+.text-warning {
+    color: $warning !important;
+}
+
+.text-success {
+    color: $success !important;
+}
+
+.text-span {
+    color: $span !important;
+}
+
+.bg-primary {
+    background: $primary !important;
+}
+
+.bg-secondary {
+    background: $secondary !important;
+}
+
+.bg-warning {
+    background: $warning !important;
+}
+
+.bg-span {
+    background: $span !important;
+}
+
+.bg-light {
+    background: $light !important;
+}
+
+.price-up {
+    color: $up !important;
+}
+
+.price-down {
+    color: $down !important;
+}
+
+// Col 5
+.col-5i {
+    flex: 0 0 auto;
+    width: 20%;
+}
+
+@include media-up(sm) {
+    .col-sm-5i {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+}
+
+@include media-up(md) {
+    .col-md-5i {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+}
+
+@include media-up(lg) {
+    .col-lg-5i {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+}
+
+@include media-up(xl) {
+    .col-xl-5i {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+}
+
+// Font size  add more bootstrap
+$listFontSize: (
+    fs-1: 2.5rem,
+    fs-2: 2rem,
+    fs-3: 1.75rem,
+    fs-4: 1.5rem,
+    fs-5: 1.25rem,
+    fs-6: 1rem,
+    fs-7: 14px,
+    fs-8: 12px,
+    fs-9: 10px,
+    fs-10: 8px
+);
+@include create-class($attribute: "font-size", $list: $listFontSize);
+
+@include media-up(sm) {
+    @include create-font-size($attribute: "font-size", $prefix: '-sm', $list: $listFontSize);
+}
+
+@include media-up(md) {
+    @include create-font-size($attribute: "font-size", $prefix: '-md', $list: $listFontSize);
+}
+
+@include media-up(lg) {
+    @include create-font-size($attribute: "font-size", $prefix: '-lg', $list: $listFontSize);
+}
+
+@include media-up(xl) {
+    @include create-font-size($attribute: "font-size", $prefix: '-xl', $list: $listFontSize);
+}
+
+// Width
+$listWidth: (
+    wi-100: 100%,
+    wi-90: 90%,
+    wi-80: 80%,
+    wi-70: 70%,
+    wi-60: 60%,
+    wi-50: 50%,
+    wi-40: 40%,
+    wi-30: 30%,
+    wi-20: 20%,
+    wi-10: 10%,
+);
+@include create-class($attribute: "width", $list: $listWidth);
+
+@include media-up(sm) {
+    @include create-font-size($attribute: "width", $prefix: '-sm', $list: $listWidth);
+}
+
+@include media-up(md) {
+    @include create-font-size($attribute: "width", $prefix: '-md', $list: $listWidth);
+}
+
+@include media-up(lg) {
+    @include create-font-size($attribute: "width", $prefix: '-lg', $list: $listWidth);
+}
+
+@include media-up(xl) {
+    @include create-font-size($attribute: "width", $prefix: '-xl', $list: $listWidth);
+}
+
+// Padding Margin  
+$listMarginTop: (
+    mt-3: 3px,
+    mt-5: 5px,
+    mt-10: 10px,
+    mt-20: 20px,
+    mt-30: 30px,
+    mt-40: 40px,
+    mt-50: 50px,
+    mt-60: 60px,
+);
+
+$listMarginBottom: (
+    mb-3: 3px,
+    mb-10: 10px,
+    mb-15: 15px,
+    mb-20: 20px,
+    mb-30: 30px,
+    mb-40: 40px,
+);
+
+$listMarginLeft: (
+    ml-3: 3px,
+    ml-5: 5px,
+    ml-10: 10px,
+    ml-20: 20px,
+    ml-30: 30px,
+    ml-40: 40px,
+);
+$listMarginRight: (
+    mr-1: 1px,
+    mr-2: 2px,
+    mr-3: 3px,
+    mr-5: 5px,
+    mr-7: 7px,
+    mr-8: 8px,
+    mr-10: 10px,
+    mr-15: 15px,
+    mr-20: 20px,
+    mr-30: 30px,
+    mr-40: 40px,
+);
+
+$listWidth: (
+    w-10: 10px,
+    w-20: 20px,
+    w-30: 30px,
+    w-40: 40px,
+    w-10pc: 10%,
+    w-20pc: 20%,
+    w-30pc: 30%,
+    w-100pc: 100%,
+    w-10vw: 10vw,
+    w-20vw: 20vw,
+    w-30vw: 30vw,
+);
+
+$listHeight: (
+    h-10: 10px,
+    h-20: 20px,
+    h-30: 30px,
+    h-40: 40px,
+);
+
+$listPositionText: (
+    t-center: center,
+    t-right: right,
+    t-left: left,
+);
+
+$listBorderRadius: (
+    border-radius-5: 5px,
+    border-radius-10: 10px,
+    border-radius-15: 15px,
+    border-radius-20: 20px,
+);
+
+// @include create-class($attribute: "text-align", $list: $listPositionText);
+// @include create-class($attribute: "margin-top", $list: $listMarginTop);
+// @include create-class($attribute: "margin-bottom", $list: $listMarginBottom);
+// @include create-class($attribute: "margin-left", $list: $listMarginLeft);
+// @include create-class($attribute: "margin-right", $list: $listMarginRight);
+// @include create-class($attribute: "width", $list: $listWidth);
+// @include create-class($attribute: "height", $list: $listHeight);
+// @include create-class($attribute: "border-radius", $list: $listBorderRadius);

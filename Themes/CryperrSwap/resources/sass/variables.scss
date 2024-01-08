@@ -1,0 +1,28 @@
+@import './mixins/class';
+@import './mixins/mixins';
+@import './mixins/breakpoints';
+
+$primary: #FF7426;
+$secondary: #FF7426;
+$background-color: #171717!important;
+
+$dark: #0d0d0d;
+
+$text: #fff;
+$text-primary: $primary;
+$span: #989898;
+
+$light: #FAFAFA;
+
+$success: #26A670;
+$error: #EF3B38;
+$warning: #EF3B38;
+$pending: #FFC700;
+
+$up: #26A670;
+$down: #EF3B38;
+
+$border: #989898;
+
+$container-width: 1290px;
+$container-padding: 15px;

@@ -1,0 +1,26 @@
+@import "./variables.scss";
+
+.private-layout {
+    position: relative;
+    overflow: hidden;
+
+    .private-layout-body {
+        display: flex;
+        flex-direction: row;
+        margin: 0 auto;
+    }
+
+    .wrap-panel {
+        display: block;
+
+        @include media-down(lg) {
+            display: none;
+        }
+    }
+
+    .app-content {
+        width: 100%;
+        flex: 1;
+    }
+
+}

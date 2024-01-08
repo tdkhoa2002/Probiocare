@@ -1,0 +1,16 @@
+{
+    "name": "MarketMaker",
+    "alias": "marketmaker",
+    "version": "1.0.0",
+	"description": "",
+    "keywords": [],
+    "priority": 1,
+    "providers": [
+        "Modules\\MarketMaker\\Providers\\MarketMakerServiceProvider",
+        "Modules\\MarketMaker\\Providers\\EventServiceProvider",
+        "Modules\\MarketMaker\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -1,0 +1,16 @@
+{
+    "name": "Peertopeer",
+    "alias": "peertopeer",
+    "version": "1.0.0",
+	"description": "",
+    "keywords": [],
+    "priority": 1,
+    "providers": [
+        "Modules\\Peertopeer\\Providers\\PeertopeerServiceProvider",
+        "Modules\\Peertopeer\\Providers\\EventServiceProvider",
+        "Modules\\Peertopeer\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

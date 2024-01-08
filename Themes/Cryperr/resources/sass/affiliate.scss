@@ -1,0 +1,48 @@
+@import "./variables.scss";
+.box-wrapper-affiliate {
+    padding: 32px 15px;
+    @media (min-width: 992px) {
+        width: 100%;
+        min-height: 80vh;
+        padding: 24px;
+        padding-top: 48px;
+        position: relative;
+    }
+    .box-sumary-affiliate {
+        .item {
+            padding: 30px;
+            background-color: $secondary;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            h3 {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+            h4 {
+                font-size: 20px;
+            }
+        }
+    }
+    .box-ref-link {
+        background-color: $secondary; 
+        padding: 20px;
+        .link {
+            margin-bottom: 15px;
+            @media (min-width:992px) {
+                margin-bottom: 0;
+            }
+        }
+        .group-input-custom {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            .input{
+                &.secondary {
+                    background-color: $light;
+                }
+            }
+        }
+        
+    }
+}

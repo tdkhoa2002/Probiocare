@@ -1,0 +1,30 @@
+@import './variables.scss';
+
+.light-card {
+    padding: 16px 24px;
+    background: #FAFAFA;
+    border-radius: 8px;
+    @include media-down(sm) {
+        padding: 15px;
+    }
+}
+
+
+.primary-card {
+    padding: 16px 24px;
+    background: $primary;
+    border-radius: 8px;
+    @include media-down(sm) {
+        padding: 15px;
+    }
+}
+
+
+.secondary-card {
+    padding: 16px 24px;
+    background: $secondary;
+    border-radius: 8px;
+    @include media-down(sm) {
+        padding: 15px;
+    }
+}

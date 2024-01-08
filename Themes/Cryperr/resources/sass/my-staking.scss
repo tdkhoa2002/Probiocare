@@ -1,0 +1,14 @@
+@import "./variables.scss";
+
+.my-staking {
+    width: 100%;
+    min-height: 80vh;
+    padding: 24px;
+    padding-top: 48px;
+    position: relative;
+
+    @include media-down(sm) {
+        padding: 24px 15px;
+    }
+
+}

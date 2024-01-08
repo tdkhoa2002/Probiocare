@@ -1,0 +1,16 @@
+{
+    "name": "Cryperrswap",
+    "alias": "cryperrswap",
+    "version": "1.0.0",
+	"description": "",
+    "keywords": [],
+    "priority": 1,
+    "providers": [
+        "Modules\\Cryperrswap\\Providers\\CryperrswapServiceProvider",
+        "Modules\\Cryperrswap\\Providers\\EventServiceProvider",
+        "Modules\\Cryperrswap\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
