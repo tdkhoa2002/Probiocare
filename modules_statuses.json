@@ -19,12 +19,7 @@
     "Peertopeer": true,
     "Logviewer": true,
     "Affiliate": true,
-<<<<<<< HEAD
-    "MarketMaker": false,
     "Product": true,
-    "ShoppingCart": true
-=======
-    "MarketMaker": true,
+    "ShoppingCart": true,
     "Loyalty": true
->>>>>>> 5d5f6e3a5c5b2e378151a1c7d0d4f4e7ba4e5d4f
 }
