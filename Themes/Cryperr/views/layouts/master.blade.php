@@ -55,6 +55,7 @@ $site_description = setting('core::site-description') ? setting('core::site-desc
     <script type="text/javascript" src="/libs/tradingview/datafeeds/udf/dist/bundle.js"></script>
 
     <script src="https://d3js.org/d3.v4.min.js"></script>
+    @include('partials.custom-style')
 
     {!! Theme::style('css/main.css') !!}
 

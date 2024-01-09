@@ -53,6 +53,7 @@
 
     {{-- QR code --}}
     <script src="/libs/qrcodejs/qrcode.min.js"></script>
+    @include('partials.custom-style')
 
     {{-- Other --}}
     {!! Theme::style('css/main.css') !!}
