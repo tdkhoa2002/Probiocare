@@ -1,5 +1,5 @@
 apps:
-  - name: laravel-queue-worker
+  - name: queue-worker-probiocare
     script: artisan
     exec_mode: fork
     interpreter: php
@@ -8,7 +8,7 @@ apps:
       - queue:work
       - --tries=5
       - --sleep=1
-  - name: node-wallet-web3
+  - name: node-wallet-web3-probiocare
     script: 'server.js'
     cwd: "Node"
     instances: 1
