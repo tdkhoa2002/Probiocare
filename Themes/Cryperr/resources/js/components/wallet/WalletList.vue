@@ -53,8 +53,12 @@
                                 <span class="text">Withdraw</span>
                             </a>
                             <a class="action" :href="'/trade/pairs?currency=' + currency.code">
-                                <img width="24px" class="me-1" v-bind:src="getPathImg('images/icon-trade.png')" alt="">
-                                <span class="text">Trade</span>
+                                <img width="24px" class="me-1" v-bind:src="getPathImg('images/icon-package.png')" alt="">
+                                <span class="text">Package</span>
+                            </a>
+                            <a class="action" :href="'/trade/pairs?currency=' + currency.code">
+                                <img width="24px" class="me-1" v-bind:src="getPathImg('images/icon-purchase.png')" alt="">
+                                <span class="text">Purchase</span>
                             </a>
                         </div>
                     </td>

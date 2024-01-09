@@ -21,7 +21,7 @@ if($checkAuth){
     $(document).ready(function(){
     var total_balance = {{$balance_usd}};
     // alert(total_balance);
-    $('#total_balance_usd').text(total_balance);
+    $('.total_balance_usd').text(total_balance);
     })
 </script>
 
@@ -39,7 +39,7 @@ if($checkAuth){
             </div>
 
             <!-- Desktop menu -->
-            <div class="collapse navbar-collapse justify-content-between">
+            <div class="collapse navbar-collapse justify-content-center">
                 <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px">
                     <!-- <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
@@ -80,14 +80,23 @@ if($checkAuth){
                     </div>
                     @else
                     <div class="d-flex align-items-center">
-                        <a href="{{route('fe.customer.customer.account')}}">
-                            <div class="d-flex align-items-center">
-                                {{-- <img width="32px" height="32px" src="{{ $logo }}" alt=""> --}}
-                                <span class="avatar-profile">{{ substr($customer->profile->firstname, 0, 1) }}</span>
-                                <span class="ms-2">{{$customer->profile->firstname}}
-                                    {{$customer->profile->lastname}}</span>
-                            </div>
-                        </a>
+                        <div>
+                            <button type="button" style="width:120px; height: 43px" class="btn btn-success">
+                                $<span class="total_balance_usd" style="color: #fff;">
+                                </span>
+                                <img class="pointer" style="filter: brightness(0) invert(1);" width="20px" src="{{ Theme::url('images/icons/eye.png') }}" alt="">
+                            </button>
+                        </div>
+                        <div class="ms-3">
+                            <a href="{{route('fe.customer.customer.account')}}">
+                                <div class="d-flex align-items-center">
+                                    {{-- <img width="32px" height="32px" src="{{ $logo }}" alt=""> --}}
+                                    <span class="avatar-profile">{{ substr($customer->profile->firstname, 0, 1) }}</span>
+                                    <span class="ms-2">{{$customer->profile->firstname}}
+                                        {{$customer->profile->lastname}}</span>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                     @endif
                 </div>

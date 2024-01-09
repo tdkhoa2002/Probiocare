@@ -19,5 +19,6 @@
     "Peertopeer": true,
     "Logviewer": true,
     "Affiliate": true,
-    "MarketMaker": true
+    "MarketMaker": true,
+    "Loyalty": true
 }
