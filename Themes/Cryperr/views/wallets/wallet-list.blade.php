@@ -17,7 +17,7 @@ Wallet | @parent
                 Balance (USD)
             </h1>
             <div class="balance">
-                $<span id="total_balance_usd"></span>
+                $<span class="total_balance_usd"></span>
             </div>
         </div>
         <div class="actions-list ">
