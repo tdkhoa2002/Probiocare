@@ -34,6 +34,14 @@ return [
         'is_promotion' => 'Promotion',
         'is_new_arrivals' => 'New arrivals'
     ],
-    'messages' => [],
+    'messages' => [
+        'not_found' => 'Product not found',
+        'outofstock'=>'Product out of stock'
+    ],
     'validation' => [],
+    'router' => [
+        'product' => 'product',
+        'search' => 'search',
+        'category' => 'category'
+    ]
 ];

@@ -94,7 +94,15 @@ class CacheProductDecorator extends BaseCacheDecorator implements ProductReposit
     {
         $key = $this->getBaseKey() . "getProductByIds";
         return $this->remember(function () use ($ids) {
-            return $this->repository->getProductByIds();
+            return $this->repository->getProductByIds($ids);
+        }, $key);
+    }
+
+    public function getAllProducts()
+    {
+        $key = $this->getBaseKey() . "getAllProducts";
+        return $this->remember(function () {
+            return $this->repository->getAllProducts();
         }, $key);
     }
 }

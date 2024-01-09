@@ -1,16 +1,8 @@
 <?php
+use Illuminate\Routing\Router;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::prefix('product')->group(function() {
-    Route::get('/', 'ProductController@index');
-});
+$router->get('/' . trans('product::products.router.product') . '/' . trans('product::products.router.search'), [
+    'as' => 'fe.product.product.search', 'uses' => 'PublicController@search'
+]);
+$router->get('/' . trans('product::products.router.product') . '/{slug}', ['as' => 'fe.product.product.detail', 'uses' => 'PublicController@detail']);
+$router->get('/' . trans('product::products.router.category') . '/{slug}', ['as' => 'fe.product.product.category', 'uses' => 'PublicController@getProductByCategory']);

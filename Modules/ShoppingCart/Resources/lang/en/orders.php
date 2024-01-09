@@ -13,12 +13,10 @@ return [
     'button' => [
         'create order' => 'Create a order',
     ],
-    'table' => [
-    ],
-    'form' => [
-    ],
+    'table' => [],
+    'form' => [],
     'messages' => [
+        'add_product_success' => 'Added product to cart successfully'
     ],
-    'validation' => [
-    ],
+    'validation' => [],
 ];

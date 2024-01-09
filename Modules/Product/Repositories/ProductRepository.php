@@ -17,4 +17,5 @@ interface ProductRepository extends BaseRepository
     public function getProductByKeyword($keyword, $s, $cid, $locale);
     public function getProductByIds($ids);
     public function getProductRelated($categoryId, $productId);
+    public function getAllProducts();
 }

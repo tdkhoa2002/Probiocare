@@ -17,7 +17,6 @@ class CustomerDatabaseSeeder extends Seeder
         Model::unguard();
 
          $this->call([
-            CustomerBotTableSeeder::class,
             CountryTableSeederTableSeeder::class
         ]);
     }

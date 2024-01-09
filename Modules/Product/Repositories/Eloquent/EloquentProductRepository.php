@@ -117,6 +117,12 @@ class EloquentProductRepository extends EloquentBaseRepository implements Produc
         return $products->paginate(12);
     }
 
+    public function getAllProducts()
+    {
+        $products = $this->model->where('status', true);
+        return $products->paginate(2);
+    }
+
     public function getProductRelated($categoryId, $productId)
     {
         return $this->model->where('status', true)

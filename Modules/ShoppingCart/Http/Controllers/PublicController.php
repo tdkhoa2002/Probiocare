@@ -35,22 +35,41 @@ class PublicController extends BasePublicController
         $this->orderDetailRepository = $orderDetailRepository;
     }
 
-    public function addToCart(Request $request)
+    public function quickBuy(Request $request)
     {
         $productId = $request->productId;
         $product = $this->productRepository->findByAttributes(['id' => $productId, 'status' => true]);
         if ($product) {
             if ($product->product_status == 3) {
-                return response()->json(['error' => true, 'message' => "Sản phẩm đã hết hàng."]);
+                return response()->json(['error' => true, 'message' => trans('product::products.messages.outofstock')]);
             }
             $avatar = $product->getAvatar();
             Cart::add([
                 'id' => $productId, 'name' => $product->title, 'qty' => 1, 'price' => $product->price_sale,
                 'options' => ['avatar' =>  $avatar->path_string, 'slug' => $product->slug, 'code' => $product->code, 'price_old' => $product->price]
             ]);
-            return response()->json(['error' => false, 'message' => "Thêm vào giỏ hàng thành công.", 'count' => Cart::count(), 'title' => $product->title]);
+            return response()->json(['error' => false, 'message' =>  trans('shoppingcart::orders.messages.add_product_success'), 'url' => route('fe.shoppingcart.getCart')]);
         } else {
-            return response()->json(['error' => true, 'message' => "Sản phẩm không tồn tại."]);
+            return response()->json(['error' => true, 'message' => trans('product::products.messages.not_found')]);
+        }
+    }
+
+    public function addToCart(Request $request)
+    {
+        $productId = $request->productId;
+        $product = $this->productRepository->findByAttributes(['id' => $productId, 'status' => true]);
+        if ($product) {
+            if ($product->product_status == 3) {
+                return response()->json(['error' => true, 'message' => trans('product::products.messages.outofstock')]);
+            }
+            $avatar = $product->getAvatar();
+            Cart::add([
+                'id' => $productId, 'name' => $product->title, 'qty' => 1, 'price' => $product->price_sale,
+                'options' => ['avatar' =>  $avatar->path_string, 'slug' => $product->slug, 'code' => $product->code, 'price_old' => $product->price]
+            ]);
+            return response()->json(['error' => false, 'message' =>  trans('shoppingcart::orders.messages.add_product_success'), 'count' => Cart::count(), 'title' => $product->title]);
+        } else {
+            return response()->json(['error' => true, 'message' => trans('product::products.messages.not_found')]);
         }
     }
 

@@ -47,25 +47,6 @@ Vue.component('trading-pair-bid', require('./components/spot-trade/trading-pair-
 Vue.component('trading-pair-ask', require('./components/spot-trade/trading-pair-ask.vue').default);
 Vue.component('trading-pair-orderbook', require('./components/spot-trade/trading-pair-orderbook.vue').default);
 
-// P2P
-Vue.component('p2p-all-market-ads', require('./components/p2p/p2p-all-market-ads.vue').default);
-Vue.component('create-payment-method', require('./components/p2p/paymentMethods/create.vue').default);
-Vue.component('update-payment-method', require('./components/p2p/paymentMethods/update.vue').default);
-Vue.component('list-my-payment-method', require('./components/p2p/paymentMethods/list.vue').default);
-Vue.component('create-ads', require('./components/p2p/ads/create.vue').default);
-Vue.component('update-ads', require('./components/p2p/ads/update.vue').default);
-Vue.component('list-my-ads', require('./components/p2p/ads/my-ads.vue').default);
-Vue.component('create-order-buy', require('./components/p2p/orders/create-buy.vue').default);
-Vue.component('create-order-sell', require('./components/p2p/orders/create-sell.vue').default);
-Vue.component('p2p-my-orders', require('./components/p2p/orders/p2p-my-orders.vue').default);
-Vue.component('my-order-buy-detail', require('./components/p2p/orders/my-order-buy-detail.vue').default);
-Vue.component('my-order-sell-detail', require('./components/p2p/orders/my-order-sell-detail.vue').default);
-Vue.component('p2p-report-total', require('./components/p2p/p2p-report-total.vue').default);
-Vue.component('p2p-chat-box', require('./components/p2p/p2p-chat-box.vue').default);
-
-Vue.component('list-agent-order', require('./components/p2p/agents/agent-orders.vue').default);
-Vue.component('agent-order-sell-detail', require('./components/p2p/agents/agent-order-sell-detail.vue').default);
-Vue.component('agent-order-buy-detail', require('./components/p2p/agents/agent-order-buy-detail.vue').default);
 
 //profile
 Vue.component('change-password', require('./components/profiles/changePassword.vue').default);

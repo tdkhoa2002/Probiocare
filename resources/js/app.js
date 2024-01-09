@@ -9,8 +9,6 @@ import VueEvents from "vue-events";
 import locale from "element-ui/lib/locale/lang/en";
 import MediaRoutes from "../../Modules/Media/Assets/js/MediaRoutes";
 import UserRoutes from "../../Modules/User/Assets/js/UserRoutes";
-import ServiceRoutes from "../../Modules/Cryperrswap/Assets/js/services/ServiceRoutes";
-import CurrencyRoutes from "../../Modules/Cryperrswap/Assets/js/currencies/CurrencyRoutes";
 
 import CustomerRoutes from "../../Modules/Customer/Assets/js/customers/CustomerRoutes";
 import PaymentmethodRoutes from "../../Modules/Customer/Assets/js/paymentmethods/PaymentmethodRoutes";
@@ -29,9 +27,6 @@ import PackageRoutes from "../../Modules/Staking/Assets/js/packages/PackageRoute
 import OrderRoutes from "../../Modules/Staking/Assets/js/orders/OrderRoutes";
 
 import AffiliateRoutes from "../../Modules/Affiliate/Assets/js/affiliates/AffiliateRoutes";
-
-import TargetPriceRoutes from "../../Modules/MarketMaker/Assets/js/TargetPrice/TargetPriceRoutes";
-import VolumnizerRoutes from "../../Modules/MarketMaker/Assets/js/Volumnizer/VolumnizerRoutes";
 
 import CategoryRoutes from "../../Modules/Product/Assets/js/categories/CategoryRoutes";
 import ProductRoutes from "../../Modules/Product/Assets/js/products/ProductRoutes";
@@ -60,14 +55,12 @@ const router = new VueRouter({
   mode: "history",
   base: makeBaseUrl(),
   routes: [
-    ...MediaRoutes, ...UserRoutes, ...ServiceRoutes, ...CurrencyRoutes, ...CustomerRoutes,
+    ...MediaRoutes, ...UserRoutes, ...CustomerRoutes,
     ...CrawHistoryRoutes,
     ...BlockchainRoutes, ...ChainWalletRoutes, ...CurrencyWalletRoutes, ...MarketRoutes,
     ...PackageRoutes, ...TransactionRoutes, ...OrderRoutes, ...WalletRoutes, ...TradeRoutes,
     ...PaymentmethodRoutes,
     ...AffiliateRoutes,
-    ...TargetPriceRoutes,
-    ...VolumnizerRoutes,
     ...CategoryRoutes,
     ...ProductRoutes,
     ...OrderShoppingCartRoutes]

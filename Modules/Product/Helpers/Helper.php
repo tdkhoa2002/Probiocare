@@ -37,6 +37,14 @@ if (!function_exists('getProductNewArrivals')) {
         return app(ProductRepository::class)->getProductNewArrivals();
     }
 }
+
+if (!function_exists('getAllProducts')) {
+    function getAllProducts()
+    {
+        return app(ProductRepository::class)->getAllProducts();
+    }
+}
+
 if (!function_exists('getProductBestSelling')) {
     function getProductBestSelling()
     {

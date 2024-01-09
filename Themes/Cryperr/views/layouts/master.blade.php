@@ -60,6 +60,13 @@ $site_description = setting('core::site-description') ? setting('core::site-desc
     {!! Theme::style('css/main.css') !!}
 
     @stack('css-stack')
+    <script>
+        const apiQuickBuy = "{{ route('fe.shoppingcart.quickBuy') }}";
+        const apiAddToCart = "{{ route('fe.shoppingcart.addToCart') }}";
+        const apiDeleteItem = "{{ route('fe.shoppingcart.deleteItem') }}";
+        const apiLoadCart = "{{ route('fe.shoppingcart.loadCart') }}";
+        const apiUpdateQty = "{{ route('fe.shoppingcart.updateQty') }}";
+    </script>
 </head>
 
 <body>

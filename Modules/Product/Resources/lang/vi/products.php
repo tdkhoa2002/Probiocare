@@ -48,5 +48,10 @@ return [
     'validation' => [],
     'frontEnd' => [
         'new_arrivals' => 'Sản phẩm mới về'
+    ],
+    'router'=>[
+        'product'=>'san-pham',
+        'search'=>'tim-kiem',
+        'category'=>'danh-muc'
     ]
 ];
