@@ -28,15 +28,23 @@ rel="stylesheet" />
     .swap-li a.active,
     .swap-li:hover,
     .swap-btn input,
-    .btn-primary {
+    .btn-primary,
+    .btn-primary:hover,
+    .wrap-panel .panel .menu-list .menu-item.active,
+    .wrap-panel .panel .menu-list .menu-item:hover 
+    {
         background-color: var(--primary_background_color)!important;
+        color: #fff!important;
     }
 
     .swap-box,
     .btn-primary,
+    .btn-primary:hover,
     .modal .modal-content {
         border: 1px var(--primary_border_color) solid !important;
     }
+
+    
 
     .home-nav-bar.navbar-expand-lg .navbar-toggler svg path {
         fill: var(--primary_background_color)!important;

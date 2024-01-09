@@ -1,0 +1,11 @@
+<?php
+
+namespace Modules\Loyalty\Repositories;
+
+use Modules\Core\Repositories\BaseRepository;
+
+interface PackageRepository extends BaseRepository
+{
+    public function serverPaginationFilteringFor(Request $request): LengthAwarePaginator;
+    public function getPackagesList();
+}

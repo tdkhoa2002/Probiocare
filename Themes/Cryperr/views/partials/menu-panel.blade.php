@@ -9,10 +9,21 @@
                 <img src="{{ Theme::url('images/menu/prostore.png') }}" alt="" />
                 <div class="name">ProStore</div>
             </a>
-            <a class="menu-item {{ Route::currentRouteName() =='fe.staking.staking.mystaking' ?'active':"" }}" href="{{route('fe.staking.staking.mystaking')}}">
+            <a class="menu-item {{ Route::currentRouteName() == 'fe.staking.staking.mystaking' ? 'active' : '' }}" href="{{ route('fe.staking.staking.mystaking') }}">
                 <img src="{{ Theme::url('images/menu/convert.png') }}" alt="" />
                 <div class="name">Loyalty</div>
             </a>
+            <ul class="submenu">
+                <li>
+                    <a href="">Packages</a>
+                </li>
+                <li>
+                    <a href="">My Package</a>
+                </li>
+                <li>
+                    <a href="">History</a>
+                </li>
+            </ul>
             <a class="menu-item {{ Route::currentRouteName() =='fe.customer.customer.affiliate' ?'active':"" }}" href="{{route('fe.customer.customer.affiliate')}}">
                 <img src="{{ Theme::url('images/navigator/icon-affiliate.png') }}" alt="" />
                 <div class="name">Affiliate</div>
