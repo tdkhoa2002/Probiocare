@@ -10,7 +10,7 @@
     "User": true,
     "Workshop": true,
     "Dynamicfield": true,
-    "Slider": true,
+    "Slider": false,
     "Cryperrswap": false,
     "Customer": true,
     "Wallet": true,
@@ -19,6 +19,7 @@
     "Peertopeer": true,
     "Logviewer": true,
     "Affiliate": true,
-    "MarketMaker": true,
+    "Product": true,
+    "ShoppingCart": true,
     "Loyalty": true
 }

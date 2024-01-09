@@ -33,6 +33,10 @@ import AffiliateRoutes from "../../Modules/Affiliate/Assets/js/affiliates/Affili
 import TargetPriceRoutes from "../../Modules/MarketMaker/Assets/js/TargetPrice/TargetPriceRoutes";
 import VolumnizerRoutes from "../../Modules/MarketMaker/Assets/js/Volumnizer/VolumnizerRoutes";
 
+import CategoryRoutes from "../../Modules/Product/Assets/js/categories/CategoryRoutes";
+import ProductRoutes from "../../Modules/Product/Assets/js/products/ProductRoutes";
+import OrderShoppingCartRoutes from "../../Modules/ShoppingCart/Assets/js/orders/OrderRoutes";
+
 Vue.use(ElementUI, { locale });
 Vue.use(VueI18n);
 Vue.use(VueRouter);
@@ -63,7 +67,10 @@ const router = new VueRouter({
     ...PaymentmethodRoutes,
     ...AffiliateRoutes,
     ...TargetPriceRoutes,
-    ...VolumnizerRoutes]
+    ...VolumnizerRoutes,
+    ...CategoryRoutes,
+    ...ProductRoutes,
+    ...OrderShoppingCartRoutes]
 }),
   messages = {
     [currentLocale]: window.AsgardCMS.translations,
