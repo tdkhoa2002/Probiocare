@@ -24,6 +24,22 @@ Carts | @parent
                     </div>
                     <div class="box-table">
                         <ul class="clearfix">
+                            <li>
+                                <div class="thumb">
+                                    Product
+                                </div>
+                                <div class="price-block">
+                                    Price
+                                </div>
+                                <div class="product-number">
+                                    Quantity
+                                </div>
+                                <div class="total-block">
+                                    Total
+                                </div>
+                                <div class="remove">
+                                </div>
+                            </li>
                             @if(Cart::count() > 0)
                             @foreach ( Cart::content() as $cart)
                             <li class="item-cart-{{ $cart->rowId }}">
@@ -43,9 +59,9 @@ Carts | @parent
                                 </div>
                                 <div class="price-block">
                                     @if(isset($cart->option->price_old) &&$cart->option->price_old > 0)
-                                    <span class="old-price">${{ number_format($cart->option->price_old) }}</span>
+                                    <span class="old-price">{{ number_format($cart->option->price_old) }}$</span>
                                     @endif
-                                    <span class="price">$ {{ number_format($cart->price) }}</span>
+                                    <span class="price"> {{ number_format($cart->price) }}$</span>
                                 </div>
                                 <div class="product-number">
                                     <button type="button" class="btn func-minus"
@@ -54,6 +70,9 @@ Carts | @parent
                                         class="num-frm box-number-{{ $cart->rowId }}">
                                     <button type="button" class="btn func-plus"
                                         data-row-id="{{ $cart->rowId }}">+</button>
+                                </div>
+                                <div class="total-block">
+                                    <span class="price">{{ number_format($cart->price *$cart->qty) }}</span><span>$</span>
                                 </div>
                                 <div class="remove">
                                     <a href="javascript:void(0);" class="func-remove btn-delete-item-cart"
@@ -69,7 +88,27 @@ Carts | @parent
             </div>
             <div class="col-12 col-lg-4">
                 <div class="box-info-cart">
-
+                    <h3>Your Order</h3>
+                    <div class="box-info sub-total">
+                        <div>Subtotal</div>
+                        <div class="price"><span>{{ $subtotal }}</span>$</div>
+                    </div>
+                    <div class="box-info">
+                        <div>Use PLC
+                            Joint Probiocare Loyalty to get your Credit</div>
+                        <div>{{ $plc }}$</div>
+                    </div>
+                    <hr>
+                    <div class="box-info total-payment">
+                        <div>Total Payment</div>
+                        <div class="price"><span>{{ $total }}</span>$</div>
+                    </div>
+                    <div class="action">
+                        <a class="btn btn-success" href="{{ route('fe.shoppingcart.getCheckout') }}">
+                            Check Out
+                        </a>
+                        <a href="#">Continue shopping</a>
+                    </div>
                 </div>
             </div>
         </div>

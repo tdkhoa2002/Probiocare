@@ -31,6 +31,7 @@ class Product extends Model
         'is_new_arrivals',
         'is_best_choice',
         'is_promotion',
+        'total_sold',
         'code',
         'price',
         'price_sale',

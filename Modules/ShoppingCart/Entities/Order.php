@@ -18,6 +18,7 @@ class Order extends Model
         'total',
         'time_ship',
         'payment_method',
+        'delivery_method',
         'status'
     ];
     public function orderDetails()

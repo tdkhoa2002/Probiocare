@@ -35,12 +35,12 @@ $router->group(['prefix' => '/shoppingcart'], function (Router $router) {
 $router->get(trans('shoppingcart::shoppingcarts.router.carts'), [
     'as' => 'fe.shoppingcart.getCart',
     'uses' => 'PublicController@getCart'
-]);
+])->middleware('check-auth');
 $router->get(trans('shoppingcart::shoppingcarts.router.checkout'), [
     'as' => 'fe.shoppingcart.getCheckout',
     'uses' => 'PublicController@getCheckout'
-]);
+])->middleware('check-auth');
 $router->get(trans('shoppingcart::shoppingcarts.router.order-success') . '/{code}', [
     'as' => 'fe.shoppingcart.getThankYou',
     'uses' => 'PublicController@getThankYou'
-]);
+])->middleware('check-auth');

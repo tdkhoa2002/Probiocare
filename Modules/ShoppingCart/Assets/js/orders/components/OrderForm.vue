@@ -98,13 +98,35 @@
                   <el-select v-model="order.payment_method" placeholder="Select">
                     <el-option
                       key="1"
-                      label="Chuyển khoản ngân hàng"
+                      label="COD"
                       value="1"
                     >
                     </el-option>
                     <el-option
                       key="2"
-                      label="Tiền mặt khi nhận hàng"
+                      label="Bank Transfer"
+                      value="2"
+                    >
+                    </el-option>
+                    <el-option
+                      key="3"
+                      label="Visa"
+                      value="3"
+                    >
+                    </el-option>
+                  </el-select>
+                </el-descriptions-item>
+                <el-descriptions-item label="Delivery Option">
+                  <el-select v-model="order.delivery_method" placeholder="Select">
+                    <el-option
+                      key="1"
+                      label="Standard delivery"
+                      value="1"
+                    >
+                    </el-option>
+                    <el-option
+                      key="2"
+                      label="VIP delivery"
                       value="2"
                     >
                     </el-option>

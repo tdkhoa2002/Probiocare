@@ -62,7 +62,8 @@ return [
         'send_email_forgot_success'=>'Send email forgot success',
         'update_profile_success'=>'Update profile success',
         'sponsor_not_found'=>'Sponsor not found',
-        'kyc_required'=>'Kyc required'
+        'kyc_required'=>'Kyc required',
+        'require_auth'=>'Please log in before executing.',
     ],
     'validation' => [],
     'routers' => [

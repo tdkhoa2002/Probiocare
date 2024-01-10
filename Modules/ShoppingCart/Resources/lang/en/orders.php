@@ -16,7 +16,8 @@ return [
     'table' => [],
     'form' => [],
     'messages' => [
-        'add_product_success' => 'Added product to cart successfully'
+        'add_product_success' => 'Added product to cart successfully',
+        'order_success' => 'Order success'
     ],
     'validation' => [],
 ];

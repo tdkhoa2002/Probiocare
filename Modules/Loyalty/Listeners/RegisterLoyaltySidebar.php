@@ -36,7 +36,7 @@ class RegisterLoyaltySidebar implements \Maatwebsite\Sidebar\SidebarExtender
      */
     public function extendWith(Menu $menu)
     {
-        $menu->group(trans('core::sidebar.content'), function (Group $group) {
+        $menu->group(trans('core::sidebar.cryperr_manager'), function (Group $group) {
             $group->item(trans('loyalty::loyalties.title.loyalties'), function (Item $item) {
                 $item->icon('fa fa-copy');
                 $item->weight(10);

@@ -78,8 +78,10 @@ class PublicController extends BasePublicController
         try {
             $rowId = $request->rowId;
             Cart::remove($rowId);
-            $total = Cart::total();
-            return response()->json(['error' => false, 'total' =>  $total, 'count' => Cart::count()]);
+            $plc = 0;
+            $subtotal = Cart::subtotal(0);
+            $total = $subtotal + $plc;
+            return response()->json(['error' => false, 'total' =>  $total, 'subtotal' => $subtotal]);
         } catch (\Exception $e) {
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
@@ -88,10 +90,14 @@ class PublicController extends BasePublicController
     public function updateQty(Request $request)
     {
         try {
+            $plc = 0;
             $rowId = $request->rowId;
             Cart::update($rowId, $request->qty);
-            $total = Cart::total();
-            return response()->json(['error' => false, 'total' =>  $total, 'count' => Cart::count()]);
+            $subtotal = Cart::subtotal(0);
+            $total = $subtotal + $plc;
+            $cart = Cart::get($rowId);
+            $rowTotal = $cart->price * $request->qty;
+            return response()->json(['error' => false, 'total' =>  $total, 'subtotal' => $subtotal, 'count' => Cart::count(), 'rowTotal' => $rowTotal]);
         } catch (\Exception $e) {
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
@@ -108,9 +114,12 @@ class PublicController extends BasePublicController
 
     public function getCart()
     {
-        $total = Cart::total();
+        $plc = 0;
+        $subtotal = Cart::subtotal(0);
+        $total = $subtotal + $plc;
         $carts = Cart::content();
-        return view('shoppingCarts.cart', compact('carts', 'total'));
+
+        return view('shoppingCarts.cart', compact('carts', 'subtotal', 'total', 'plc'));
     }
 
     public function getThankYou($code)
@@ -141,9 +150,11 @@ class PublicController extends BasePublicController
         if ($count == 0) {
             return redirect()->route('fe.shoppingcart.getCart')->withErrors(['message' => 'Giỏ hàng của bạn chưa có sản phẩm nào.']);
         } else {
-            $total = Cart::total();
+            $plc = 0;
+            $subtotal = Cart::subtotal(0);
+            $total = $subtotal + $plc;
             $carts = Cart::content();
-            return view('shoppingCarts.checkout', compact('carts', 'total'));
+            return view('shoppingCarts.checkout', compact('carts', 'total', 'plc', 'subtotal'));
         }
     }
 
@@ -161,14 +172,15 @@ class PublicController extends BasePublicController
 
                 $order = [
                     'order_code' => $rand,
-                    'fullname' => $request->customer_name,
-                    'email' => $request->customer_email,
-                    'phone_number' => $request->customer_phone,
-                    'address' => $request->customer_address . ',' . $request->city,
-                    'note' => $request->customer_note,
+                    'fullname' => $request->full_name,
+                    'email' => $request->email,
+                    'phone_number' => $request->phone_number,
+                    'address' => $request->address,
+                    'note' => null,
                     'total' => $total,
-                    'time_ship' => $request->time_ship,
+                    'time_ship' => null,
                     'payment_method' => $request->payment_method,
+                    'delivery_method' => $request->delivery_method,
                     'status' => 'CREATED'
                 ];
                 $order = $this->orderRepository->create($order);
@@ -183,9 +195,9 @@ class PublicController extends BasePublicController
                     $this->orderDetailRepository->create($orderDetail);
                 }
                 $email = new OrderConfirm($order);
-                Mail::to($request->customer_email)->send($email);
+                Mail::to($request->email)->send($email);
                 Cart::destroy();
-                return response()->json(['error' => false, 'message' => "Đặt hàng thành công", 'url' => route('fe.shoppingcart.getThankYou', $rand)]);
+                return response()->json(['error' => false, 'message' =>trans('shoppingcart::orders.messages.order_success'), 'url' => route('fe.shoppingcart.getThankYou', $rand)]);
             } else {
                 return response()->json(['error' => true, 'message' => "Giỏ hàng đang trống, hãy chọn mua sản phẩm"]);
             }

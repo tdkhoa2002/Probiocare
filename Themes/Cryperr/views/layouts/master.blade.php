@@ -78,8 +78,7 @@ $site_description = setting('core::site-description') ? setting('core::site-desc
         </div>
     </main>
     @include('partials.footer')
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
     {!! Theme::script('js/lib.js') !!}
     @yield('scripts')
 
@@ -101,6 +100,8 @@ $site_description = setting('core::site-description') ? setting('core::site-desc
 
     {{-- All JS --}}
     {!! Theme::script('app/app.js') !!}
+    {!! Theme::script('js/additional-methods.min.js') !!}
+    {!! Theme::script('js/jquery.validate.js') !!}
 
     {!! Theme::script('js/script.js') !!}
 
@@ -108,6 +109,11 @@ $site_description = setting('core::site-description') ? setting('core::site-desc
     <script>
         @if (session('success'))
             toastr.success("{{ session('success') }}")
+        @endif
+        @if (session('errors'))
+            @foreach ($errors->all() as $error)
+                toastr.error("{{ $error }}")
+            @endforeach
         @endif
         @if (session('warning'))
             toastr.warning("{{ session('warning') }}")

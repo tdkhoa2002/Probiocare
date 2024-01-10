@@ -19,6 +19,7 @@ class FullProductTransformer extends JsonResource
             'price' => $this->resource->price,
             'product_status' => $this->resource->product_status,
             'code' => $this->resource->code,
+            'total_sold' => $this->resource->total_sold,
             'price_sale' => $this->resource->price_sale,
             'category_id' => $this->resource->category_id
         ];

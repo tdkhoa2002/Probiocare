@@ -1,8 +1,32 @@
 // init
 $(document).ready(function () {
+ 
   $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  $("#form_checkout").validate({
+    submitHandler: function (form) {
+      $.ajax({
+        url: form.action,
+        type: form.method,
+        data: $(form).serialize(),
+        cache: false,
+        processData: false,
+        beforeSend: function (xhr) {
+          $('body').addClass('loading');
+        },
+        success: function (response) {
+          $('body').removeClass('loading');
+          if (response.error == true) {
+            toastr.error(response.message)
+          } else {
+            document.location.href = response.url;
+          }
+        }
+      });
+      return false;
     }
   });
   $('.btn-add-to-cart').click(function () {
@@ -48,6 +72,8 @@ $(document).ready(function () {
     $(".func-plus").click(function () {
       const rowId = $(this).data('row-id')
       const num_frm = $('.box-number-' + rowId);
+      const itemCart = $('.item-cart-' + rowId);
+
       const value_num = num_frm.val()
       if (value_num > 0) {
         const new_val = +value_num + 1
@@ -63,10 +89,9 @@ $(document).ready(function () {
             .done(function (response) {
               num_frm.val(new_val);
               $('body').removeClass('loading');
-              $(".shopping-cart .header-open-cart .cart-count").text(response.count);
-              $("#popup-shopping-card .products-block .tabIndex-01 .num").text(response.count)
-              $("#sticky-price-box-sticky-wrapper #sticky-price-box .price-box .price").text(response.total + "đ");
-              $("#sticky-price-box-sticky-wrapper #sticky-price-box .price-box .total-price").text(response.total + "đ");
+              itemCart.find('.total-block .price').text(response.rowTotal)
+              $(".box-info-cart .sub-total .price span").text(response.subtotal);
+              $(".box-info-cart .total-payment .price span").text(response.total);
             });
         } else {
           return false;
@@ -76,6 +101,7 @@ $(document).ready(function () {
     $(".func-minus").click(function () {
       const rowId = $(this).data('row-id')
       const num_frm = $('.box-number-' + rowId);
+      const itemCart = $('.item-cart-' + rowId);
       const value_num = num_frm.val()
       if (value_num > 0) {
         const new_val = +value_num - 1
@@ -90,10 +116,9 @@ $(document).ready(function () {
           }).done(function (response) {
             num_frm.val(new_val);
             $('body').removeClass('loading');
-            $(".shopping-cart .header-open-cart .cart-count").text(response.count);
-            $("#popup-shopping-card .products-block .tabIndex-01 .num").text(response.count)
-            $("#sticky-price-box-sticky-wrapper #sticky-price-box .price-box .price").text(response.total + "đ");
-            $("#sticky-price-box-sticky-wrapper #sticky-price-box .price-box .total-price").text(response.total + "đ");
+            itemCart.find('.total-block .price').text(response.rowTotal)
+            $(".box-info-cart .sub-total .price span").text(response.subtotal);
+            $(".box-info-cart .total-payment .price span").text(response.total);
           });
         } else {
           return false;
@@ -113,6 +138,8 @@ $(document).ready(function () {
         .done(function (response) {
           $('body').removeClass('loading');
           $('.item-cart-' + rowId).remove()
+          $(".box-info-cart .sub-total .price span").text(response.subtotal);
+          $(".box-info-cart .total-payment .price span").text(response.total);
         });
     })
   }

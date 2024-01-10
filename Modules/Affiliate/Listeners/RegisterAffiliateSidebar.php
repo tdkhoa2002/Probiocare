@@ -36,10 +36,10 @@ class RegisterAffiliateSidebar implements \Maatwebsite\Sidebar\SidebarExtender
      */
     public function extendWith(Menu $menu)
     {
-        $menu->group(trans('core::sidebar.content'), function (Group $group) {
+        $menu->group(trans('core::sidebar.cryperr_manager'), function (Group $group) {
             $group->item(trans('affiliate::affiliates.title.affiliates'), function (Item $item) {
                 $item->icon('fa fa-copy');
-                $item->weight(10);
+                $item->weight(110);
                 $item->authorize(
                      /* append */
                 );

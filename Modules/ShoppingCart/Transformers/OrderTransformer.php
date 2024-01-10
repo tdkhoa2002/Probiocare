@@ -23,6 +23,7 @@ class OrderTransformer extends JsonResource
             'address' =>  $this->resource->address,
             'note' =>  $this->resource->note,
             'total' =>  $this->resource->total,
+            'delivery_method' =>  $this->resource->delivery_method,
             'payment_method' =>  $this->resource->payment_method,
             'time_ship' =>  $this->resource->time_ship,
             'status' =>  $this->resource->status,

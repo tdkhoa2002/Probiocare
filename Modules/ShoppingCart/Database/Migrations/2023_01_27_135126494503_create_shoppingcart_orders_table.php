@@ -25,6 +25,7 @@ class CreateShoppingCartOrdersTable extends Migration
             $table->double('total');
             $table->dateTime('time_ship')->nullable();
             $table->integer('payment_method')->nullable();
+            $table->integer('delivery_method')->nullable();
             $table->string('status');
             $table->timestamps();
         });
