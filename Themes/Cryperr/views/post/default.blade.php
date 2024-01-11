@@ -49,7 +49,9 @@
                 <a href="{{ route('page', $relatedBlog->slug) }}" title="{{  $relatedBlog->title }}">
                     <div class="blog-item border-bottom mb-4 pb-3">
                         <div class="mb-2">
-                            <img width="100%" src="{{ $urlImage }}" alt=" {{  $relatedBlog->title }}">
+                            {{-- <img width="100%" src="{{ $urlImage }}" alt=" {{  $relatedBlog->title }}"> --}}
+                            <img width="100%" data-src="{{ $urlImage }}" alt="{{ $relatedBlog->title }}" class="lazyload" loading="lazy"> 
+                <!--Thêm lazy load vào thuộc tính hình ảnh để chỉ load mỗi hình ảnh và mình thấy trên màn hình trong lần đầu load website-->
                         </div>
 
                         <div class="d-flex justify-content-between mb-2">
@@ -68,4 +70,6 @@
         </div>
     </div>
 </div>
+<!-- Include lazysizes library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" integrity="sha256-LZ3B+1Ba9IWD6iMclVr8XdO9Nl9x9vnplVt57It+j9g=" crossorigin="anonymous"></script>
 @stop
