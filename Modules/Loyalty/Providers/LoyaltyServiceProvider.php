@@ -56,7 +56,7 @@ class LoyaltyServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->app->booted(function () {
             $schedule = $this->app->make(Schedule::class);
-            $schedule->command('cal:reward-stake')->hourly();
+            $schedule->command('cal:reward-loyalty')->hourly();
         });
     }
 

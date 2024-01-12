@@ -27,7 +27,8 @@ return [
         'day_reward' => 'Day reward',
         'apr_reward' => 'Apr reward',
         'total_stake' => 'Total stake',
-        'type'=>'Type'
+        'type'=>'Type',
+        'price' => 'Price'
     ],
     'form' => [
         'status' => 'Status',

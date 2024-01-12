@@ -111,6 +111,16 @@ class PublicApiController extends BaseApiController
                     $redemption_date = null;
                     if ($term->type == 'LOCKED') {
                         $redemption_date =  now()->addDays($term->day_reward);
+                    } elseif ($term->type == 'LOCKED-PRINCIPLE-PREPAID') {
+                        $wallet = $this->walletRepository->where("customer_id", $customer->id)->where("currency_id", $rewardCurrency->id)->first();
+                        $commissions =  $package->commissions;
+                        foreach ($commissions as $commission) {
+                            if ($commission->level == 0 && $commission->status == true) {
+                                $rewardAmount = $package->min_stake * $commission->commission / 100;
+                                $newBalance = $wallet->balance + $rewardAmount;
+                            }
+                        }
+                        event(new UpdateBalanceWallet($newBalance, $wallet->id));
                     }
                     $dataCreate = [
                         'code' => random_strings(20),

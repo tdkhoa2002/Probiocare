@@ -20463,8 +20463,7 @@ var render = function render() {
   }), _vm._v(" "), _c("el-table-column", {
     attrs: {
       label: _vm.trans("packages.table.currency_stake_id"),
-      prop: "currency_stake_id",
-      width: "150"
+      prop: "currency_stake_id"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -20475,8 +20474,7 @@ var render = function render() {
   }), _vm._v(" "), _c("el-table-column", {
     attrs: {
       label: _vm.trans("packages.table.currency_reward_id"),
-      prop: "currency_reward_id",
-      width: "150"
+      prop: "currency_reward_id"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -20487,8 +20485,7 @@ var render = function render() {
   }), _vm._v(" "), _c("el-table-column", {
     attrs: {
       label: _vm.trans("packages.table.currency_cashback_id"),
-      prop: "currency_cashback_id",
-      width: "150"
+      prop: "currency_cashback_id"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -20498,7 +20495,7 @@ var render = function render() {
     }])
   }), _vm._v(" "), _c("el-table-column", {
     attrs: {
-      label: _vm.trans("packages.table.min_stake"),
+      label: _vm.trans("packages.table.price"),
       prop: "min_stake",
       width: "150"
     },
@@ -20506,18 +20503,6 @@ var render = function render() {
       key: "default",
       fn: function fn(scope) {
         return [_c("span", [_vm._v(_vm._s(scope.row.min_stake))])];
-      }
-    }])
-  }), _vm._v(" "), _c("el-table-column", {
-    attrs: {
-      label: _vm.trans("packages.table.max_stake"),
-      prop: "max_stake",
-      width: "150"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function fn(scope) {
-        return [_c("span", [_vm._v(_vm._s(scope.row.max_stake))])];
       }
     }])
   }), _vm._v(" "), _c("el-table-column", {

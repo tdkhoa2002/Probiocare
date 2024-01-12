@@ -49,29 +49,24 @@
                     </a>
                   </template>
                 </el-table-column>
-                <el-table-column :label="trans('packages.table.currency_stake_id')" prop="currency_stake_id"  width="150">
+                <el-table-column :label="trans('packages.table.currency_stake_id')" prop="currency_stake_id" >
                   <template slot-scope="scope">
                     <span>{{ scope.row.currency_stake.title }}</span>
                   </template>
                 </el-table-column>
-                <el-table-column :label="trans('packages.table.currency_reward_id')" prop="currency_reward_id"  width="150">
+                <el-table-column :label="trans('packages.table.currency_reward_id')" prop="currency_reward_id" >
                   <template slot-scope="scope">
                     <span>{{ scope.row.currency_reward.title }}</span>
                   </template>
                 </el-table-column>
-                <el-table-column :label="trans('packages.table.currency_cashback_id')" prop="currency_cashback_id"  width="150">
+                <el-table-column :label="trans('packages.table.currency_cashback_id')" prop="currency_cashback_id">
                   <template slot-scope="scope">
                     <span>{{ scope.row.currency_cashback.title }}</span>
                   </template>
                 </el-table-column>
-                <el-table-column :label="trans('packages.table.min_stake')" prop="min_stake" width="150">
+                <el-table-column :label="trans('packages.table.price')" prop="min_stake" width="150">
                   <template slot-scope="scope">
                     <span>{{ scope.row.min_stake }}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="trans('packages.table.max_stake')" prop="max_stake" width="150">
-                  <template slot-scope="scope">
-                    <span>{{ scope.row.max_stake }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column :label="trans('packages.table.start_date')" prop="start_date" width="150">

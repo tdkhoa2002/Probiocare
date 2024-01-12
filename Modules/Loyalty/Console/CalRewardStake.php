@@ -19,14 +19,14 @@ class CalRewardStake extends Command
      *
      * @var string
      */
-    protected $name = 'cal:reward-stake';
+    protected $name = 'cal:reward-loyalty';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'cal reward stake.';
+    protected $description = 'cal reward loyalty.';
 
     protected $orderRepository;
     protected $walletRepository;
@@ -52,7 +52,7 @@ class CalRewardStake extends Command
     public function handle()
     {
         try {
-            \Log::info("CalRewardStake running");
+            \Log::info("CalRewardLoyalty running");
             $orders = $this->orderRepository->getByAttributes(['status' => 0]);
             $now = now()->startOfHour();
             foreach ($orders as $order) {
@@ -72,12 +72,12 @@ class CalRewardStake extends Command
                         } else {
                             $rate = $this->calApr($apr, $hour_reward);
                             $diffHour = $now->diffInHours($last_time_reward);
-                            if ($diffHour > 0 && $diffHour >= $hour_reward) {
-                                $wallet = $this->walletRepository->where("customer_id", $order->customer_id)->where("currency_id",  $package->currency_reward_id)->first();
+                            // if ($diffHour > 0 && $diffHour >= $hour_reward) {
+                                $wallet = $this->walletRepository->where("customer_id", $order->customer_id)->where("currency_id",  $package->currency_cashback_id)->first();
                                 if (!$wallet) {
                                     $dataCreate = [
                                         'customer_id' => $order->customer_id,
-                                        'currency_id' => $package->currency_reward_id,
+                                        'currency_id' => $package->currency_cashback_id,
                                         'type' => 'CRYPTO',
                                         'balance' => 0,
                                         'status' => true,
@@ -89,7 +89,7 @@ class CalRewardStake extends Command
                                 $newBalance = $wallet->balance + $reward;
                                 $dataCreate = [
                                     'customer_id' => $order->customer_id,
-                                    'currency_id' => $package->currency_reward_id,
+                                    'currency_id' => $package->currency_cashback_id,
                                     'blockchain_id' => null,
                                     'action' => TypeTransactionActionEnum::REWARD_STAKING,
                                     'amount' => $reward,
@@ -111,7 +111,7 @@ class CalRewardStake extends Command
                                 event(new UpdateBalanceWallet($newBalance, $wallet->id));
                                 $last_time_reward = Carbon::parse($last_time_reward)->addHours($hour_reward);
                                 $this->orderRepository->update($order, ['total_amount_reward' => $order->total_amount_reward + $reward, 'last_time_reward' => $last_time_reward]);
-                            }
+                            // }
                         }
                     }
                 }
@@ -147,7 +147,7 @@ class CalRewardStake extends Command
                 $newBalance = $wallet->balance + $amount_stake;
                 $dataCreate = [
                     'customer_id' => $order->customer_id,
-                    'currency_id' => $package->currency_reward_id,
+                    'currency_id' => $package->currency_cashback_id,
                     'blockchain_id' => null,
                     'action' => TypeTransactionActionEnum::REDEEM_STAKING,
                     'amount' => $amount_stake,
