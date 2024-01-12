@@ -70,7 +70,7 @@
                         @endisset
                         <a class="btn btn-primary" style="width: 200px"
                             href="{{route('fe.customer.customer.register')}}">
-                            Purchase Now!</a>
+                            {{ __('home.buy_now_btn') }}</a><!--Purchase now-->
                     </div>
                 </div>
 
@@ -103,7 +103,8 @@
     <section>
         <div class="container-custom">
             <div class="row g-2 g-md-3 g-lg-4 mb-4">
-                <h2 class="title home-title">Recent Post</h2>
+                {{-- <h2 class="title home-title">Các bài đăng gần đây</h2> <!--Recent Post--> --}}
+                <h2 class="title home-title">{{ __('home.recent_posts') }}</h2>
                 @php
                 $blogs = getAllBlogs();
                 @endphp
@@ -138,12 +139,21 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <div class="subfooter">
-                        <div class="title home-title">Become our Member to get more benefits!</div>
+                    {{-- <div class="subfooter">
+                        <div class="title home-title">Trở thành Thành viên để đạt được nhiều quyền lợi hơn!</div>
+                        <!--Become our Member to get more benefits!-->
                         <a class="btn btn-primary btn-sign-with-email"
                             href="{{route('fe.customer.customer.register')}}">
-                            Sign up with Email</a>
+                            <!--Sign Up with Email-->
+                            Đăng ký bằng Email</a>
                     </div>
+                    --}}
+                    <div class="subfooter">
+                        <div class="title home-title">{{ __('home.become_member') }}</div>
+                        <a class="btn btn-primary btn-sign-with-email" href="{{ route('fe.customer.customer.register') }}">
+                            {{ __('home.sign_up_with_email') }}
+                        </a>
+                    </div>                    
                 </div>
             </div>
         </div>
