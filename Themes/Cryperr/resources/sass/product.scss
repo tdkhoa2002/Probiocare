@@ -174,3 +174,13 @@
         }
     }
 }
+
+.price-block {
+    .old-price {
+        text-decoration: line-through;
+    }
+    .price {
+        font-size: 18px;
+        font-weight: bold;
+    }
+}

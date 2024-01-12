@@ -98,17 +98,17 @@ Checkout | @parent
                         <h3>Your Order</h3>
                         <div class="box-info sub-total">
                             <div>Subtotal</div>
-                            <div class="price"><span>{{ $subtotal }}</span>$</div>
+                            <div class="price"><span>{{ $subtotal }}</span>đ</div>
                         </div>
                         <div class="box-info">
                             <div>Use PLC
                                 Joint Probiocare Loyalty to get your Credit</div>
-                            <div>{{ $plc }}$</div>
+                            <div>{{ $plc }}đ</div>
                         </div>
                         <hr>
                         <div class="box-info total-payment">
                             <div>Total Payment</div>
-                            <div class="price"><span>{{ $total }}</span>$</div>
+                            <div class="price"><span>{{ $total }}</span>đ</div>
                         </div>
                         <div class="action">
                             <button type="submit" class="btn btn-success">
