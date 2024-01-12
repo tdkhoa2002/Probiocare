@@ -53,7 +53,7 @@
                                 <h3 class="card-title">{{ $product->title }}</h3>
                             </div>
                             <div class="box-price">
-                                Price: <strong> ${{ $product->price_sale }}</strong>
+                                @include('shoppingCarts.partials.price',['price_sale'=>$product->price_sale,'price'=>$product->price])
                             </div>
                             <p class="sumary">{{ $product->sumary }}</p>
                             <div class="box-action">

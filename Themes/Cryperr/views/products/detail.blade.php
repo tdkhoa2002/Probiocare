@@ -37,7 +37,7 @@ $urlImage = $image->path_string;
                     <div class="box-title">
                         <h1>{{ $product->title }}</h1>
                         <div class="box-price">
-                            Price: <strong> ${{ $product->price_sale }}</strong>
+                            @include('shoppingCarts.partials.price',['price_sale'=>$product->price_sale,'price'=>$product->price])
                         </div>
                         <p class="sumary">{{ $product->sumary }}</p>
                         <div class="box-action">

@@ -8,8 +8,8 @@ if (mix.inProduction()) {
     mix.sass('resources/sass/main.scss', '/css/main.css');
     mix.js('resources/js/app.js', '/app').vue({ version: 2 });
     mix.scripts(['resources/js/jquery-pincode-autotab.js'], pathAssetCompile + '/js/lib.js');
-    mix.scripts(['resources/js/additional-methods.min.js'], "../../" + pathPublicTheme + '/js/additional-methods.min.js');
-    mix.scripts(['resources/js/jquery.validate.js'], "../../" + pathPublicTheme + '/js/jquery.validate.js');
+    mix.scripts(['resources/js/additional-methods.min.js'], pathAssetCompile + '/js/additional-methods.min.js');
+    mix.scripts(['resources/js/jquery.validate.js'], pathAssetCompile + '/js/jquery.validate.js');
     mix.scripts(['resources/js/script.js'], pathAssetCompile + '/js/script.js');
     mix.copy('resources/fonts', pathAssetCompile + '/fonts');
     mix.copy('resources/images', pathAssetCompile + '/images');
