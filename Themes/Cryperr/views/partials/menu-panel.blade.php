@@ -9,19 +9,19 @@
                 <img src="{{ Theme::url('images/menu/prostore.png') }}" alt="" />
                 <div class="name">ProStore</div>
             </a>
-            <a class="menu-item {{ Route::currentRouteName() == 'fe.staking.staking.mystaking' ? 'active' : '' }}" href="{{ route('fe.staking.staking.mystaking') }}">
+            <a class="menu-item {{ Route::currentRouteName() == 'fe.loyalty.loyalty.list-packages' ? 'active' : '' }}" href="{{ route('fe.loyalty.loyalty.list-packages') }}">
                 <img src="{{ Theme::url('images/menu/convert.png') }}" alt="" />
                 <div class="name">Loyalty</div>
             </a>
             <ul class="submenu">
                 <li>
-                    <a href="">Packages</a>
-                </li>
-                <li>
-                    <a href="">My Package</a>
-                </li>
-                <li>
                     <a href="">History</a>
+                </li> 
+                <li>
+                    <a href="{{ route('fe.loyalty.loyalty.mystaking') }}">My Package</a>
+                </li>
+                <li>
+                    <a href="">Package Detail</a>
                 </li>
             </ul>
             <a class="menu-item {{ Route::currentRouteName() =='fe.customer.customer.affiliate' ?'active':"" }}" href="{{route('fe.customer.customer.affiliate')}}">

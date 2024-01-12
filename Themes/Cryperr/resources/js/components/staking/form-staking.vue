@@ -219,7 +219,7 @@ export default {
   methods: {
     submitStake() {
       this.visibleLoading = true;
-      Axios.post("/staking/submitStake", this.dataStake)
+      Axios.post("/loyalty/submitStake", this.dataStake)
         .then((response) => {
           if (response.data.error === false) {
             this.$bvToast.toast(response.data.data.message, {
@@ -250,7 +250,7 @@ export default {
     },
     getPackageInfo(packageId) {
       this.visibleLoading = true;
-      Axios.get("/staking/getPackageInfo/" + packageId)
+      Axios.get("/loyalty/getPackageInfo/" + packageId)
         .then((response) => {
           if (response.data.error === false) {
             this.packageData = response.data.data.package;
@@ -291,10 +291,12 @@ export default {
         this.value_date = moment().add(1, "days").format("YYYY-MM-DD HH:mm:ss");
         if (term.type == "FLEXIBLE") {
           this.end_date = "FLEXIBLE";
-        } else {
+        } else if (term.type == "LOCKED"){
           this.end_date = moment()
             .add(this.day_reward + 1, "days")
             .format("YYYY-MM-DD HH:mm:ss");
+        } else {
+          console.log("LOCKED-PRINCIPLE-PREPAID");
         }
       } else {
         this.type_stake = "";

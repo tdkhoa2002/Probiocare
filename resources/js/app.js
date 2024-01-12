@@ -26,6 +26,9 @@ import TradeRoutes from "../../Modules/Trade/Assets/js/trades/TradeRoutes";
 import PackageRoutes from "../../Modules/Staking/Assets/js/packages/PackageRoutes";
 import OrderRoutes from "../../Modules/Staking/Assets/js/orders/OrderRoutes";
 
+import PackageRoutesLoyalty from "../../Modules/Loyalty/Assets/js/packages/PackageRoutes";
+import OrderRoutesLoyalty from "../../Modules/Loyalty/Assets/js/orders/OrderRoutes";
+
 import AffiliateRoutes from "../../Modules/Affiliate/Assets/js/affiliates/AffiliateRoutes";
 
 import CategoryRoutes from "../../Modules/Product/Assets/js/categories/CategoryRoutes";
@@ -63,7 +66,9 @@ const router = new VueRouter({
     ...AffiliateRoutes,
     ...CategoryRoutes,
     ...ProductRoutes,
-    ...OrderShoppingCartRoutes]
+    ...OrderShoppingCartRoutes,
+    ...PackageRoutesLoyalty,
+    ...OrderRoutesLoyalty]
 }),
   messages = {
     [currentLocale]: window.AsgardCMS.translations,
