@@ -103,14 +103,14 @@ if($checkAuth){
 
                     </ul>
                 </div>
-                <div class="offcanvas-footer pb-2">
+                {{-- <div class="offcanvas-footer pb-2">
                     @if (!$checkAuth)
                     <a class="btn btn-primary btn-sign-with-email"
                         href="{{route('fe.customer.customer.register')}}">Sign up with Email</a>
                     <a class="btn btn-outline btn-sign-with-email" href="{{route('fe.customer.customer.login')}}">Sign
                         in</a>
                     @endif
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
