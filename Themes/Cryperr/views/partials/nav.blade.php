@@ -45,7 +45,7 @@ if($checkAuth){
                 </ul>
 
                 <div class="right-nav">
-                    @if (!$checkAuth)
+                    {{-- @if (!$checkAuth)
                     <div class="d-flex">
                         <a class="btn btn-signin {{ Route::currentRouteName() !='fe.customer.customer.register' ?' btn-primary':"" }} me-2" style="white-space: nowrap"
                             href="{{route('fe.customer.customer.login')}}">Sign In</a>
@@ -64,7 +64,6 @@ if($checkAuth){
                         <div class="ms-3">
                             <a href="{{route('fe.customer.customer.account')}}">
                                 <div class="d-flex align-items-center">
-                                    {{-- <img width="32px" height="32px" src="{{ $logo }}" alt=""> --}}
                                     <span class="avatar-profile">{{ substr($customer->profile->firstname, 0, 1) }}</span>
                                     <span class="ms-2">{{$customer->profile->firstname}}
                                         {{$customer->profile->lastname}}</span>
@@ -72,7 +71,7 @@ if($checkAuth){
                             </a>
                         </div>
                     </div>
-                    @endif
+                    @endif --}}
                 </div>
             </div>
 
