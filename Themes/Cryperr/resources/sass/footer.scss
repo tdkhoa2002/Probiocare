@@ -98,3 +98,17 @@ footer {
         }
     }
 }
+
+@media (max-width: 768px) {
+    footer {
+        .above {
+            .footer-logo {
+                width: 180px;
+                margin-bottom: 12px;
+            }
+            .footer-description {
+                max-width: 100%; // Allow the description to take full width
+            }
+        }
+    }
+}
