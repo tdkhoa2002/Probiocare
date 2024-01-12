@@ -103,7 +103,7 @@
     <section>
         <div class="container-custom">
             <div class="row g-2 g-md-3 g-lg-4 mb-4">
-                <h2 class="title home-title">Recent Post</h2>
+                <h2 class="title home-title">Các bài đăng gần đây</h2>
                 @php
                 $blogs = getAllBlogs();
                 @endphp
@@ -139,10 +139,10 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="subfooter">
-                        <div class="title home-title">Become our Member to get more benefits!</div>
+                        <div class="title home-title">Trở thành Thành viên để đạt được nhiều quyền lợi hơn!</div>
                         <a class="btn btn-primary btn-sign-with-email"
                             href="{{route('fe.customer.customer.register')}}">
-                            Sign up with Email</a>
+                            Đăng ký bằng Email</a>
                     </div>
                 </div>
             </div>
