@@ -8,10 +8,10 @@ $site_name = (setting('core::site-name')) ? setting('core::site-name') : "Cryper
     <div class="container-fluid">
       <div class="row g-2 g-lg-4">
         <div class="col-12 col-md-4">
-          <div class="d-flex flex-row flex-md-column">
+          <div class="d-flex flex-row flex-md-column flex-column"> 
             <img src="{{$footer_logo}}" alt="" class="footer-logo me-3 me-md-0" />
             <div class="footer-description">
-             {{$site_description}}
+              {!! nl2br(e($site_description)) !!}
             </div>
           </div>
         </div>
