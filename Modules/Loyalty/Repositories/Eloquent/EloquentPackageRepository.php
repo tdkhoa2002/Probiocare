@@ -2,6 +2,8 @@
 
 namespace Modules\Loyalty\Repositories\Eloquent;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Http\Request;
 use Modules\Loyalty\Repositories\PackageRepository;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
 
@@ -13,12 +15,26 @@ class EloquentPackageRepository extends EloquentBaseRepository implements Packag
 
         if ($request->get('search') !== null) {
             $term = $request->get('search');
-            $packages->where('name',  "%{$term}%")->orWhere('id', $term);
+            $packages->whereHas('translations', function ($query) use ($term) {
+                $query->where('title', 'LIKE', "%{$term}%");
+            })->orWhere('id', $term);
         }
+
 
         if ($request->get('order_by') !== null && $request->get('order') !== 'null') {
             $order = $request->get('order') === 'ascending' ? 'asc' : 'desc';
-            $packages->orderBy($request->get('order_by'), $order);
+
+            if (Str::contains($request->get('order_by'), '.')) {
+                $fields = explode('.', $request->get('order_by'));
+
+                $packages->with('translations')->join('loyalty__package_translations as t', function ($join) {
+                    $join->on('loyalty__packages.id', '=', 't.package_id');
+                })
+                    ->where('t.locale', locale())
+                    ->groupBy('loyalty__packages.id')->orderBy("t.{$fields[1]}", $order);
+            } else {
+                $packages->orderBy($request->get('order_by'), $order);
+            }
         }
 
         return $packages->paginate($request->get('per_page', 10));
@@ -27,19 +43,7 @@ class EloquentPackageRepository extends EloquentBaseRepository implements Packag
     public function getPackagesList()
     {
         $packages = $this->allWithBuilder();
-        $packages->where('status', true);
-        if ($request->get('search') !== null) {
-            $term = $request->get('search');
-            $packages->where('name',  "LIKE", "%{$term}%");
-        }
-
-        if ($request->get('order_by') !== null && $request->get('order') !== 'null') {
-            $order = $request->get('order') === 'ascending' ? 'asc' : 'desc';
-            $packages->orderBy($request->get('order_by'), $order);
-        } else {
-            $packages->orderBy('created_at', 'desc');
-        }
-
-        return $packages->paginate($request->get('per_page', 10));
+        $packages->whereHas('terms')->where('status', true);
+        return $packages->get();
     }
 }

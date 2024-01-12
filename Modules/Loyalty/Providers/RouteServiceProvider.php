@@ -17,7 +17,7 @@ class RouteServiceProvider extends CoreRoutingServiceProvider
      */
     protected function getFrontendRoute()
     {
-        return false;
+        return __DIR__ . '/../Routes/web.php';
     }
 
     /**
@@ -33,6 +33,6 @@ class RouteServiceProvider extends CoreRoutingServiceProvider
      */
     protected function getApiRoute()
     {
-        return false;
+        return __DIR__ . '/../Routes/api.php';
     }
 }

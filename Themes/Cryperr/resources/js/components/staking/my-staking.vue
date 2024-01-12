@@ -296,7 +296,7 @@ export default {
     },
     getListMyStake() {
       this.visibleLoading = true;
-      Axios.get("/staking/get-list-my-stake")
+      Axios.get("/loyalty/get-list-my-stake")
         .then((response) => {
           if (response.data.error === false) {
             this.orders = response.data.data.orders;
