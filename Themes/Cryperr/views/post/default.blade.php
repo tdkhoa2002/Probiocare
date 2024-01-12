@@ -51,7 +51,6 @@
                         <div class="mb-2">
                             {{-- <img width="100%" src="{{ $urlImage }}" alt=" {{  $relatedBlog->title }}"> --}}
                             <img width="100%" data-src="{{ $urlImage }}" alt="{{ $relatedBlog->title }}" class="lazyload" loading="lazy"> 
-                <!--Thêm lazy load vào thuộc tính hình ảnh để chỉ load mỗi hình ảnh và mình thấy trên màn hình trong lần đầu load website-->
                         </div>
 
                         <div class="d-flex justify-content-between mb-2">
