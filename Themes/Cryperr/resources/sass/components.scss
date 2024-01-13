@@ -180,6 +180,12 @@
                     margin-right: 16px;
                 }
 
+                img.arrow-bottom {
+                    margin-left: auto;
+                    width: 16px;
+                    height: 16px;
+                }
+
                 .name {
                     color: $text;
                     font-weight: 500;
@@ -194,6 +200,22 @@
                     background-color: $primary;
                     border-radius: 4px;
                 }
+            }
+
+            .submenu {
+                display: flex;
+                flex-direction: column;
+                padding-left: 56px;
+            }
+
+            .submenu li {
+                margin: 10px 0;
+            }
+
+            .submenu li a {
+                color: #000000;
+                font-size: 18px;
+                line-height: 26.91px;
             }
         }
     }

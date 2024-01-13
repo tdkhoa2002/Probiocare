@@ -12,6 +12,7 @@
             <a class="menu-item {{ Route::currentRouteName() == 'fe.loyalty.loyalty.list-packages' ? 'active' : '' }}" href="{{ route('fe.loyalty.loyalty.list-packages') }}">
                 <img src="{{ Theme::url('images/menu/convert.png') }}" alt="" />
                 <div class="name">Loyalty</div>
+                <img class="arrow-bottom" src="{{ Theme::url('images/arrow-bottom.png') }}" alt="" />
             </a>
             <ul class="submenu">
                 <li>

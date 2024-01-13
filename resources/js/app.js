@@ -23,8 +23,8 @@ import CurrencyWalletRoutes from "../../Modules/Wallet/Assets/js/currencies/Curr
 import MarketRoutes from "../../Modules/Trade/Assets/js/markets/MarketRoutes";
 import TradeRoutes from "../../Modules/Trade/Assets/js/trades/TradeRoutes";
 
-import PackageRoutes from "../../Modules/Staking/Assets/js/packages/PackageRoutes";
-import OrderRoutes from "../../Modules/Staking/Assets/js/orders/OrderRoutes";
+// import PackageRoutes from "../../Modules/Staking/Assets/js/packages/PackageRoutes";
+// import OrderRoutes from "../../Modules/Staking/Assets/js/orders/OrderRoutes";
 
 import PackageRoutesLoyalty from "../../Modules/Loyalty/Assets/js/packages/PackageRoutes";
 import OrderRoutesLoyalty from "../../Modules/Loyalty/Assets/js/orders/OrderRoutes";
@@ -61,7 +61,10 @@ const router = new VueRouter({
     ...MediaRoutes, ...UserRoutes, ...CustomerRoutes,
     ...CrawHistoryRoutes,
     ...BlockchainRoutes, ...ChainWalletRoutes, ...CurrencyWalletRoutes, ...MarketRoutes,
-    ...PackageRoutes, ...TransactionRoutes, ...OrderRoutes, ...WalletRoutes, ...TradeRoutes,
+    // ...PackageRoutes, 
+    ...TransactionRoutes, 
+    // ...OrderRoutes, 
+    ...WalletRoutes, ...TradeRoutes,
     ...PaymentmethodRoutes,
     ...AffiliateRoutes,
     ...CategoryRoutes,

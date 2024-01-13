@@ -30,7 +30,7 @@ rel="stylesheet" />
     .swap-btn input,
     .btn-primary,
     .btn-primary:hover,
-    .wrap-panel .panel .menu-list .menu-item.active,
+    .wrap-panel .panel .menu-list .menu-item.active .name,
     .wrap-panel .panel .menu-list .menu-item:hover 
     {
         background-color: var(--primary_background_color)!important;
