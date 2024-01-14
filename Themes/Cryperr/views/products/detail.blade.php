@@ -21,7 +21,7 @@ $urlImage = $image->path_string;
         <div class="d-flex justify-content-between my-3">
             <a class="backlink " href="{{ route('homepage') }}">
                 <img height="20px" class="me-3" src="{{ Theme::url('images/left-outline.png') }}" alt="" />
-                <div class="label">Product Detail</div>
+                <div class="label">{{ __('products.detail') }}</div>
             </a>
         </div>
     </div>
@@ -37,16 +37,16 @@ $urlImage = $image->path_string;
                     <div class="box-title">
                         <h1>{{ $product->title }}</h1>
                         <div class="box-price">
-                            Price: <strong> ${{ $product->price_sale }}</strong>
+                            {{ __('products.price') }} <strong> ${{ $product->price_sale }}</strong>
                         </div>
                         <p class="sumary">{{ $product->sumary }}</p>
                         <div class="box-action">
                             <button type="button" class="btn btn-success btn-add-to-cart-quick"
                                 data-product-id="{{ $product->id }}">
-                                Buy now
+                                {{ __('products.buy_now_btn') }}
                             </button>
                             <button type="button" class="btn btn-add-to-cart" data-product-id="{{ $product->id }}">
-                                <span>Add to cart</span>
+                                <span>{{ __('products.add_to_cart_btn') }}</span>
                                 <img class="pointer" src="{{ Theme::url('images/icons/icon-shop.png') }}" alt="">
                             </button>
                         </div>
