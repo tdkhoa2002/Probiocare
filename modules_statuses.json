@@ -14,7 +14,7 @@
     "Cryperrswap": false,
     "Customer": true,
     "Wallet": true,
-    "Staking": true,
+    "Staking": false,
     "Trade": true,
     "Peertopeer": true,
     "Logviewer": true,

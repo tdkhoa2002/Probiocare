@@ -19,7 +19,7 @@ class CalCommissionStake extends Command
      *
      * @var string
      */
-    protected $name = 'cal:commission-stake';
+    protected $name = 'cal:commission-loyalty';
 
     /**
      * The console command description.
