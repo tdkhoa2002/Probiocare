@@ -46,12 +46,33 @@ $router->group(['prefix' =>'/loyalty'], function (Router $router) {
         'uses' => 'OrderController@index',
         'middleware' => 'can:loyalty.orders.index'
     ]);
-    $router->get('orders/{order}/detail', [
-        'as' => 'admin.loyalty.order.detail',
-        'uses' => 'OrderController@detail',
-        'middleware' => 'can:loyalty.orders.detail'
+    $router->get('orders/create', [
+        'as' => 'admin.loyalty.order.create',
+        'uses' => 'OrderController@create',
+        'middleware' => 'can:loyalty.orders.create'
+    ]);
+    $router->post('orders', [
+        'as' => 'admin.loyalty.order.store',
+        'uses' => 'OrderController@store',
+        'middleware' => 'can:loyalty.orders.create'
+    ]);
+    $router->get('orders/{order}/edit', [
+        'as' => 'admin.loyalty.order.edit',
+        'uses' => 'OrderController@edit',
+        'middleware' => 'can:loyalty.orders.edit'
+    ]);
+    $router->put('orders/{order}', [
+        'as' => 'admin.loyalty.order.update',
+        'uses' => 'OrderController@update',
+        'middleware' => 'can:loyalty.orders.edit'
+    ]);
+    $router->delete('orders/{order}', [
+        'as' => 'admin.loyalty.order.destroy',
+        'uses' => 'OrderController@destroy',
+        'middleware' => 'can:loyalty.orders.destroy'
     ]);
 // append
+
 
 
 

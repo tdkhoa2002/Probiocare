@@ -125,14 +125,14 @@ class LoyaltyServiceProvider extends ServiceProvider
             function () {
                 $repository = new \Modules\Loyalty\Repositories\Eloquent\EloquentOrderRepository(new \Modules\Loyalty\Entities\Order());
 
-                if (!config('app.cache')) {
+                if (! config('app.cache')) {
                     return $repository;
                 }
 
                 return new \Modules\Loyalty\Repositories\Cache\CacheOrderDecorator($repository);
             }
         );
-        // add bindings
+// add bindings
 
 
 
