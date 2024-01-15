@@ -13,7 +13,7 @@
     <div class="d-flex justify-content-between mb-4">
         <a class="backlink " href="/">
             <img height="20px" class="me-3" src="{{ Theme::url('images/left-outline.png') }}" alt="" />
-            <div class="label">Home</div>
+            <div class="label">{{ __('home.title_home') }}</div>
         </a>
     </div>
     <div class="row g-2 g-md-3 g-lg-4">

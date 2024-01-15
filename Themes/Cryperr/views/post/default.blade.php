@@ -13,7 +13,7 @@
     <div class="d-flex justify-content-between mb-4">
         <a class="backlink " href="/blogs">
             <img height="20px" class="me-3" src="{{ Theme::url('images/left-outline.png') }}" alt="" />
-            <div class="label">Blog Detail</div>
+            <div class="label">{{ __('blog.title') }}</div>
         </a>
     </div>
     <div class="row g-2 g-md-3 g-lg-4">
@@ -32,7 +32,7 @@
         <div class="col-md-4">
             <div class="secondary-card">
                 <div class="d-flex align-items-center mb-3">
-                    <div class="fs-5 me-3">Related Posts</div>
+                    <div class="fs-5 me-3">{{ __('blog.related') }}</div>
                     <img width="24px" height="24px" src="{{ Theme::url('images/icons/history.png') }}" alt="">
                 </div>
                 @php

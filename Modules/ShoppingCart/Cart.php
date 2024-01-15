@@ -282,6 +282,17 @@ class Cart
 
         return $this->numberFormat($subTotal, $decimals, $decimalPoint, $thousandSeperator);
     }
+   
+    public function subtotalPrice()
+    {
+        $content = $this->getContent();
+
+        $subTotal = $content->reduce(function ($subTotal, CartItem $cartItem) {
+            return $subTotal + ($cartItem->qty * $cartItem->price);
+        }, 0);
+
+        return $subTotal;
+    }
 
     /**
      * Search the cart content for a cart item matching the given search closure.
