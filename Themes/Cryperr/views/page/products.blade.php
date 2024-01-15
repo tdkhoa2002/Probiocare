@@ -57,7 +57,7 @@
                             </div>
                             <p class="sumary">{{ $product->sumary }}</p>
                             <div class="box-action">
-                                <p><strong>{{ $product->total_sold }} product sold</strong></p>
+                                <p><strong>{{ $product->total_sold }} {{ __('products.pro_sold') }}</strong></p>
                                 <p>
                                     <a href="javascript:void(0);" class="btn-add-to-cart-quick"
                                         data-product-id="{{ $product->id }}"><img
