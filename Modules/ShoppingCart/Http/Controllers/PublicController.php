@@ -97,7 +97,7 @@ class PublicController extends BasePublicController
             $total = $subtotal + $plc;
             $cart = Cart::get($rowId);
             $rowTotal = $cart->price * $request->qty;
-            return response()->json(['error' => false, 'total' => number_format( $total), 'subtotal' => number_format($subtotal), 'count' => Cart::count(), 'rowTotal' => number_format($rowTotal)]);
+            return response()->json(['error' => false, 'total' => number_format($total), 'subtotal' => number_format($subtotal), 'count' => Cart::count(), 'rowTotal' => number_format($rowTotal)]);
         } catch (\Exception $e) {
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
@@ -151,10 +151,10 @@ class PublicController extends BasePublicController
             return redirect()->route('fe.shoppingcart.getCart')->withErrors(['message' => 'Giỏ hàng của bạn chưa có sản phẩm nào.']);
         } else {
             $plc = 0;
-            $subtotal = Cart::subtotal(0);
+            $subtotal = Cart::subtotalPrice();
             $total = $subtotal + $plc;
             $carts = Cart::content();
-            return view('shoppingCarts.checkout', compact('carts', 'total', 'plc', 'subtotal'));
+            return view('shoppingCarts.checkout', ['carts' => $carts, 'plc' => $plc, 'total' => number_format($total), 'subtotal' => number_format($subtotal)]);
         }
     }
 
@@ -166,9 +166,9 @@ class PublicController extends BasePublicController
             if ($count > 0 &&  $total > 0) {
                 $carts = Cart::content();
                 $rand = strtoupper(substr(uniqid(sha1(time())), 0, 10));
-                $total = $carts->reduce(function ($total, CartItem $cartItem) {
-                    return $total + ($cartItem->qty * $cartItem->price);
-                }, 0);
+                $subtotal = Cart::subtotalPrice();
+                $plc = 0;
+                $total = $subtotal + $plc;
 
                 $order = [
                     'order_code' => $rand,
