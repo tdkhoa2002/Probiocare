@@ -69,7 +69,7 @@
                         <p class=" home-desc">{!!$dynamicfields['home_03_desc']!!}</p>
                         @endisset
                         <a class="btn btn-primary" style="width: 200px"
-                            href="{{route('fe.customer.customer.register')}}">
+                            href="/san-pham">
                             {{ __('home.buy_now_btn') }}</a><!--Purchase now-->
                     </div>
                 </div>
