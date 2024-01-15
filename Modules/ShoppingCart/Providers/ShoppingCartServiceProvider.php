@@ -51,7 +51,7 @@ class ShoppingCartServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishConfig('shoppingCart', 'permissions');
-
+        $this->publishConfig('shoppingCart', 'config');
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
     }
 

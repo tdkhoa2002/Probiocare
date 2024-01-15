@@ -52,6 +52,14 @@ class RegisterLoyaltySidebar implements \Maatwebsite\Sidebar\SidebarExtender
                         $this->auth->hasAccess('loyalty.packages.index')
                     );
                 });
+                $item->item(trans('loyalty::orders.title.orders'), function (Item $item) {
+                    $item->icon('fa fa-copy');
+                    $item->weight(0);
+                    $item->route('admin.loyalty.order.index');
+                    $item->authorize(
+                        $this->auth->hasAccess('loyalty.orders.index')
+                    );
+                });
 // append
 
             });

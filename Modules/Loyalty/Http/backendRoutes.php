@@ -3,6 +3,7 @@
 use Illuminate\Routing\Router;
 /** @var Router $router */
 
+
 $router->group(['prefix' =>'/loyalty'], function (Router $router) {
     $router->bind('package', function ($id) {
         return app('Modules\Loyalty\Repositories\PackageRepository')->find($id);
@@ -37,6 +38,23 @@ $router->group(['prefix' =>'/loyalty'], function (Router $router) {
         'uses' => 'PackageController@destroy',
         'middleware' => 'can:loyalty.packages.destroy'
     ]);
+    $router->bind('order', function ($id) {
+        return app('Modules\Loyalty\Repositories\OrderRepository')->find($id);
+    });
+    $router->get('orders', [
+        'as' => 'admin.loyalty.order.index',
+        'uses' => 'OrderController@index',
+        'middleware' => 'can:loyalty.orders.index'
+    ]);
+    $router->get('orders/{order}/detail', [
+        'as' => 'admin.loyalty.order.detail',
+        'uses' => 'OrderController@detail',
+        'middleware' => 'can:loyalty.orders.detail'
+    ]);
 // append
+
+
+
+
 
 });

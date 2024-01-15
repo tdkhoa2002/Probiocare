@@ -19,6 +19,7 @@ return [
         'description' => 'Description',
         'currency_stake_id' => 'Currency stake',
         'currency_reward_id' => 'Currency reward',
+        'currency_cashback_id' => 'Currency cashback',
         'min_stake' => 'Min Stake',
         'max_stake' => 'Max Stake',
         'start_date' => 'Start Date',
@@ -26,7 +27,8 @@ return [
         'day_reward' => 'Day reward',
         'apr_reward' => 'Apr reward',
         'total_stake' => 'Total stake',
-        'type'=>'Type'
+        'type'=> 'Type',
+        'price' => 'Price'
     ],
     'form' => [
         'status' => 'Status',
@@ -34,6 +36,7 @@ return [
         'description' => 'Description',
         'currency_stake_id' => 'Currency stake',
         'currency_reward_id' => 'Currency reward',
+        'currency_cashback_id' => 'Currency cashback',
         'min_stake' => 'Min Stake',
         'max_stake' => 'Max Stake',
         'start_date' => 'Start Date',

@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     getPackages() {
-      Axios.get("/api/public/staking/list-packages")
+      Axios.get("api/public/loyalty/list-packages")
         .then((response) => {
           if (response.data.error === false) {
             this.packages = response.data.data;

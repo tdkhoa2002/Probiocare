@@ -58,10 +58,7 @@ Carts | @parent
                                     </div>
                                 </div>
                                 <div class="price-block">
-                                    @if(isset($cart->option->price_old) &&$cart->option->price_old > 0)
-                                    <span class="old-price">{{ number_format($cart->option->price_old) }}$</span>
-                                    @endif
-                                    <span class="price"> {{ number_format($cart->price) }}$</span>
+                                    @include('shoppingCarts.partials.price',['price_sale'=>$cart->option->price_old??0,'price'=>$cart->price])
                                 </div>
                                 <div class="product-number">
                                     <button type="button" class="btn func-minus"
@@ -72,7 +69,8 @@ Carts | @parent
                                         data-row-id="{{ $cart->rowId }}">+</button>
                                 </div>
                                 <div class="total-block">
-                                    <span class="price">{{ number_format($cart->price *$cart->qty) }}</span><span>$</span>
+                                    <span class="price">{{ number_format($cart->price *$cart->qty)
+                                        }}</span><span>đ</span>
                                 </div>
                                 <div class="remove">
                                     <a href="javascript:void(0);" class="func-remove btn-delete-item-cart"
@@ -91,17 +89,17 @@ Carts | @parent
                     <h3>Your Order</h3>
                     <div class="box-info sub-total">
                         <div>Subtotal</div>
-                        <div class="price"><span>{{ $subtotal }}</span>$</div>
+                        <div class="price"><span>{{ $subtotal }}</span>đ</div>
                     </div>
                     <div class="box-info">
                         <div>Use PLC
                             Joint Probiocare Loyalty to get your Credit</div>
-                        <div>{{ $plc }}$</div>
+                        <div>{{ $plc }}đ</div>
                     </div>
                     <hr>
                     <div class="box-info total-payment">
                         <div>Total Payment</div>
-                        <div class="price"><span>{{ $total }}</span>$</div>
+                        <div class="price"><span>{{ $total }}</span>đ</div>
                     </div>
                     <div class="action">
                         <a class="btn btn-success" href="{{ route('fe.shoppingcart.getCheckout') }}">
