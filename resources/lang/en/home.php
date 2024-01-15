@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'title_home' => 'Home',
     'buy_now_btn' => 'Buy Now!',
     'recent_posts' => 'Recent Posts',
     'become_member' => 'Become our Member to get more benefits!',
