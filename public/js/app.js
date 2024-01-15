@@ -9227,7 +9227,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     getRoute: function getRoute() {
       return route("api.loyalty.package.update", {
-        "package": this.$route.params.packageId
+        packageLoyalty: this.$route.params.packageId
       });
     }
   }
