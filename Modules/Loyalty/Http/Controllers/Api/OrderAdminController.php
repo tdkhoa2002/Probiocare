@@ -33,9 +33,9 @@ class OrderAdminController extends Controller
         return AdminOrderTransformer::collection($this->orderRepository->serverPaginationFilteringFor($request));
     }
 
-    public function detail(Order $order)
+    public function detail(Order $orderLoyalty)
     {
-        return new FullAdminOrderTransformer($order);
+        return new FullAdminOrderTransformer($orderLoyalty);
     }
 
     public function getTransaction($orderId)

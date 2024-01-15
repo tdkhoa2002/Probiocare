@@ -5,7 +5,7 @@ use Illuminate\Routing\Router;
 
 
 $router->group(['prefix' =>'/staking'], function (Router $router) {
-    $router->bind('packageStake', function ($id) {
+    $router->bind('package', function ($id) {
         return app('Modules\Staking\Repositories\PackageRepository')->find($id);
     });
     $router->get('packages', [
@@ -23,22 +23,22 @@ $router->group(['prefix' =>'/staking'], function (Router $router) {
         'uses' => 'PackageController@store',
         'middleware' => 'can:staking.packages.create'
     ]);
-    $router->get('packages/{packageStake}/edit', [
+    $router->get('packages/{package}/edit', [
         'as' => 'admin.staking.package.edit',
         'uses' => 'PackageController@edit',
         'middleware' => 'can:staking.packages.edit'
     ]);
-    $router->put('packages/{packageStake}', [
+    $router->put('packages/{package}', [
         'as' => 'admin.staking.package.update',
         'uses' => 'PackageController@update',
         'middleware' => 'can:staking.packages.edit'
     ]);
-    $router->delete('packages/{packageStake}', [
+    $router->delete('packages/{package}', [
         'as' => 'admin.staking.package.destroy',
         'uses' => 'PackageController@destroy',
         'middleware' => 'can:staking.packages.destroy'
     ]);
-    $router->bind('orderStake', function ($id) {
+    $router->bind('order', function ($id) {
         return app('Modules\Staking\Repositories\OrderRepository')->find($id);
     });
     $router->get('orders', [
@@ -46,7 +46,7 @@ $router->group(['prefix' =>'/staking'], function (Router $router) {
         'uses' => 'OrderController@index',
         'middleware' => 'can:staking.orders.index'
     ]);
-    $router->get('orders/{orderStake}/detail', [
+    $router->get('orders/{order}/detail', [
         'as' => 'admin.staking.order.detail',
         'uses' => 'OrderController@detail',
         'middleware' => 'can:staking.orders.detail'

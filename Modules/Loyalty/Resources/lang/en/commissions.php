@@ -18,7 +18,8 @@ return [
         'commission' => 'Commission',
         'type' => 'Type',
         'cant_destroy_commission'=>"Can't delete this commission",
-        'number_floor'=>'Number floor'
+        'number_floor'=>'Number floor',
+        'status' => 'Status'
     ],
     'messages' => [
         'commission created' => 'Commission successfully created.',

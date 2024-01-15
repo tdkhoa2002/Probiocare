@@ -68,9 +68,9 @@ class PackageTermAdminController extends Controller
         ]);
     }
 
-    public function destroy(PackageTerm $PackageTerm)
+    public function destroy(PackageTerm $packagetermLoyalty)
     {
-        $this->packageTermRepository->destroy($PackageTerm);
+        $this->packageTermRepository->destroy($packagetermLoyalty);
         return response()->json([
             'errors' => false,
             'message' => trans('staking::packageterms.messages.packageterm deleted'),

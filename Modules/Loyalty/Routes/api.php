@@ -31,12 +31,12 @@ $router->group(['prefix' => '/loyalty', 'middleware' => ['api.token', 'auth.admi
         'uses' => 'PackageAdminController@store',
         'middleware' => 'token-can:loyalty.packages.create',
     ]);
-    $router->post('packages/{package}', [
+    $router->post('packages/{packageLoyalty}', [
         'as' => 'api.loyalty.package.update',
         'uses' => 'PackageAdminController@update',
         'middleware' => 'token-can:loyalty.packages.edit',
     ]);
-    $router->delete('packages/{package}', [
+    $router->delete('packages/{packageLoyalty}', [
         'as' => 'api.loyalty.package.destroy',
         'uses' => 'PackageAdminController@destroy',
         'middleware' => 'token-can:loyalty.packages.destroy',
@@ -62,7 +62,7 @@ $router->group(['prefix' => '/loyalty', 'middleware' => ['api.token', 'auth.admi
         'uses' => 'PackageTermAdminController@find',
         'middleware' => 'token-can:loyalty.packages.index',
     ]);
-    $router->delete('package-terms/{packageterm}', [
+    $router->delete('package-terms/{packagetermLoyalty}', [
         'as' => 'api.loyalty.packageTerm.destroy',
         'uses' => 'PackageTermAdminController@destroy',
         'middleware' => 'token-can:loyalty.packages.destroy',

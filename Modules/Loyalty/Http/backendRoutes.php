@@ -5,7 +5,7 @@ use Illuminate\Routing\Router;
 
 
 $router->group(['prefix' =>'/loyalty'], function (Router $router) {
-    $router->bind('package', function ($id) {
+    $router->bind('packageLoyalty', function ($id) {
         return app('Modules\Loyalty\Repositories\PackageRepository')->find($id);
     });
     $router->get('packages', [
@@ -23,22 +23,22 @@ $router->group(['prefix' =>'/loyalty'], function (Router $router) {
         'uses' => 'PackageController@store',
         'middleware' => 'can:loyalty.packages.create'
     ]);
-    $router->get('packages/{package}/edit', [
+    $router->get('packages/{packageLoyalty}/edit', [
         'as' => 'admin.loyalty.package.edit',
         'uses' => 'PackageController@edit',
         'middleware' => 'can:loyalty.packages.edit'
     ]);
-    $router->put('packages/{package}', [
+    $router->put('packages/{packageLoyalty}', [
         'as' => 'admin.loyalty.package.update',
         'uses' => 'PackageController@update',
         'middleware' => 'can:loyalty.packages.edit'
     ]);
-    $router->delete('packages/{package}', [
+    $router->delete('packages/{packageLoyalty}', [
         'as' => 'admin.loyalty.package.destroy',
         'uses' => 'PackageController@destroy',
         'middleware' => 'can:loyalty.packages.destroy'
     ]);
-    $router->bind('order', function ($id) {
+    $router->bind('orderLoyalty', function ($id) {
         return app('Modules\Loyalty\Repositories\OrderRepository')->find($id);
     });
     $router->get('orders', [
@@ -56,17 +56,17 @@ $router->group(['prefix' =>'/loyalty'], function (Router $router) {
         'uses' => 'OrderController@store',
         'middleware' => 'can:loyalty.orders.create'
     ]);
-    $router->get('orders/{order}/edit', [
+    $router->get('orders/{orderLoyalty}/edit', [
         'as' => 'admin.loyalty.order.edit',
         'uses' => 'OrderController@edit',
         'middleware' => 'can:loyalty.orders.edit'
     ]);
-    $router->put('orders/{order}', [
+    $router->put('orders/{orderLoyalty}', [
         'as' => 'admin.loyalty.order.update',
         'uses' => 'OrderController@update',
         'middleware' => 'can:loyalty.orders.edit'
     ]);
-    $router->delete('orders/{order}', [
+    $router->delete('orders/{orderLoyalty}', [
         'as' => 'admin.loyalty.order.destroy',
         'uses' => 'OrderController@destroy',
         'middleware' => 'can:loyalty.orders.destroy'
