@@ -79,9 +79,9 @@ class PublicController extends BasePublicController
             $rowId = $request->rowId;
             Cart::remove($rowId);
             $plc = 0;
-            $subtotal = Cart::subtotal(0);
+            $subtotal = Cart::subtotalPrice();
             $total = $subtotal + $plc;
-            return response()->json(['error' => false, 'total' =>  $total, 'subtotal' => $subtotal]);
+            return response()->json(['error' => false, 'total' => number_format($total), 'subtotal' => number_format($subtotal)]);
         } catch (\Exception $e) {
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
@@ -93,11 +93,11 @@ class PublicController extends BasePublicController
             $plc = 0;
             $rowId = $request->rowId;
             Cart::update($rowId, $request->qty);
-            $subtotal = Cart::subtotal(0);
+            $subtotal = Cart::subtotalPrice();
             $total = $subtotal + $plc;
             $cart = Cart::get($rowId);
             $rowTotal = $cart->price * $request->qty;
-            return response()->json(['error' => false, 'total' =>  $total, 'subtotal' => $subtotal, 'count' => Cart::count(), 'rowTotal' => $rowTotal]);
+            return response()->json(['error' => false, 'total' => number_format( $total), 'subtotal' => number_format($subtotal), 'count' => Cart::count(), 'rowTotal' => number_format($rowTotal)]);
         } catch (\Exception $e) {
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
@@ -115,11 +115,11 @@ class PublicController extends BasePublicController
     public function getCart()
     {
         $plc = 0;
-        $subtotal = Cart::subtotal(0);
+        $subtotal = Cart::subtotalPrice();
         $total = $subtotal + $plc;
         $carts = Cart::content();
 
-        return view('shoppingCarts.cart', compact('carts', 'subtotal', 'total', 'plc'));
+        return view('shoppingCarts.cart', ['carts' => $carts, 'plc' => $plc, 'total' => number_format($total), 'subtotal' => number_format($subtotal)]);
     }
 
     public function getThankYou($code)
@@ -197,7 +197,7 @@ class PublicController extends BasePublicController
                 $email = new OrderConfirm($order);
                 Mail::to($request->email)->send($email);
                 Cart::destroy();
-                return response()->json(['error' => false, 'message' =>trans('shoppingcart::orders.messages.order_success'), 'url' => route('fe.shoppingcart.getThankYou', $rand)]);
+                return response()->json(['error' => false, 'message' => trans('shoppingcart::orders.messages.order_success'), 'url' => route('fe.shoppingcart.getThankYou', $rand)]);
             } else {
                 return response()->json(['error' => true, 'message' => "Giỏ hàng đang trống, hãy chọn mua sản phẩm"]);
             }
