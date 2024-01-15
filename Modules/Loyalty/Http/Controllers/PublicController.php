@@ -86,6 +86,27 @@ class PublicController extends BasePublicController
         }
     }
 
+    public function getMyHistory()
+    {
+        try {
+            $customerID = auth()->guard('customer')->user()->id;
+            $packages = [];
+            $orders = $this->orderRepository->getByAttributes([
+                'customer_id' => $customerID,
+                'status' => false
+            ]);
+            foreach ($orders as $order) {
+                $termPackage = $order->term;
+                $package = $termPackage->package;
+                array_push($packages, $package);
+            }
+            return view('loyalties.history', compact('packages'));
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return back();
+        }
+    }
+
     public function getStakingDetail($packageId, Request $request)
     {
         try {

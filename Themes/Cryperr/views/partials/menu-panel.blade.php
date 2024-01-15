@@ -16,7 +16,7 @@
             </a>
             <ul class="submenu">
                 <li>
-                    <a href="">History</a>
+                    <a href="{{ route('fe.loyalty.loyalty.myhistory') }}">History</a>
                 </li> 
                 <li>
                     <a href="{{ route('fe.loyalty.loyalty.mystaking') }}">My Package</a>
