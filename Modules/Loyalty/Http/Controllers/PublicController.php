@@ -69,11 +69,17 @@ class PublicController extends BasePublicController
     {
         try {
             $customerID = auth()->guard('customer')->user()->id;
-            $totalSystemStake = $this->orderRepository->where("amount_usd_stake", "<>", "null")->sum('amount_usd_stake');
-            $totalMyStake = $this->orderRepository
-            ->where("customer_id", $customerID)
-            ->where("amount_usd_stake", "<>", "null")->sum('amount_usd_stake');
-            return view('stakings.my-staking', compact('totalSystemStake','totalMyStake'));
+            $packages = [];
+            $orders = $this->orderRepository->getByAttributes([
+                'customer_id' => $customerID,
+                'status' => false
+            ]);
+            foreach ($orders as $order) {
+                $termPackage = $order->term;
+                $package = $termPackage->package;
+                array_push($packages, $package);
+            }
+            return view('loyalties.my-package', compact('packages'));
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
             return back();
@@ -105,9 +111,17 @@ class PublicController extends BasePublicController
             $packageId = $request->get('packageId');
             $term_id = $request->get('term_id');
             $amount = $request->get('amount');
+            $customer = auth()->guard('customer')->user();
+            $order = $this->orderRepository->findByAttributes([
+                'customer_id' => $customer->id,
+                'packageterm_id' => $term_id,
+                'status' => false
+            ]);
+            if($order) {
+                return back()->withErrors(trans('loyalty::orders.messages.subcribe_loyalty_failed'));
+            }
             if ($amount <= 0) {
-                // return $this->respondWithError(trans('staking::orders.messages.amount_large_than_0'));
-                return back()->withErrors(trans('staking::orders.messages.amount_large_than_0'));
+                return back()->withErrors(trans('loyalty::orders.messages.amount_large_than_0'));
             }
             $package = $this->packageRepository->findByAttributes(['id' => $packageId, 'status' => true]);
             if ($package) {
@@ -115,16 +129,12 @@ class PublicController extends BasePublicController
                 if ($term) {
                     $stakeCurrency = $package->currencyStake;
                     $rewardCurrency = $package->currencyReward;
-                    
-                    $customer = auth()->guard('customer')->user();
                     $wallet = $this->walletRepository->where("customer_id", $customer->id)->where("currency_id", $stakeCurrency->id)->first();
                     if (!$wallet) {
-                        // return $this->respondWithError(trans('wallet::wallets.messages.balance_dont_enough'));
                         return back()->withErrors(trans('wallet::wallets.messages.balance_dont_enough'));
                     }
 
                     if ($wallet->balance < $amount) {
-                        // return $this->respondWithError(trans('wallet::wallets.messages.balance_dont_enough'));
                         return back()->withErrors(trans('wallet::wallets.messages.balance_dont_enough'));
                     }
                     $newBalance = $wallet->balance - $amount;
@@ -182,16 +192,12 @@ class PublicController extends BasePublicController
                     $this->packageTermRepository->update($term, ['total_stake' => $term->total_stake + $amount]);
                     $this->transactionRepository->create($dataCreate);
                     CalCommissionStake::dispatch($order->id);
-                    // return $this->respondWithSuccess(['message' => trans('staking::orders.messages.staking_success'), 'url_return' => route('fe.staking.staking.mystaking')]);
-                    // return view('loyalties.detail-package', compact('package', 'term', 'wallet'));
                     return redirect()->route('fe.loyalty.loyalty.mystaking')->with('success', 'Staking successful');
                 } else {
-                    // return $this->respondWithError(trans('staking::packageterms.messages.packageterm_not_found'));
-                    return back()->withErrors(trans('staking::packageterms.messages.packageterm_not_found'));
+                    return back()->withErrors(trans('loyalty::packageterms.messages.packageterm_not_found'));
                 }
             } else {
-                // return $this->respondWithError(trans('staking::packages.messages.package_not_found'));
-                return back()->withErrors(trans('staking::packages.messages.package_not_found'));
+                return back()->withErrors(trans('loyalty::packages.messages.package_not_found'));
             }
         } catch (\Exception $e) {
             \Log::error($e->getMessage());

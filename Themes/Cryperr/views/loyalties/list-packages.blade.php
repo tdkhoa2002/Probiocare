@@ -35,6 +35,7 @@ Loyalty | @parent
         }
 
         $customer = auth()->guard('customer')->user();
+        $subscribed = false;
         // foreach ($orders as $order) {
         //     dd($order->term->package->id);
         // }
@@ -70,20 +71,23 @@ Loyalty | @parent
                         <span>1</span>
                     </div>
                 </div>
-                @if(count($orders) > 0)
-                    @foreach ($orders as $order)
-                        @if ($order->term->package->id == $package->id)
-                            <button type="button" class="btn btn-secondary btn-lg" disabled>Subcribed</button>
-                        @else
-                        <button type="submit" class="btn btn-success">Subcribe</button>
-                        @endif
-                    @endforeach
+                @foreach ($orders as $order)
+                    @if ($order->term->package->id == $package->id)
+                        @php
+                            $subscribed = true;
+                        @endphp
+                        @break
+                    @endif
+                @endforeach
+
+                @if ($subscribed)
+                    <button type="button" class="btn btn-secondary btn-lg" disabled>Subscribed</button>
                 @else
-                    <button type="submit" class="btn btn-success">Subcribe</button>
+                    <button type="submit" class="btn btn-success">Subscribe</button>
                 @endif
             </form>
-            </div>
         </div>
+    </div>
         @endforeach
 </div>
 @stop
