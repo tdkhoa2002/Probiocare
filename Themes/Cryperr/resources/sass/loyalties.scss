@@ -10,6 +10,8 @@
     font-size: 24px;
     line-height: 35.88px;
     color: #333333;
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -56,11 +58,11 @@
       display: flex;
       justify-content: space-between;
 
-      div div div span {
+      span {
         font-size: 14px;
         line-height: 19.6px;
       }
-      div div div span:nth-child(2) {
+      span:nth-child(2) {
           color: #1A773B;
       }
     }

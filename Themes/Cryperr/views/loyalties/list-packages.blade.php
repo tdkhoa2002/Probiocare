@@ -14,12 +14,12 @@ Loyalty | @parent
         @php
         $cashback;
         $packageTermId;
-        $commission;
+        $bonusCredit;
         $packageTrans = $package->translations->first();
         $title = $packageTrans->title;
         $packageCom0 = $package->commissions->first();
         if($packageCom0 !== null) {
-            $commission = $packageCom0->commission - 100;
+            $bonusCredit = $packageCom0->commission - 100;
         }
         $packageTerm0 = $package->terms->first();
         if($packageTerm0 !== null) {
@@ -44,7 +44,7 @@ Loyalty | @parent
             <form action="/loyalty/subcribeLoyalty" method="post">
             @csrf
             <div>
-                <img src="{{ Theme::url('images/icon-package.png') }}">
+                <img src="{{ Theme::url('images/icon-starter-package.png') }}">
                 <h4>{{ $title }}</h4>
                 <div>
                     <input type="text" name="packageId" value="{{ $package->id }}" hidden>
@@ -56,7 +56,7 @@ Loyalty | @parent
                     </div>
                     <div>
                         <span>Bonus Credit</span>
-                        <span>{{ $commission->commission }}%</span>
+                        <span>{{ $bonusCredit }}%</span>
                     </div>
                     <div>
                         <span>Daily Cashback</span>

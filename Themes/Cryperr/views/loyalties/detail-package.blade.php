@@ -1,7 +1,43 @@
+@php
+    $pkTrans = $package->translations->first();
+    $title = $pkTrans->title;
+    $commissions =  $package->commissions;
+    foreach ($commissions as $commission) {
+        if ($commission->level == 0 && $commission->status == true) {
+            $rewardAmount = $package->min_stake * $commission->commission / 100;
+        }
+    }
+    $currencyReward = $package->currencyReward->code;
+    $currencyCashback = $package->currencyCashback->code;
+    $currencyStake = $package->currencyStake->code;
+
+    $startDateFormatted = date("m/d/Y", strtotime($package->start_date));
+    $endDateFormatted = date("m/d/Y", strtotime($package->end_date));
+    $customer = auth()->guard('customer')->user();
+    $packageCom0 = $package->commissions->first();
+    $bonusCredit = $packageCom0->commission - 100;
+    $packageTerm0 = $package->terms->first();
+    $cashback = round($package->min_stake / $packageTerm0->day_reward, 2);
+    foreach ($commissions as $commission) {
+        if($commission->level == 1) {
+            $directCommission = $commission->commission;
+        }
+    }
+    // dd($package->getIcon());
+    // if ($package->getIcon()) {
+    //     $icon = $package->getIcon();
+    //     $iconUrl = $icon->path;
+    // } else {
+    //     $iconUrl = Theme::url('images/logo.png');
+    // }
+    // dd($iconUrl);
+// <img class="me-2" width="32px" height="32px" src="{{ $iconUrl }}" alt="" />
+@endphp
+
 @extends('layouts.private')
 
 @section('title')
-Staking | @parent
+Package Detail | @parent
 @stop
 {{-- @section('meta')
 <meta name="title" content="{{ $page->meta_title }}" />
@@ -9,17 +45,121 @@ Staking | @parent
 @stop --}}
 
 @section('content')
-<div class="staking-detail py-4 py-md-5">
-    <div class="container-custom">
-        <div class="staking-body">
-            <div class="d-flex justify-content-between mb-4">
-                <a class="backlink " href="/staking">
-                    <img height="20px" class="me-3" src="{{ Theme::url('images/left-outline.png') }}" alt="" />
-                    <div class="label">Staking Detail</div>
-                </a>
+<div class="back">
+    <a href="{{ route('fe.loyalty.loyalty.list-packages') }}">
+        <img src="{{ Theme::url('images/arrow-left.png') }}">
+        <div class="label">Detail Package</div>
+    </a>
+</div>
+<div id="detail-package">
+    <div id="information-package">
+        <div id="basic-info">
+            <div id="icon-package">
+                <img src="{{ Theme::url('images/icon-starter-package.png') }}">
             </div>
-            <form-staking :package-id="{{ $package->id }}" :balance="{{$wallet->balance ?? 0}}" :term-selected-id="{{ $term }}"></form-staking>
+            <div id="information">
+                <span id="title">{{ $title }}</span>
+                <div id="price-status">
+                    <div id="price">
+                        {{ $package->min_stake }} USD
+                    </div>
+                    <div id="status">
+                        @if ($order->status == 0)
+                        Processing
+                        @else
+                        Completed
+                        @endif
+                    </div>
+                </div>
+                <div style="color: #29292999;">This NFT will give you some unique benefits.</div>
+                <div id="customer-package">
+                    <div>
+                        <span>Owner</span>
+                        <span id="owner">{{ $customer->profile->full_name }}</span>
+                    </div>
+                    <div>
+                        <span>Bonus Credit</span>
+                        <span>{{ $bonusCredit }}%</span>
+                    </div>
+                    <div>
+                        <span>Daily Cashback</span>
+                        <span>{{ $cashback }} {{ $currencyCashback }} per day</span>
+                    </div>
+                    <div>
+                        <span>Direct Commission</span>
+                        <span>{{ $directCommission }}%</span>
+                    </div>
+                    <div>
+                        <span>Term Matching</span>
+                        <span>1</span>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div id="summary">
+            <div>
+                <span>Loyalty Summary</span>
+            </div>
+            <div id="content">
+                <div>
+                    <span>Valid From</span>
+                    <span>{{ $startDateFormatted }}</span>
+                </div>
+                <div>
+                    <span>Valid To</span>
+                    <span>{{ $endDateFormatted }}</span>
+                </div>
+                <div>
+                    <span>Loyalty Converted</span>
+                    <span>{{ $rewardAmount }} {{ $currencyReward }}</span>
+                </div>
+                <div>
+                    <span>Earned Reward</span>
+                    <span>{{ $order->total_amount_reward }} {{ $currencyCashback }} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="activities-package">
+        <h4>Activities</h4>
+        <table class="table">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Event</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Txh</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($transactions as $transaction)
+                    <tr>
+                        @if ($transaction->action == "STAKING")
+                            <th scope="row" style="color: #FF2F2F">-{{ $transaction->amount }} {{ $currencyStake }}</th>
+                        @elseif($transaction->action == "COMMISSION_STAKING")
+                            <th scope="row" style="color: #1A773B">+{{ $transaction->amount }} {{ $currencyReward }}</th>
+                        @elseif($transaction->action == "REWARD_STAKING")
+                            <th scope="row" style="color: #1A773B">+{{ $transaction->amount }} {{ $currencyCashback }}</th>
+                        @endif
+
+                        @if ($transaction->action == "STAKING")
+                            <td>Staking</td>
+                        @elseif($transaction->action == "COMMISSION_STAKING")
+                            <td>Commission Staking</td>
+                        @elseif($transaction->action == "REWARD_STAKING")
+                            <td>Reward Staking</td>
+                        @endif
+                        
+                        @if ($transaction->status == "COMPLETED")
+                            <td style="color: #1A773B;">Completed</td>
+                        @else
+                            <td style="color: #FDC22A;">Processing</td>
+                        @endif
+                        <td>{{ $transaction->txhash }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
 @stop

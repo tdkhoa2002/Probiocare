@@ -10,8 +10,10 @@ My Package | @parent
 
 @section('content')
 <div class="back">
-    <img src="{{ Theme::url('images/arrow-left.png') }}">
-    <a href="{{ route('fe.loyalty.loyalty.list-packages') }}"> My Package </a>
+    <a href="{{ route('fe.loyalty.loyalty.list-packages') }}">
+        <img src="{{ Theme::url('images/arrow-left.png') }}">
+        <div class="label">My Package</div>
+    </a>
 </div>
 <div class="loyalties-list">
         @foreach ($packages as $package)
@@ -44,8 +46,8 @@ My Package | @parent
             <form action="/loyalty/subcribeLoyalty" method="post">
             @csrf
             <div>
-                <img src="{{ Theme::url('images/icon-package.png') }}">
-                <h4>{{ $title }}</h4>
+                <img src="{{ Theme::url('images/icon-starter-package.png') }}">
+                <a href="{{ route('fe.loyalty.loyalty.loyalty-detail', ['packageId' => $package->id, 'term' => $packageTermId]) }}" style="font-size: 20px; font-weight: 500; line-height:28px; color: #292929; margin-bottom: 10px;">{{ $title }}</a>
                 <div>
                     <input type="text" name="packageId" value="{{ $package->id }}" hidden>
                     <input type="text" name="term_id" value="{{ $packageTermId }}" hidden>

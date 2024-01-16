@@ -9,20 +9,21 @@
                 <img src="{{ Theme::url('images/menu/prostore.png') }}" alt="" />
                 <div class="name">ProStore</div>
             </a>
-            <a class="menu-item {{ Route::currentRouteName() == 'fe.loyalty.loyalty.list-packages' ? 'active' : '' }}" href="{{ route('fe.loyalty.loyalty.list-packages') }}">
+            <a class="menu-item 
+            {{ Route::currentRouteName() == 'fe.loyalty.loyalty.list-packages' ? 'active' : '' }}
+            {{ Route::currentRouteName() == 'fe.loyalty.loyalty.myhistory' ? 'active' : '' }}
+            {{ Route::currentRouteName() == 'fe.loyalty.loyalty.mystaking' ? 'active' : '' }}
+            " href="{{ route('fe.loyalty.loyalty.list-packages') }}">
                 <img src="{{ Theme::url('images/menu/convert.png') }}" alt="" />
                 <div class="name">Loyalty</div>
                 <img class="arrow-bottom" src="{{ Theme::url('images/arrow-bottom.png') }}" alt="" />
             </a>
             <ul class="submenu">
-                <li>
+                <li class="{{ Route::currentRouteName() == 'fe.loyalty.loyalty.myhistory' ? 'active' : '' }}">
                     <a href="{{ route('fe.loyalty.loyalty.myhistory') }}">History</a>
                 </li> 
-                <li>
+                <li class="{{ Route::currentRouteName() == 'fe.loyalty.loyalty.mystaking' ? 'active' : '' }}">
                     <a href="{{ route('fe.loyalty.loyalty.mystaking') }}">My Package</a>
-                </li>
-                <li>
-                    <a href="">Package Detail</a>
                 </li>
             </ul>
             <a class="menu-item {{ Route::currentRouteName() =='fe.customer.customer.affiliate' ?'active':"" }}" href="{{route('fe.customer.customer.affiliate')}}">

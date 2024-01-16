@@ -6,6 +6,11 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Modules\Loyalty\Repositories\PackageRepository;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
+use Modules\Loyalty\Events\PackageIsCreating;
+use Modules\Loyalty\Events\PackageWasCreated;
+use Modules\Loyalty\Events\PackageIsUpdating;
+use Modules\Loyalty\Events\PackageWasUpdated;
+use Modules\Loyalty\Events\PackageWasDeleted;
 
 class EloquentPackageRepository extends EloquentBaseRepository implements PackageRepository
 {
@@ -45,5 +50,25 @@ class EloquentPackageRepository extends EloquentBaseRepository implements Packag
         $packages = $this->allWithBuilder();
         $packages->whereHas('terms')->where('status', true);
         return $packages->get();
+    }
+
+    public function create($data)
+    {
+        event($event = new PackageIsCreating($data));
+        $package = $this->model->create($event->getAttributes());
+        event(new PackageWasCreated($package, $data));
+        return $package;
+    }
+
+    public function update($model, $data) {
+        event($event = new PackageIsUpdating($model, $data));
+        $model->update($event->getAttributes());
+        event(new PackageWasUpdated($model, $data));
+        return $model;
+    }
+
+    public function destroy($package) {
+        event(new PackageWasDeleted($package));
+        return $package->delete();
     }
 }

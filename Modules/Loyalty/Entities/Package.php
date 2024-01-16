@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Wallet\Entities\Currency;
 use Modules\Loyalty\Entities\PackageTerm;
+use Modules\Media\Support\Traits\MediaRelation;
 
 class Package extends Model
 {
-    use Translatable, SoftDeletes;
+    use Translatable, SoftDeletes, MediaRelation;
 
     protected $table = 'loyalty__package';
     public $translatedAttributes = [
@@ -55,5 +56,10 @@ class Package extends Model
     public function commissions()
     {
         return $this->hasMany(Commission::class, 'package_id');
+    }
+
+    public function getIcon()
+    {
+        return $this->filesByZone('PACKAGE_ICON')->first();
     }
 }

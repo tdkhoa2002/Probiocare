@@ -72,7 +72,7 @@ class CalRewardStake extends Command
                         } else {
                             $rate = $this->calApr($apr, $hour_reward);
                             $diffHour = $now->diffInHours($last_time_reward);
-                            // if ($diffHour > 0 && $diffHour >= $hour_reward) {
+                            if ($diffHour > 0 && $diffHour >= $hour_reward) {
                                 $wallet = $this->walletRepository->where("customer_id", $order->customer_id)->where("currency_id",  $package->currency_cashback_id)->first();
                                 if (!$wallet) {
                                     $dataCreate = [
@@ -111,7 +111,7 @@ class CalRewardStake extends Command
                                 event(new UpdateBalanceWallet($newBalance, $wallet->id));
                                 $last_time_reward = Carbon::parse($last_time_reward)->addHours($hour_reward);
                                 $this->orderRepository->update($order, ['total_amount_reward' => $order->total_amount_reward + $reward, 'last_time_reward' => $last_time_reward]);
-                            // }
+                            }
                         }
                     }
                 }

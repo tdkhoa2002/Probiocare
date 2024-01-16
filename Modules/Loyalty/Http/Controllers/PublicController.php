@@ -116,7 +116,15 @@ class PublicController extends BasePublicController
                 $stakeCurrencyId = $package->currencyStake->id;
                 $term = $request->get('term');
                 $wallet = $this->walletRepository->where("customer_id", $customerID)->where("currency_id", $stakeCurrencyId)->first();
-                return view('loyalties.detail-package', compact('package', 'term', 'wallet'));
+                $order = $this->orderRepository->findByAttributes([
+                    'customer_id' => $customerID,
+                    'packageterm_id' => $term
+                ]);
+                $transactions = $this->transactionRepository->getByAttributes([
+                    'order' => $order->id,
+                    'customer_id' => $customerID
+                ]);
+                return view('loyalties.detail-package', compact('package', 'term', 'wallet', 'order', 'transactions'));
             } else {
                 return back()->withErrors(trans('staking::packages.messages.not_found'));
             }
@@ -168,6 +176,16 @@ class PublicController extends BasePublicController
                         $redemption_date =  now()->addDays($term->day_reward);
                     } elseif ($term->type == 'LOCKED-PRINCIPLE-PREPAID') {
                         $wallet = $this->walletRepository->where("customer_id", $customer->id)->where("currency_id", $rewardCurrency->id)->first();
+                        if(!$wallet) {
+                            $dataCreate = [
+                                'customer_id' => $customer->id,
+                                'currency_id' => $rewardCurrency->id,
+                                'type' => 'CRYPTO',
+                                'balance' => 0,
+                                'status' => true,
+                            ];
+                            $wallet = $this->walletRepository->create($dataCreate);
+                        }
                         $commissions =  $package->commissions;
                         foreach ($commissions as $commission) {
                             if ($commission->level == 0 && $commission->status == true) {
@@ -183,7 +201,8 @@ class PublicController extends BasePublicController
                         'packageterm_id' => $term->id,
                         'amount_stake' => $amount,
                         'amount_usd_stake' => $amount_usd_stake,
-                        'amount_reward' => $amount_reward,
+                        // 'amount_reward' => $amount_reward,
+                        'amount_reward' => $rewardAmount,
                         'subscription_date' =>  $now,
                         'redemption_date' => $redemption_date,
                         'last_time_reward' => now()->startOfHour(),

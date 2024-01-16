@@ -10,8 +10,10 @@ My Package | @parent
 
 @section('content')
 <div class="back">
-    <img src="{{ Theme::url('images/arrow-left.png') }}">
-    <a href="{{ route('fe.loyalty.loyalty.list-packages') }}"> History </a>
+    <a href="{{ route('fe.loyalty.loyalty.list-packages') }}">
+        <img src="{{ Theme::url('images/arrow-left.png') }}">
+        <div class="label">History</div>
+    </a>
 </div>
 <div>
     <my-history></my-history>

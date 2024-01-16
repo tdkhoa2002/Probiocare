@@ -58,7 +58,6 @@ class PackageAdminController extends Controller
 
     public function destroy(Package $packageLoyalty)
     {
-        info($packageLoyalty);
         $this->packageRepository->destroy($packageLoyalty);
         return response()->json([
             'errors' => false,
