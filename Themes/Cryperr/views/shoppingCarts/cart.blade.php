@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Carts | @parent
+{{ __('shopping.title_cart') }} | @parent
 @stop
 
 @section('content')
@@ -10,7 +10,7 @@ Carts | @parent
         <div class="d-flex justify-content-between my-3">
             <a class="backlink " href="{{ route('homepage') }}">
                 <img height="20px" class="me-3" src="{{ Theme::url('images/left-outline.png') }}" alt="" />
-                <div class="label">Your Cart</div>
+                <div class="label">{{ __('shopping.cart_label') }}</div>
             </a>
         </div>
     </div>
@@ -20,22 +20,22 @@ Carts | @parent
                 <div class="box-table-cart">
                     <div class="table-title">
                         <img class="pointer" src="{{ Theme::url('images/icons/icon-shop.png') }}" alt="">
-                        <span>Order Summary</span>
+                        <span>{{ __('shopping.order_summary') }}</span>
                     </div>
                     <div class="box-table">
                         <ul class="clearfix">
                             <li>
                                 <div class="thumb">
-                                    Product
+                                    {{ __('shopping.product') }}
                                 </div>
                                 <div class="price-block">
-                                    Price
+                                    {{ __('shopping.price') }}
                                 </div>
                                 <div class="product-number">
-                                    Quantity
+                                    {{ __('shopping.quantity') }}
                                 </div>
                                 <div class="total-block">
-                                    Total
+                                    {{ __('shopping.total') }}
                                 </div>
                                 <div class="remove">
                                 </div>
@@ -86,26 +86,25 @@ Carts | @parent
             </div>
             <div class="col-12 col-lg-4">
                 <div class="box-info-cart">
-                    <h3>Your Order</h3>
+                    <h3>{{ __('shopping.your_order') }}</h3>
                     <div class="box-info sub-total">
-                        <div>Subtotal</div>
+                        <div>{{ __('shopping.subtotal') }}</div>
                         <div class="price"><span>{{ $subtotal }}</span>đ</div>
                     </div>
                     <div class="box-info">
-                        <div>Use PLC
-                            Joint Probiocare Loyalty to get your Credit</div>
+                        <div>{{ __('shopping.pay_plc') }}</div>
                         <div>{{ $plc }}đ</div>
                     </div>
                     <hr>
                     <div class="box-info total-payment">
-                        <div>Total Payment</div>
+                        <div>{{ __('shopping.total_payment') }}</div>
                         <div class="price"><span>{{ $total }}</span>đ</div>
                     </div>
                     <div class="action">
                         <a class="btn btn-success" href="{{ route('fe.shoppingcart.getCheckout') }}">
-                            Check Out
+                            {{ __('shopping.checkout_btn') }}
                         </a>
-                        <a href="#">Continue shopping</a>
+                        <a href="#">{{ __('shopping.continue_shopping') }}</a>
                     </div>
                 </div>
             </div>
