@@ -27,7 +27,7 @@
                     </div>
                     <div class="action">
                         <a href="#" class="btn">{{ __('shopping.view') }}</a>
-                        <a href="#" class="btn btn-success">{{ __('shopping.continue_shopping') }}</a>
+                        <a href="/san-pham" class="btn btn-success">{{ __('shopping.continue_shopping') }}</a>
                     </div>
                 </div>
             </div>

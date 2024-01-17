@@ -114,7 +114,7 @@
                             <button type="submit" class="btn btn-success">
                                 {{ __('shopping.checkout_btn') }}
                             </button>
-                            <a href="#">{{ __('shopping.continue_shopping') }}</a>
+                            <a href="/san-pham">{{ __('shopping.continue_shopping') }}</a>
                         </div>
                     </div>
                 </div>
