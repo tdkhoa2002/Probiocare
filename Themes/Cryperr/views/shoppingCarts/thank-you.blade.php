@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Order Status | @parent
+{{ __('shopping.order_status') }} | @parent
 @stop
 
 @section('content')
@@ -10,7 +10,7 @@ Order Status | @parent
         <div class="d-flex justify-content-between my-3">
             <a class="backlink " href="{{ route('homepage') }}">
                 <img height="20px" class="me-3" src="{{ Theme::url('images/left-outline.png') }}" alt="" />
-                <div class="label">Order Status</div>
+                <div class="label">{{ __('shopping.order_status') }}</div>
             </a>
         </div>
     </div>
@@ -19,15 +19,15 @@ Order Status | @parent
             <div class="col-12">
                 <div class="box-order-status">
                     <div class="title">
-                        <h3>Order Successfully</h3>
-                        <p>Your order has been completed, please check your balance</p>
+                        <h3>{{ __('shopping.success') }}</h3>
+                        <p>{{ __('shopping.noti') }}</p>
                     </div>
                     <div class="image">
                         <img src="{{ Theme::url('images/carbon_task-complete.png') }}" alt="" />
                     </div>
                     <div class="action">
-                        <a href="#" class="btn">View Order</a>
-                        <a href="#" class="btn btn-success">Continue Shopping</a>
+                        <a href="#" class="btn">{{ __('shopping.view') }}</a>
+                        <a href="/san-pham" class="btn btn-success">{{ __('shopping.continue_shopping') }}</a>
                     </div>
                 </div>
             </div>

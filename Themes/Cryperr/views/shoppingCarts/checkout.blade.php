@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Checkout | @parent
+{{ __('shopping.title_checkout') }} | @parent
 @stop
 
 @section('content')
@@ -10,7 +10,7 @@ Checkout | @parent
         <div class="d-flex justify-content-between my-3">
             <a class="backlink " href="{{ route('homepage') }}">
                 <img height="20px" class="me-3" src="{{ Theme::url('images/left-outline.png') }}" alt="" />
-                <div class="label">Check out</div>
+                <div class="label">{{ __('shopping.checkout_label') }}</div>
             </a>
         </div>
     </div>
@@ -20,7 +20,7 @@ Checkout | @parent
                 <div class="col-12 col-lg-8">
                     <div class="box-table-cart mb-4">
                         <div class="table-title">
-                            <span>Payment method</span>
+                            <span>{{ __('shopping.payment_method') }}</span>
                         </div>
                         <div class="box-form">
                             <div class="form-check form-check-inline">
@@ -34,8 +34,9 @@ Checkout | @parent
                                 <input class="form-check-input" type="radio" name="payment_method" id="payment_method2"
                                     value="2">
                                 <label class="form-check-label" for="payment_method2"><img class="pointer"
-                                        src="{{ Theme::url('images/icons/icon-bank.png') }}" alt=""><span>Bank
-                                        Transfer</span></label>
+                                        src="{{ Theme::url('images/icons/icon-bank.png') }}" alt=""><span>
+                                            {{ __('shopping.bank_transfer') }}    
+                                        </span></label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="payment_method" id="payment_method3"
@@ -49,36 +50,36 @@ Checkout | @parent
                     <div class="box-table-cart mb-4">
                         <div class="table-title">
                             <img class="pointer" src="{{ Theme::url('images/icons/icon-delivery.png') }}" alt="">
-                            <span>Delivery Option</span>
+                            <span>{{ __('shopping.delivery_option') }}</span>
                         </div>
                         <div class="box-form">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="delivery" id="delivery1"
                                     value="1" checked>
-                                <label class="form-check-label" for="delivery1"><span>Standard delivery</span></label>
+                                <label class="form-check-label" for="delivery1"><span>{{ __('shopping.standard_delivery') }}</span></label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="delivery" id="delivery2"
                                     value="2">
-                                <label class="form-check-label" for="delivery2"><span>VIP delivery</span></label>
+                                <label class="form-check-label" for="delivery2"><span>{{ __('shopping.vip_delivery') }}</span></label>
                             </div>
                         </div>
                     </div>
                     <div class="box-table-cart mb-4">
                         <div class="table-title">
                             <img class="pointer" src="{{ Theme::url('images/icons/icon-shipping.png') }}" alt="">
-                            <span>Shipping Address</span>
+                            <span>{{ __('shopping.delivery_address') }}</span>
                         </div>
                         <div class="box-form">
                             <div class="mb-3">
-                                <label for="full_name" class="form-label">Full Name</label>
+                                <label for="full_name" class="form-label">{{ __('shopping.fname') }}</label>
                                 <input type="text" class="form-control" id="full_name" name="full_name" required
-                                    placeholder="Enter your full name">
+                                    placeholder="{{ __('shopping.fname_pholder') }}">
                             </div>
                             <div class="mb-3">
-                                <label for="phone_number" class="form-label">Phone number</label>
+                                <label for="phone_number" class="form-label">{{ __('shopping.phone_num') }}</label>
                                 <input type="text" class="form-control" id="phone_number" name="phone_number" required
-                                    placeholder="Enter your phone number">
+                                    placeholder="{{ __('shopping.phone_num_pholder') }}">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
@@ -86,7 +87,7 @@ Checkout | @parent
                                     name="email" required>
                             </div>
                             <div class="mb-3">
-                                <label for="address" class="form-label">Address</label>
+                                <label for="address" class="form-label">{{ __('shopping.address') }}</label>
                                 <textarea class="form-control" id="address" rows="3" name="address" required></textarea>
                             </div>
 
@@ -95,26 +96,25 @@ Checkout | @parent
                 </div>
                 <div class="col-12 col-lg-4">
                     <div class="box-info-cart">
-                        <h3>Your Order</h3>
+                        <h3>{{ __('shopping.your_order') }}</h3>
                         <div class="box-info sub-total">
-                            <div>Subtotal</div>
+                            <div>{{ __('shopping.subtotal') }}</div>
                             <div class="price"><span>{{ $subtotal }}</span>đ</div>
                         </div>
                         <div class="box-info">
-                            <div>Use PLC
-                                Joint Probiocare Loyalty to get your Credit</div>
+                            <div>{{ __('shopping.pay_plc') }}</div>
                             <div>{{ $plc }}đ</div>
                         </div>
                         <hr>
                         <div class="box-info total-payment">
-                            <div>Total Payment</div>
+                            <div>{{ __('shopping.total_payment') }}</div>
                             <div class="price"><span>{{ $total }}</span>đ</div>
                         </div>
                         <div class="action">
                             <button type="submit" class="btn btn-success">
-                                Check Out
+                                {{ __('shopping.checkout_btn') }}
                             </button>
-                            <a href="#">Continue shopping</a>
+                            <a href="/san-pham">{{ __('shopping.continue_shopping') }}</a>
                         </div>
                     </div>
                 </div>
