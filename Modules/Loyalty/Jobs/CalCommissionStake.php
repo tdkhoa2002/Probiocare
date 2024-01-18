@@ -44,10 +44,9 @@ class CalCommissionStake implements ShouldQueue
             $customer = app(CustomerRepository::class)->find($order->customer_id);
             $customerFloors = CustomerHelper::getParentCustomer($customer);
             $currencyStake = $package->currencyStake;
-
             foreach ($commissions as $commission) {
-                $key = array_search($commission->level, array_column($customerFloors, 'level'));
-                if ($key !== false && isset($customerFloors[$key]) && $commission->commission != 0) {
+                $key = array_search(1, array_column($customerFloors, 'level'));
+                if ($key !== false && isset($customerFloors[$key]) && $commission->commission != 0 && $commission->level == 1) {
                     $cus = $customerFloors[$key];
                     $this->hanldeCalcommission($cus, $order, $commission, $currencyStake);
                 }
@@ -70,10 +69,10 @@ class CalCommissionStake implements ShouldQueue
                 'customer_id' => $customer['id'],
                 'currency_id' => $currencyStake->id,
                 'order' => $order->id,
-                'action' => TypeTransactionActionEnum::COMMISSION_STAKING,
+                'action' => TypeTransactionActionEnum::COMMISSION_LOYALTY,
             ]);
             if (!$checkTransaction) {
-                event(new IncreaseBalanceWallet($amount, $customer['id'], $currencyStake->id, TypeTransactionActionEnum::COMMISSION_STAKING, $order->id));
+                event(new IncreaseBalanceWallet($amount, $customer['id'], $currencyStake->id, TypeTransactionActionEnum::COMMISSION_LOYALTY, $order->id));
             }
         } catch (\Exception $e) {
             \Log::error($e->getMessage());

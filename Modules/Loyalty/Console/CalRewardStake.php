@@ -5,12 +5,16 @@ namespace Modules\Loyalty\Console;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Modules\Loyalty\Repositories\OrderRepository;
+use Modules\Loyalty\Repositories\CommissionRepository;
 use Modules\Wallet\Enums\StatusTransactionEnum;
 use Modules\Wallet\Repositories\WalletRepository;
 use Modules\Wallet\Enums\TypeTransactionActionEnum;
 use Modules\Wallet\Events\CreateTransaction;
 use Modules\Wallet\Events\UpdateBalanceWallet;
 use Modules\Wallet\Repositories\TransactionRepository;
+use Modules\Customer\Repositories\CustomerRepository;;
+use Modules\Customer\Helpers\CustomerHelper;
+use Modules\Wallet\Events\IncreaseBalanceWallet;
 
 class CalRewardStake extends Command
 {
@@ -31,17 +35,26 @@ class CalRewardStake extends Command
     protected $orderRepository;
     protected $walletRepository;
     protected $transactionRepository;
+    protected $customerRepository;
+    protected $commissionRepository;
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct(OrderRepository $orderRepository, WalletRepository $walletRepository, TransactionRepository $transactionRepository)
-    {
+    public function __construct(
+        OrderRepository $orderRepository,
+         WalletRepository $walletRepository, 
+         TransactionRepository $transactionRepository,
+         CustomerRepository $customerRepository,
+         CommissionRepository $commissionRepository
+    ) {
         parent::__construct();
         $this->orderRepository = $orderRepository;
         $this->walletRepository = $walletRepository;
         $this->transactionRepository = $transactionRepository;
+        $this->customerRepository = $customerRepository;
+        $this->commissionRepository = $commissionRepository;
     }
 
     /**
@@ -106,11 +119,12 @@ class CalRewardStake extends Command
                                     'note' => null,
                                     'status' => StatusTransactionEnum::COMPLETED
                                 ];
-
                                 event(new CreateTransaction($dataCreate));
                                 event(new UpdateBalanceWallet($newBalance, $wallet->id));
                                 $last_time_reward = Carbon::parse($last_time_reward)->addHours($hour_reward);
                                 $this->orderRepository->update($order, ['total_amount_reward' => $order->total_amount_reward + $reward, 'last_time_reward' => $last_time_reward]);
+                                //Tra hoa hong lai tren lai
+                                $this->handleCalCommissionLoyalty($order);
                             }
                         }
                     }
@@ -180,5 +194,43 @@ class CalRewardStake extends Command
         $aprDay = $apr / 365;
         $aprHour = $aprDay / 24;
         return $aprHour * $hour_reward;
+    }
+
+    private function handleCalCommissionLoyalty($order) {
+        $term = $order->term;
+        $package = $term->package;
+        $commissions =  $package->commissions;
+        $customer = $this->customerRepository->find($order->customer_id);
+        $customerFloors = CustomerHelper::getParentCustomer($customer);
+        $currencyStake = $package->currencyStake;
+        $lastLevel = $this->commissionRepository->getCommissionLastLevel($package->id);
+        foreach ($commissions as $commission) {
+            $key = array_search($commission->level, array_column($customerFloors, 'level'));
+            if ($key !== false && isset($customerFloors[$key]) && $commission->commission != 0) {
+                $cus = $customerFloors[$key];
+                if($cus['level'] > 0 && $cus['level'] <= $lastLevel->level) {
+                    $this->hanldeCalcommission($cus, $order, $commission, $currencyStake);
+                }
+            }
+        }
+    }
+
+    private function hanldeCalcommission($customer, $order, $commission, $currencyStake)
+    {
+        $amount = $commission->commission;
+        if ($commission->type == 1) {
+            $amount = ($order->amount_stake * $commission->commission) / 100;
+        }
+
+        // $checkTransaction = $this->transactionRepository->findByAttributes([
+        //     'customer_id' => $customer['id'],
+        //     'currency_id' => $currencyStake->id,
+        //     'order' => $order->id,
+        //     'action' => TypeTransactionActionEnum::COMMISSION_LOYALTY,
+        // ]);
+        // if (!$checkTransaction) {
+        //     event(new IncreaseBalanceWallet($amount, $customer['id'], $currencyStake->id, TypeTransactionActionEnum::COMMISSION_LOYALTY, $order->id));
+        // }
+        event(new IncreaseBalanceWallet($amount, $customer['id'], $currencyStake->id, TypeTransactionActionEnum::COMMISSION_LOYALTY, $order->id));
     }
 }

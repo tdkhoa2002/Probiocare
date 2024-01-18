@@ -214,7 +214,7 @@ class PublicController extends BasePublicController
                         'customer_id' => $customer->id,
                         'currency_id' => $stakeCurrency->id,
                         'blockchain_id' => null,
-                        'action' => TypeTransactionActionEnum::STAKING,
+                        'action' => TypeTransactionActionEnum::SUBCRIBE_LOYALTY,
                         'amount' => $amount,
                         'amount_usd' => $amount * $stakeCurrency->usd_rate,
                         'fee' => 0,
@@ -231,7 +231,28 @@ class PublicController extends BasePublicController
                     ];
                     $this->packageTermRepository->update($term, ['total_stake' => $term->total_stake + $amount]);
                     $this->transactionRepository->create($dataCreate);
-                    CalCommissionStake::dispatch($order->id);
+
+                    $dataCreate = [
+                        'customer_id' => $customer->id,
+                        'currency_id' => $rewardCurrency->id,
+                        'blockchain_id' => null,
+                        'action' => TypeTransactionActionEnum::REWARD_LOYALTY,
+                        'amount' => $rewardAmount,
+                        'amount_usd' => $rewardAmount * $rewardCurrency->usd_rate,
+                        'fee' => 0,
+                        'balance' => $newBalance,
+                        'balanceBefore' => $wallet->balance,
+                        'payment_method' => 'CRYPTO',
+                        'txhash' => random_strings(30),
+                        'from' => "",
+                        'to' => "",
+                        'tag' => null,
+                        'order' => $order->id,
+                        'note' => null,
+                        'status' => StatusTransactionEnum::COMPLETED
+                    ];
+                    $this->transactionRepository->create($dataCreate);
+                    CalCommissionStake::dispatch($order->id); //Tra hoa hong cho sponsor lv 1 khi dang ky package
                     return redirect()->route('fe.loyalty.loyalty.mystaking')->with('success', 'Staking successful');
                 } else {
                     return back()->withErrors(trans('loyalty::packageterms.messages.packageterm_not_found'));
