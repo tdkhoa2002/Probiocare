@@ -12,7 +12,7 @@ use Modules\Wallet\Enums\TypeTransactionActionEnum;
 use Modules\Wallet\Events\IncreaseBalanceWallet;
 use Modules\Wallet\Repositories\TransactionRepository;
 
-class CalCommissionStake extends Command
+class CalCommissionLoyalty extends Command
 {
     /**
      * The name and signature of the console command.

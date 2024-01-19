@@ -14,7 +14,7 @@ use Modules\Wallet\Repositories\TransactionRepository;
 use Modules\Loyalty\Repositories\OrderRepository;
 use Modules\Customer\Repositories\CustomerRepository;
 
-class CalCommissionStake implements ShouldQueue
+class CalCommissionLoyalty implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 

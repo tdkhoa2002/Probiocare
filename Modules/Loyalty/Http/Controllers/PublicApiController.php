@@ -10,7 +10,7 @@ use Modules\Loyalty\Repositories\PackageTermRepository;
 use Modules\Loyalty\Repositories\OrderRepository;
 use Illuminate\Http\Request;
 use Modules\Core\Http\Controllers\Api\BaseApiController;
-use Modules\Loyalty\Jobs\CalCommissionStake;
+use Modules\Loyalty\Jobs\CalCommissionLoyalty;
 use Modules\Loyalty\Transformers\Orders\Frontend\FullOrderTransformer;
 use Modules\Loyalty\Transformers\Packages\FullPackageTransformer;
 use Modules\Wallet\Enums\StatusTransactionEnum;

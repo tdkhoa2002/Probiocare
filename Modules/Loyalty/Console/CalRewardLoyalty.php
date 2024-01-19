@@ -16,7 +16,7 @@ use Modules\Customer\Repositories\CustomerRepository;;
 use Modules\Customer\Helpers\CustomerHelper;
 use Modules\Wallet\Events\IncreaseBalanceWallet;
 
-class CalRewardStake extends Command
+class CalRewardLoyalty extends Command
 {
     /**
      * The name and signature of the console command.
@@ -73,7 +73,7 @@ class CalRewardStake extends Command
                 if ($term) {
                     $package = $term->package;
                     if ($package) {
-                        $amount_reward = $order->amount_reward;
+                        $amount_stake = $order->amount_stake;
                         $hour_reward = $package->hour_reward;
                         $apr = $term->apr_reward;
                         $last_time_reward = $order->last_time_reward;
@@ -98,13 +98,13 @@ class CalRewardStake extends Command
                                     $wallet = $this->walletRepository->create($dataCreate);
                                 }
                                 $rewardCurrency = $package->currencyReward;
-                                $reward = ($amount_reward * $rate) / 100;
+                                $reward = ($amount_stake * $rate) / 100;
                                 $newBalance = $wallet->balance + $reward;
                                 $dataCreate = [
                                     'customer_id' => $order->customer_id,
                                     'currency_id' => $package->currency_cashback_id,
                                     'blockchain_id' => null,
-                                    'action' => TypeTransactionActionEnum::REWARD_STAKING,
+                                    'action' => TypeTransactionActionEnum::REWARD_LOYALTY,
                                     'amount' => $reward,
                                     'amount_usd' => $reward * $rewardCurrency->usd_rate,
                                     'fee' => 0,
@@ -209,17 +209,20 @@ class CalRewardStake extends Command
             if ($key !== false && isset($customerFloors[$key]) && $commission->commission != 0) {
                 $cus = $customerFloors[$key];
                 if($cus['level'] > 0 && $cus['level'] <= $lastLevel->level) {
-                    $this->hanldeCalcommission($cus, $order, $commission, $currencyStake);
+                    $this->hanldeCalcommission($cus, $order, $commission, $currencyStake, $term, $package);
                 }
             }
         }
     }
 
-    private function hanldeCalcommission($customer, $order, $commission, $currencyStake)
+    private function hanldeCalcommission($customer, $order, $commission, $currencyStake, $term, $package)
     {
+        $apr = $term->apr_reward;
+        $hour_reward = $package->hour_reward;
+        $rate = $this->calApr($apr, $hour_reward);
         $amount = $commission->commission;
         if ($commission->type == 1) {
-            $amount = ($order->amount_stake * $commission->commission) / 100;
+            $amount = ($order->amount_stake * $rate) / 100 * $commission->commission / 100;
         }
 
         // $checkTransaction = $this->transactionRepository->findByAttributes([
