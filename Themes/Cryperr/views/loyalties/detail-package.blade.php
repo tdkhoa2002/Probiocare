@@ -22,6 +22,7 @@
         if($commission->level == 1) {
             $directCommission = $commission->commission;
         }
+        $termMatching = $commission->level;
     }
     // dd($package->getIcon());
     // if ($package->getIcon()) {
@@ -91,7 +92,7 @@ Package Detail | @parent
                     </div>
                     <div>
                         <span>Term Matching</span>
-                        <span>1</span>
+                        <span>{{ $termMatching }}</span>
                     </div>
                 </div>
             </div>
