@@ -17,7 +17,7 @@
     $packageCom0 = $package->commissions->first();
     $bonusCredit = $packageCom0->commission - 100;
     $packageTerm0 = $package->terms->first();
-    $cashback = round($package->min_stake / $packageTerm0->day_reward, 2);
+    $cashback = $package->min_stake / $packageTerm0->day_reward * $packageTerm0->apr_reward / 100;
     foreach ($commissions as $commission) {
         if($commission->level == 1) {
             $directCommission = $commission->commission;

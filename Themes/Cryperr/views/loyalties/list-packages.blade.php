@@ -23,7 +23,7 @@ Loyalty | @parent
         }
         $packageTerm0 = $package->terms->first();
         if($packageTerm0 !== null) {
-            $cashback = round($package->min_stake / $packageTerm0->day_reward, 2);
+            $cashback = $package->min_stake / $packageTerm0->day_reward * $packageTerm0->apr_reward / 100;
             $packageTermId = $packageTerm0->id;
         }
         $currencyCashback = $package->currencyCashback;
