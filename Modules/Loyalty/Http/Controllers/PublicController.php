@@ -252,7 +252,7 @@ class PublicController extends BasePublicController
                         'status' => StatusTransactionEnum::COMPLETED
                     ];
                     $this->transactionRepository->create($dataCreate);
-                    CalCommissionStake::dispatch($order->id); //Tra hoa hong cho sponsor lv 1 khi dang ky package
+                    CalCommissionLoyalty::dispatch($order->id); //Tra hoa hong cho sponsor lv 1 khi dang ky package
                     return redirect()->route('fe.loyalty.loyalty.mystaking')->with('success', 'Staking successful');
                 } else {
                     return back()->withErrors(trans('loyalty::packageterms.messages.packageterm_not_found'));
