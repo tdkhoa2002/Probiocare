@@ -9,8 +9,8 @@ use Illuminate\Support\ServiceProvider;
 use Modules\Core\Traits\CanPublishConfiguration;
 use Modules\Core\Events\BuildingSidebar;
 use Modules\Core\Events\LoadingBackendTranslations;
-use Modules\Loyalty\Console\CalCommissionStake;
-use Modules\Loyalty\Console\CalRewardStake;
+use Modules\Loyalty\Console\CalCommissionLoyalty;
+use Modules\Loyalty\Console\CalRewardLoyalty;
 use Modules\Loyalty\Listeners\RegisterLoyaltySidebar;
 
 class LoyaltyServiceProvider extends ServiceProvider
@@ -125,14 +125,14 @@ class LoyaltyServiceProvider extends ServiceProvider
             function () {
                 $repository = new \Modules\Loyalty\Repositories\Eloquent\EloquentOrderRepository(new \Modules\Loyalty\Entities\Order());
 
-                if (!config('app.cache')) {
+                if (! config('app.cache')) {
                     return $repository;
                 }
 
                 return new \Modules\Loyalty\Repositories\Cache\CacheOrderDecorator($repository);
             }
         );
-        // add bindings
+// add bindings
 
 
 
@@ -143,8 +143,8 @@ class LoyaltyServiceProvider extends ServiceProvider
     private function registerCommands()
     {
         $this->commands([
-            CalRewardStake::class,
-            CalCommissionStake::class
+            CalRewardLoyalty::class,
+            CalCommissionLoyalty::class
         ]);
     }
 }

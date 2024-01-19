@@ -32,6 +32,8 @@ class FullOrderTransformer extends JsonResource
             $currencyStake = null;
             $currencyReward = null;
         }
+        $packageTrans = $package->translations->first();
+        $title = $packageTrans->title;
 
         return [
             'id' => $this->resource->id,
@@ -50,7 +52,8 @@ class FullOrderTransformer extends JsonResource
             'principal' => $principal,
             'status' => $this->resource->status,
             'created_at' => $this->resource->created_at,
-            'updated_at' => $this->resource->updated_at
+            'updated_at' => $this->resource->updated_at,
+            'title' => $title
         ];
     }
 }

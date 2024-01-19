@@ -7,6 +7,12 @@ return [
         'edit' => 'loyalty::packages.edit resource',
         'destroy' => 'loyalty::packages.destroy resource',
     ],
+    'loyalty.orders' => [
+        'index' => 'loyalty::orders.list resource',
+        'create' => 'loyalty::orders.create resource',
+        'edit' => 'loyalty::orders.edit resource',
+        'destroy' => 'loyalty::orders.destroy resource',
+    ],
 // append
 
 ];

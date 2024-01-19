@@ -58,6 +58,10 @@ Vue.component('form-signin', require('./components/auths/formSignin.vue').defaul
 //convert
 Vue.component('convert-index', require('./components/converts/index.vue').default);
 
+//Loyalties
+Vue.component('my-history', require('./components/loyalties/my-history.vue').default);
+
+
 new Vue({
     el: '#app',
 });

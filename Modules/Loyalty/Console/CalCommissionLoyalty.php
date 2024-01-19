@@ -12,14 +12,14 @@ use Modules\Wallet\Enums\TypeTransactionActionEnum;
 use Modules\Wallet\Events\IncreaseBalanceWallet;
 use Modules\Wallet\Repositories\TransactionRepository;
 
-class CalCommissionStake extends Command
+class CalCommissionLoyalty extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'cal:commission-stake';
+    protected $name = 'cal:commission-loyalty';
 
     /**
      * The console command description.

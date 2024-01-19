@@ -312,7 +312,7 @@ export default {
     },
     getRoute() {
       return route("api.loyalty.package.update", {
-        package: this.$route.params.packageId,
+        packageLoyalty: this.$route.params.packageId,
       });
     },
   },

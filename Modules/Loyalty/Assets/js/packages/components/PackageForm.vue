@@ -157,6 +157,13 @@
                 <div v-if="form.errors.has('principal_is_stake_currency')" class="el-form-item__error"
                   v-text="form.errors.first('principal_is_stake_currency')"></div>
               </el-form-item>
+              <single-media
+                :entity-id="packageData.id"
+                zone="PACKAGE_ICON"
+                entity="Modules\Loyalty\Entities\Package"
+                @single-file-selected="selectSingleFile($event, 'package')"
+              ></single-media>
+              <br>
               <el-form-item :label="trans('packages.form.status')" :class="{
                 'el-form-item is-error': form.errors.has('status'),
               }">

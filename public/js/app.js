@@ -9227,7 +9227,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     getRoute: function getRoute() {
       return route("api.loyalty.package.update", {
-        "package": this.$route.params.packageId
+        packageLoyalty: this.$route.params.packageId
       });
     }
   }
@@ -19788,7 +19788,18 @@ var render = function render() {
     domProps: {
       textContent: _vm._s(_vm.form.errors.first("principal_is_stake_currency"))
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c("el-form-item", {
+  }) : _vm._e()], 1), _vm._v(" "), _c("single-media", {
+    attrs: {
+      "entity-id": _vm.packageData.id,
+      zone: "PACKAGE_ICON",
+      entity: "Modules\\Loyalty\\Entities\\Package"
+    },
+    on: {
+      "single-file-selected": function singleFileSelected($event) {
+        return _vm.selectSingleFile($event, "package");
+      }
+    }
+  }), _vm._v(" "), _c("br"), _vm._v(" "), _c("el-form-item", {
     "class": {
       "el-form-item is-error": _vm.form.errors.has("status")
     },

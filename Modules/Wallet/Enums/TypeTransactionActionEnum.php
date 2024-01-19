@@ -25,4 +25,7 @@ enum TypeTransactionActionEnum: string
     case USER_SELL_ADS = "USER_SELL_ADS";
     case SWAP_FROM = "SWAP_FROM";
     case SWAP_TO = "SWAP_TO";
+    case COMMISSION_LOYALTY = "COMMISSION_LOYALTY";
+    case SUBCRIBE_LOYALTY = "SUBCRIBE_LOYALTY";
+    case REWARD_LOYALTY = "REWARD_LOYALTY";
 }

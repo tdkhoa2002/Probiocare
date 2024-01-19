@@ -41,24 +41,24 @@ class PackageAdminController extends Controller
         ]);
     }
 
-    public function find($PackageId)
+    public function find($packageId)
     {
-        $Package = $this->packageRepository->find($PackageId);
+        $Package = $this->packageRepository->find($packageId);
         return new FullAdminPackageTransformer($Package);
     }
 
-    public function update(Package $Package, UpdatePackageRequest $request)
+    public function update(Package $packageLoyalty, UpdatePackageRequest $request)
     {
-        $this->packageRepository->update($Package, $request->all());
+        $this->packageRepository->update($packageLoyalty, $request->all());
         return response()->json([
             'errors' => false,
             'message' => trans('staking::packages.messages.package updated'),
         ]);
     }
 
-    public function destroy(Package $Package)
+    public function destroy(Package $packageLoyalty)
     {
-        $this->packageRepository->destroy($Package);
+        $this->packageRepository->destroy($packageLoyalty);
         return response()->json([
             'errors' => false,
             'message' => trans('staking::packages.messages.package deleted'),
