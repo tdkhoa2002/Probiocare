@@ -38,6 +38,7 @@ My Package | @parent
             if($commission->level == 1) {
                 $directCommission = $commission->commission;
             }
+            $termMatching = $commission->level;
         }
 
         $customer = auth()->guard('customer')->user();
@@ -70,7 +71,7 @@ My Package | @parent
                     </div>
                     <div>
                         <span>Term Matching</span>
-                        <span>1</span>
+                        <span>{{ $termMatching }}</span>
                     </div>
                 </div>
                 <button type="button" class="btn btn-secondary btn-lg" disabled>Subcribed</button>

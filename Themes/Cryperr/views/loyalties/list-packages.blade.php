@@ -32,13 +32,11 @@ Loyalty | @parent
             if($commission->level == 1) {
                 $directCommission = $commission->commission;
             }
+            $termMatching = $commission->level;
         }
 
         $customer = auth()->guard('customer')->user();
         $subscribed = false;
-        // foreach ($orders as $order) {
-        //     dd($order->term->package->id);
-        // }
         @endphp
         <div class="loyalty-item">
             <form action="/loyalty/subcribeLoyalty" method="post">
@@ -68,7 +66,7 @@ Loyalty | @parent
                     </div>
                     <div>
                         <span>Term Matching</span>
-                        <span>1</span>
+                        <span>{{ $termMatching }}</span>
                     </div>
                 </div>
                 @foreach ($orders as $order)
