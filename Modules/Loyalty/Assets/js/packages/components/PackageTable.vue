@@ -79,6 +79,11 @@
                     <span>{{ scope.row.end_date }}</span>
                   </template>
                 </el-table-column>
+                <el-table-column :label="trans('packages.table.require_entry')" width="130">
+                  <template slot-scope="scope">
+                    <i :class="scope.row.require_entry === true ? 'text-success' : 'text-danger'" class="fa fa-circle"></i>
+                  </template>
+                </el-table-column>
                 <el-table-column :label="trans('packages.table.status')" width="60">
                   <template slot-scope="scope">
                     <i :class="scope.row.status === true ? 'text-success' : 'text-danger'" class="fa fa-circle"></i>

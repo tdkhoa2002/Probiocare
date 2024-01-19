@@ -141,6 +141,7 @@ class PublicController extends BasePublicController
             $term_id = $request->get('term_id');
             $amount = $request->get('amount');
             $customer = auth()->guard('customer')->user();
+            $rewardAmount;
             $order = $this->orderRepository->findByAttributes([
                 'customer_id' => $customer->id,
                 'packageterm_id' => $term_id,

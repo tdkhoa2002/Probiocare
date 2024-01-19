@@ -44,10 +44,20 @@ class CalCommissionLoyalty implements ShouldQueue
             $customer = app(CustomerRepository::class)->find($order->customer_id);
             $customerFloors = CustomerHelper::getParentCustomer($customer);
             $currencyStake = $package->currencyStake;
+            $requireEntry = $package->require_entry;
             foreach ($commissions as $commission) {
                 $key = array_search(1, array_column($customerFloors, 'level'));
                 if ($key !== false && isset($customerFloors[$key]) && $commission->commission != 0 && $commission->level == 1) {
                     $cus = $customerFloors[$key];
+                    if($requireEntry == 1) {
+                        $checkCusOrder = app(OrderRepository::class)->findByAttributes([
+                            'customer_id' => $cus['id'],
+                            'packageterm_id' => $term->id
+                        ]);
+                        if(!$checkCusOrder) {
+                            return;
+                        }
+                    }
                     $this->hanldeCalcommission($cus, $order, $commission, $currencyStake);
                 }
             }

@@ -15,8 +15,11 @@ Loyalty | @parent
         $cashback;
         $packageTermId;
         $bonusCredit;
+        $termMatching;
         $packageTrans = $package->translations->first();
-        $title = $packageTrans->title;
+        if($packageTrans) {
+            $title = $packageTrans->title;
+        }
         $packageCom0 = $package->commissions->first();
         if($packageCom0 !== null) {
             $bonusCredit = $packageCom0->commission - 100;
@@ -28,11 +31,13 @@ Loyalty | @parent
         }
         $currencyCashback = $package->currencyCashback;
         $commissions = $package->commissions;
-        foreach ($commissions as $commission) {
-            if($commission->level == 1) {
-                $directCommission = $commission->commission;
+        if($commissions) {
+            foreach ($commissions as $commission) {
+                if($commission->level == 1) {
+                    $directCommission = $commission->commission;
+                }
+                $termMatching = $commission->level;
             }
-            $termMatching = $commission->level;
         }
 
         $customer = auth()->guard('customer')->user();
