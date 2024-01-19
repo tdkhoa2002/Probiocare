@@ -135,20 +135,20 @@ Package Detail | @parent
             <tbody>
                 @foreach ($transactions as $transaction)
                     <tr>
-                        @if ($transaction->action == "STAKING")
+                        @if ($transaction->action == "SUBCRIBE_LOYALTY")
                             <th scope="row" style="color: #FF2F2F">-{{ $transaction->amount }} {{ $currencyStake }}</th>
-                        @elseif($transaction->action == "COMMISSION_STAKING")
+                        @elseif($transaction->action == "COMMISSION_LOYALTY")
                             <th scope="row" style="color: #1A773B">+{{ $transaction->amount }} {{ $currencyReward }}</th>
-                        @elseif($transaction->action == "REWARD_STAKING")
+                        @elseif($transaction->action == "REWARD_LOYALTY")
                             <th scope="row" style="color: #1A773B">+{{ $transaction->amount }} {{ $currencyCashback }}</th>
                         @endif
 
-                        @if ($transaction->action == "STAKING")
-                            <td>Staking</td>
-                        @elseif($transaction->action == "COMMISSION_STAKING")
-                            <td>Commission Staking</td>
-                        @elseif($transaction->action == "REWARD_STAKING")
-                            <td>Reward Staking</td>
+                        @if ($transaction->action == "SUBCRIBE_LOYALTY")
+                            <td>Subcribe</td>
+                        @elseif($transaction->action == "COMMISSION_LOYALTY")
+                            <td>Commission Loyalty</td>
+                        @elseif($transaction->action == "REWARD_LOYALTY")
+                            <td>Reward Loyalty</td>
                         @endif
                         
                         @if ($transaction->status == "COMPLETED")
