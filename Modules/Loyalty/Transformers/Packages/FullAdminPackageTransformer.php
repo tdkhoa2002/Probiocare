@@ -22,6 +22,7 @@ class FullAdminPackageTransformer extends JsonResource
             'end_date' => $this->resource->end_date,
             'status' => (bool) $this->resource->status,
             'principal_is_stake_currency' => (bool) $this->resource->principal_is_stake_currency,
+            'require_entry' => (bool) $this->resource->require_entry,
             'created_at' => $this->resource->created_at,
         ];
 

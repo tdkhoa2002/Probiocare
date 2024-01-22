@@ -28,7 +28,8 @@ return [
         'apr_reward' => 'Apr reward',
         'total_stake' => 'Total stake',
         'type'=>'Type',
-        'price' => 'Price'
+        'price' => 'Price',
+        'require_entry' => 'Require entry'
     ],
     'form' => [
         'status' => 'Status',
@@ -48,7 +49,8 @@ return [
         'total_staked' => 'Total staked',
         'max_total_stake' => 'Max Total stake',
         'principal_is_stake_currency' => 'Principal is stake currency',
-        'type'=>'Type'
+        'type'=>'Type',
+        'require_entry' => 'Require entry'
     ],
     'messages' => [
         'package created' => 'Package successfully created.',

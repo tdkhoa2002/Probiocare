@@ -150,15 +150,29 @@
                     </div>
                   </div>
 
-                  <el-form-item :label="trans('packages.form.principal_is_stake_currency')" :class="{
-                    'el-form-item is-error': form.errors.has('principal_is_stake_currency'),
-                  }">
-                    <el-switch v-model="packageData.principal_is_stake_currency" active-color="#13ce66"
-                      inactive-color="#ff4949">
-                    </el-switch>
-                    <div v-if="form.errors.has('principal_is_stake_currency')" class="el-form-item__error"
-                      v-text="form.errors.first('principal_is_stake_currency')"></div>
-                  </el-form-item>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <el-form-item :label="trans('packages.form.principal_is_stake_currency')" :class="{
+                        'el-form-item is-error': form.errors.has('principal_is_stake_currency'),
+                      }">
+                        <el-switch v-model="packageData.principal_is_stake_currency" active-color="#13ce66"
+                          inactive-color="#ff4949">
+                        </el-switch>
+                        <div v-if="form.errors.has('principal_is_stake_currency')" class="el-form-item__error"
+                          v-text="form.errors.first('principal_is_stake_currency')"></div>
+                      </el-form-item>
+                    </div>
+                    <div class="col-md-4">
+                      <el-form-item :label="trans('packages.form.require_entry')" :class="{
+                        'el-form-item is-error': form.errors.has('require_entry'),
+                      }">
+                        <el-switch v-model="packageData.require_entry" active-color="#13ce66" inactive-color="#ff4949">
+                        </el-switch>
+                        <div v-if="form.errors.has('require_entry')" class="el-form-item__error"
+                          v-text="form.errors.first('require_entry')"></div>
+                      </el-form-item>
+                    </div>
+                  </div>
                   <el-form-item :label="trans('packages.form.status')" :class="{
                     'el-form-item is-error': form.errors.has('status'),
                   }">
@@ -245,6 +259,7 @@ export default {
           end_date: "",
           status: true,
           principal_is_stake_currency: true,
+          require_entry: false
         })
         .value(),
       form: new Form(),

@@ -9045,6 +9045,7 @@ __webpack_require__.r(__webpack_exports__);
         start_date: "",
         end_date: "",
         principal_is_stake_currency: true,
+        require_entry: false,
         status: true
       }).value(),
       form: new form_backend_validation__WEBPACK_IMPORTED_MODULE_1___default.a(),
@@ -9165,7 +9166,8 @@ __webpack_require__.r(__webpack_exports__);
         start_date: "",
         end_date: "",
         status: true,
-        principal_is_stake_currency: true
+        principal_is_stake_currency: true,
+        require_entry: false
       }).value(),
       form: new form_backend_validation__WEBPACK_IMPORTED_MODULE_1___default.a(),
       activeTab: window.AsgardCMS.currentLocale || "en",
@@ -19764,7 +19766,11 @@ var render = function render() {
     domProps: {
       textContent: _vm._s(_vm.form.errors.first("end_date"))
     }
-  }) : _vm._e()], 1)], 1)]), _vm._v(" "), _c("el-form-item", {
+  }) : _vm._e()], 1)], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-4"
+  }, [_c("el-form-item", {
     "class": {
       "el-form-item is-error": _vm.form.errors.has("principal_is_stake_currency")
     },
@@ -19788,7 +19794,33 @@ var render = function render() {
     domProps: {
       textContent: _vm._s(_vm.form.errors.first("principal_is_stake_currency"))
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c("single-media", {
+  }) : _vm._e()], 1)], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("el-form-item", {
+    "class": {
+      "el-form-item is-error": _vm.form.errors.has("require_entry")
+    },
+    attrs: {
+      label: _vm.trans("packages.form.require_entry")
+    }
+  }, [_c("el-switch", {
+    attrs: {
+      "active-color": "#13ce66",
+      "inactive-color": "#ff4949"
+    },
+    model: {
+      value: _vm.packageData.require_entry,
+      callback: function callback($$v) {
+        _vm.$set(_vm.packageData, "require_entry", $$v);
+      },
+      expression: "packageData.require_entry"
+    }
+  }), _vm._v(" "), _vm.form.errors.has("require_entry") ? _c("div", {
+    staticClass: "el-form-item__error",
+    domProps: {
+      textContent: _vm._s(_vm.form.errors.first("require_entry"))
+    }
+  }) : _vm._e()], 1)], 1)]), _vm._v(" "), _c("single-media", {
     attrs: {
       "entity-id": _vm.packageData.id,
       zone: "PACKAGE_ICON",
@@ -20240,7 +20272,11 @@ var render = function render() {
     domProps: {
       textContent: _vm._s(_vm.form.errors.first("end_date"))
     }
-  }) : _vm._e()], 1)], 1)]), _vm._v(" "), _c("el-form-item", {
+  }) : _vm._e()], 1)], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-4"
+  }, [_c("el-form-item", {
     "class": {
       "el-form-item is-error": _vm.form.errors.has("principal_is_stake_currency")
     },
@@ -20264,7 +20300,33 @@ var render = function render() {
     domProps: {
       textContent: _vm._s(_vm.form.errors.first("principal_is_stake_currency"))
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c("el-form-item", {
+  }) : _vm._e()], 1)], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("el-form-item", {
+    "class": {
+      "el-form-item is-error": _vm.form.errors.has("require_entry")
+    },
+    attrs: {
+      label: _vm.trans("packages.form.require_entry")
+    }
+  }, [_c("el-switch", {
+    attrs: {
+      "active-color": "#13ce66",
+      "inactive-color": "#ff4949"
+    },
+    model: {
+      value: _vm.packageData.require_entry,
+      callback: function callback($$v) {
+        _vm.$set(_vm.packageData, "require_entry", $$v);
+      },
+      expression: "packageData.require_entry"
+    }
+  }), _vm._v(" "), _vm.form.errors.has("require_entry") ? _c("div", {
+    staticClass: "el-form-item__error",
+    domProps: {
+      textContent: _vm._s(_vm.form.errors.first("require_entry"))
+    }
+  }) : _vm._e()], 1)], 1)]), _vm._v(" "), _c("el-form-item", {
     "class": {
       "el-form-item is-error": _vm.form.errors.has("status")
     },
@@ -20538,6 +20600,20 @@ var render = function render() {
       key: "default",
       fn: function fn(scope) {
         return [_c("span", [_vm._v(_vm._s(scope.row.end_date))])];
+      }
+    }])
+  }), _vm._v(" "), _c("el-table-column", {
+    attrs: {
+      label: _vm.trans("packages.table.require_entry"),
+      width: "130"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(scope) {
+        return [_c("i", {
+          staticClass: "fa fa-circle",
+          "class": scope.row.require_entry === true ? "text-success" : "text-danger"
+        })];
       }
     }])
   }), _vm._v(" "), _c("el-table-column", {

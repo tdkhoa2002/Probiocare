@@ -24,6 +24,7 @@ class AdminPackageTransformer extends JsonResource
             'start_date' => Carbon::parse($this->resource->start_date)->format('d-m-Y') ?? "",
             'end_date' => Carbon::parse($this->resource->end_date)->format('d-m-Y') ?? "",
             'principal_is_stake_currency' => (bool) $this->resource->principal_is_stake_currency,
+            'require_entry' => (bool) $this->resource->require_entry,
             'status' => (bool) $this->resource->status,
             'translations' => [
                 'title' => optional($this->resource->translate(locale()))->title,
