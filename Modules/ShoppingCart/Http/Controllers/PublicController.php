@@ -120,7 +120,6 @@ class PublicController extends BasePublicController
         $subtotal = Cart::subtotalPrice();
         $total = $subtotal + $plc;
         $carts = Cart::content();
-
         return view('shoppingCarts.cart', ['carts' => $carts, 'plc' => $plc, 'total' => number_format($total), 'subtotal' => number_format($subtotal)]);
     }
 

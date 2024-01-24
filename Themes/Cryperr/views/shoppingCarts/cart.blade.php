@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
                                 <div class="price-block">
-                                    @include('shoppingCarts.partials.price',['price_sale'=>$cart->option->price_old??0,'price'=>$cart->price])
+                                    @include('shoppingCarts.partials.price',['price_sale'=>$cart->options->price_old??0,'price'=>$cart->price])
                                 </div>
                                 <div class="product-number">
                                     <button type="button" class="btn func-minus"
