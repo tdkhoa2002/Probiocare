@@ -12,6 +12,8 @@ return [
     ],
     'button' => [
         'create wallet' => 'Create a wallet',
+        'add_balance' => 'Add balance',
+        'sub_balance' => 'Sub balance'
     ],
     'table' => [
         'customer' => 'Customer',
@@ -30,6 +32,7 @@ return [
         'wallet updated' => 'Wallet successfully updated.',
         'wallet deleted' => 'Wallet successfully deleted.',
         'validate_withdraw'=>'Validate withdraw',
+        'amount_invalid' => 'Amount invalid'
     ],
     'validation' => [],
 ];

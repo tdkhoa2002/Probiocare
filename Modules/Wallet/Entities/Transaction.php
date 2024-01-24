@@ -27,7 +27,8 @@ class Transaction extends Model
         'tag',
         'order',
         'note',
-        'status'
+        'status',
+        'created_by'
     ];
 
     public function blockchain()

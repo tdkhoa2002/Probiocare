@@ -13,7 +13,19 @@ return [
         'edit' => 'customer::paymentmethods.edit resource',
         'destroy' => 'customer::paymentmethods.destroy resource',
     ],
+    'customer.wallets' => [
+        'index' => 'customer::wallets.list resource',
+        'create' => 'customer::wallets.create resource',
+        'edit' => 'customer::wallets.edit resource',
+        'destroy' => 'customer::wallets.destroy resource',
+    ],
+    'customer.transactions' => [
+        'add_balance' => 'customer::transactions.add balance',
+        'sub_balance' => 'customer::transactions.sub balance'
+    ],
 // append
+
+
 
 
 

@@ -400,6 +400,17 @@ $router->group(['prefix' =>'/customer'], function (Router $router) {
         'uses' => 'PaymentMethodCustomerAttrController@destroy',
         'middleware' => 'can:customer.paymentmethodcustomerattrs.destroy'
     ]);
+    
+    $router->get('{customer}/transactions/add_balance', [
+        'as' => 'admin.customer.transaction.add_balance',
+        'uses' => 'TransactionController@create',
+        'middleware' => 'can:customer.transactions.create'
+    ]);
+    $router->get('{customer}/transactions/sub_balance', [
+        'as' => 'admin.customer.transaction.sub_balance',
+        'uses' => 'TransactionController@create',
+        'middleware' => 'can:customer.transactions.create'
+    ]);
 // append
 
 

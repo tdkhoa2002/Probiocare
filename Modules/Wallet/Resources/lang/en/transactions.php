@@ -5,11 +5,15 @@ return [
     'create resource' => 'Create transactions',
     'edit resource' => 'Edit transactions',
     'destroy resource' => 'Destroy transactions',
+    'add balance' => 'Add balance',
+    'sub balance' => 'Sub balance',
     'resendWithdraw' => 'Resend Withdraw',
     'title' => [
         'transactions' => 'Transaction',
         'create transaction' => 'Create a transaction',
         'edit transaction' => 'Edit a transaction',
+        'add balance' => 'Create New Transaction & Add Balance',
+        'sub balance' => 'Create New Transaction & Sub Balance',
     ],
     'button' => [
         'create transaction' => 'Create a transaction',
