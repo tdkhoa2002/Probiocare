@@ -59,3 +59,20 @@ if($checkAuth) {
         'uses' => 'PublicController@getThankYou'
     ]);
 }
+
+$router->get('alepay-payment', [
+    'as' => 'alepay.payment.view',
+    'uses' => 'PublicController@getAlepay',
+]);    
+$router->get('callback', [
+    'as' => 'alepay.payment.callback',
+    'uses' => 'PublicController@callback',
+]);
+$router->get('cancel', [
+    'as' => 'alepay.payment.cancel',
+    'uses' => 'PublicController@cancel',
+]);
+$router->post('request-payment', [
+    'as' => 'alepay.shoppingcart.payment',
+    'uses' => 'PublicController@alepayPayment'
+]);

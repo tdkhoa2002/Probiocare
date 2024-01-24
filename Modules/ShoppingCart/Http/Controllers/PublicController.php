@@ -4,6 +4,7 @@ namespace Modules\ShoppingCart\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Modules\ShoppingCart\Services\Alepay;
 use Modules\Core\Http\Controllers\BasePublicController;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Product\Repositories\CategoryRepository;
@@ -12,6 +13,7 @@ use Modules\ShoppingCart\Emails\OrderConfirm;
 use Modules\ShoppingCart\Facades\Cart;
 use Modules\ShoppingCart\Repositories\OrderRepository;
 use Modules\ShoppingCart\Repositories\OrderDetailRepository;
+use Illuminate\Support\Facades\Http; 
 
 class PublicController extends BasePublicController
 {
@@ -158,6 +160,11 @@ class PublicController extends BasePublicController
         }
     }
 
+    public function getAlepay()
+    {
+        return view('shoppingCarts.alepay.alepay-checkout');
+    }
+
     public function checkout(Request $request)
     {
         try {
@@ -185,17 +192,17 @@ class PublicController extends BasePublicController
                 ];
                 $order = $this->orderRepository->create($order);
                 foreach ($carts as $cart) {
-                    $orderDetail = [
-                        'order_id' => $order->id,
-                        'product_id' => $cart->id,
-                        'price' => $cart->price,
-                        'qty' => $cart->qty,
-                        'total' => $cart->price * $cart->qty
-                    ];
-                    $this->orderDetailRepository->create($orderDetail);
+                $orderDetail = [
+                    'order_id' => $order->id,
+                    'product_id' => $cart->id,
+                    'price' => $cart->price,
+                    'qty' => $cart->qty,
+                    'total' => $cart->price * $cart->qty
+                ];
+                $this->orderDetailRepository->create($orderDetail);
+                // $email = new OrderConfirm($order);
+                // Mail::to($request->email)->send($email);
                 }
-                $email = new OrderConfirm($order);
-                Mail::to($request->email)->send($email);
                 Cart::destroy();
                 return response()->json(['error' => false, 'message' => trans('shoppingcart::orders.messages.order_success'), 'url' => route('fe.shoppingcart.getThankYou', $rand)]);
             } else {
@@ -204,6 +211,74 @@ class PublicController extends BasePublicController
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function alepayPayment(Request $request)
+    {
+        $params = [
+            'amount' => $request->amount,
+            'buyerAddress' => $request->buyerAddress,
+            'buyerCity' => $request->buyerCity,
+            'buyerCountry' => $request->buyerCountry ?? 'Việt Nam',
+            'buyerEmail' => $request->buyerEmail,
+            'buyerName' => $request->buyerName,
+            'buyerPhone' => $request->buyerPhone,
+            'cancelUrl' => route('alepay.payment.cancel'),
+            'currency' => 'VND',
+            'customMerchantId' => '2',
+            'orderCode' => $request->orderCode,
+            'orderDescription' => $request->orderDescription,
+            'paymentHours' => '5',
+            'returnUrl' => route('alepay.payment.callback'),
+            'totalItem' => $request->totalItem,
+            'checkoutType' => 1
+        ];
+
+        $alepay = new Alepay();
+        $response = $alepay->requestPayment($params);
+        //dd($response);
+        // Kiểm tra xem có lỗi khi gọi API hay không
+        if ($response['code'] !== '000') {
+            // Xử lý lỗi nếu cần thiết
+            dd($response);
+        }
+        // Nếu không có lỗi, chuyển hướng người dùng đến trang thanh toán của Alepay
+        return redirect($response['checkoutUrl']);
+    }
+
+    public function callback(Request $request)
+    {
+        // Lấy transactionCode từ query parameters hoặc form data
+        $transactionCode = $request->query('transactionCode');
+
+        $callbackData = [
+            'transactionCode' => $transactionCode
+        ];
+        // Gọi API get-transaction-info
+        $alepay = new Alepay();
+        $transactionInfo = $alepay->getTransactionInfo($callbackData);
+        $transactionInfo['transactionTimeConvert'] = $this->convertMillisecondsToRealTime($transactionInfo['transactionTime']);
+        $transactionInfo['successTimeConvert'] = $this->convertMillisecondsToRealTime($transactionInfo['successTime']);
+        // Xử lý kết quả response từ get-transaction-info
+        //dd($transactionInfo);
+        return view('shoppingCarts.alepay.alepay-result', ['callbackData' => $transactionInfo]);
+    }
+
+    public function cancel() 
+    {
+        return redirect()->route('homepage');
+    }
+
+    private function convertMillisecondsToRealTime($ms)
+    {
+        $s = floor($ms / 1000);
+        if($s < 60) {
+            return $s . ' giây';
+        } elseif ($s < 3600) {
+            return floor($s / 60) . ' phút';
+        }else {
+            return floor ($s / 3600) . ' giờ';
         }
     }
 }
