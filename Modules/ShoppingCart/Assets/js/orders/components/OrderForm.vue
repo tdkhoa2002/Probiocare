@@ -17,23 +17,14 @@
       </el-breadcrumb>
     </div>
 
-    <el-form
-      ref="form"
-      :model="order"
-      label-width="120px"
-      label-position="top"
-      @keydown="form.errors.clear($event.target.name)"
-    >
+    <el-form ref="form" :model="order" label-width="120px" label-position="top"
+      @keydown="form.errors.clear($event.target.name)">
       <form-errors :form="form"></form-errors>
       <div class="row">
         <div class="col-md-8">
           <div class="box box-primary">
             <div class="box-body">
-              <el-descriptions
-                class="margin-top"
-                title="Customer Info"
-                :column="2"
-              >
+              <el-descriptions class="margin-top" title="Customer Info" :column="2">
                 <el-descriptions-item label="Fullname">{{
                   this.order.fullname
                 }}</el-descriptions-item>
@@ -50,11 +41,8 @@
               <el-table :data="orderDetails" style="width: 100%">
                 <el-table-column label="Product">
                   <template slot-scope="scope">
-                    <el-image
-                      style="width: 100px; height: 100px"
-                      :src="scope.row.product.avatar"
-                      fit="contain"
-                    ></el-image>
+                    <el-image style="width: 100px; height: 100px" :src="scope.row.product.avatar"
+                      fit="contain"></el-image>
                     <p class="demonstration">{{ scope.row.product.title }}</p>
                   </template>
                 </el-table-column>
@@ -66,11 +54,7 @@
                 </el-table-column>
               </el-table>
               <el-form-item class="mt-5">
-                <el-button
-                  :loading="loading"
-                  type="primary"
-                  @click="onSubmit()"
-                >
+                <el-button :loading="loading" type="primary" @click="onSubmit()">
                   {{ trans("core.save") }}
                 </el-button>
                 <el-button @click="onCancel()">
@@ -83,11 +67,7 @@
         <div class="col-md-4">
           <div class="box box-primary">
             <div class="box-body">
-              <el-descriptions
-                class="margin-top"
-                title="Order Info"
-                :column="1"
-              >
+              <el-descriptions class="margin-top" title="Order Info" :column="1">
                 <el-descriptions-item label="Total">{{
                   this.order.total
                 }}</el-descriptions-item>
@@ -96,62 +76,40 @@
                 }}</el-descriptions-item>
                 <el-descriptions-item label="Payment Method">
                   <el-select v-model="order.payment_method" placeholder="Select">
-                    <el-option
-                      key="1"
-                      label="COD"
-                      value="1"
-                    >
+                    <el-option key="1" label="COD" :value="1">
                     </el-option>
-                    <el-option
-                      key="2"
-                      label="Bank Transfer"
-                      value="2"
-                    >
+                    <el-option key="2" label="Bank Transfer" :value="2">
                     </el-option>
-                    <el-option
-                      key="3"
-                      label="Visa"
-                      value="3"
-                    >
+                    <el-option key="3" label="Visa" :value="3">
                     </el-option>
                   </el-select>
                 </el-descriptions-item>
                 <el-descriptions-item label="Delivery Option">
                   <el-select v-model="order.delivery_method" placeholder="Select">
-                    <el-option
-                      key="1"
-                      label="Standard delivery"
-                      value="1"
-                    >
+                    <el-option key="1" label="Standard delivery" :value="1">
                     </el-option>
-                    <el-option
-                      key="2"
-                      label="VIP delivery"
-                      value="2"
-                    >
+                    <el-option key="2" label="VIP delivery" :value="2">
                     </el-option>
                   </el-select>
                 </el-descriptions-item>
                 <el-descriptions-item label="Status">
                   <el-select v-model="order.status" placeholder="Select">
-                    <el-option key="CREATED" label="Đơn hàng mới" value="CREATED"></el-option>
-                    <el-option key="PROCESSING" label="Đang xử lý" value="PROCESSING"></el-option>
-                    <el-option key="SHIPPING" label="Đang giao hàng" value="SHIPPING"></el-option>
-                    <el-option key="COMPLETED" label="Đơn hàng thành công" value="COMPLETED"></el-option>
-                    <el-option key="CANCELED" label="Đơn hàng hủy" value="CANCELED"></el-option>
+                    <el-option v-for="itemStatus in statusOrder" :key="itemStatus" :label="itemStatus"
+                      :value="itemStatus"></el-option>
                   </el-select>
                 </el-descriptions-item>
+              </el-descriptions>
+              <el-descriptions class="margin-top" title="Payment Info" :column="1" v-if="order.payment_method == 3">
+                <el-descriptions-item label="Payment code">{{
+                  this.order.payment_code
+                }}</el-descriptions-item>
               </el-descriptions>
             </div>
           </div>
         </div>
       </div>
     </el-form>
-    <button
-      v-show="false"
-      v-shortkey="['b']"
-      @shortkey="pushRoute({ name: 'admin.page.order.index' })"
-    ></button>
+    <button v-show="false" v-shortkey="['b']" @shortkey="pushRoute({ name: 'admin.page.order.index' })"></button>
   </div>
 </template>
 
@@ -190,9 +148,11 @@ export default {
     return {
       order: {},
       orderDetails: [],
+      statusOrders: [],
     };
   },
   created() {
+    this.getStatusOrder()
     if (this.$route.params.orderId !== undefined) {
       this.fetchOrder();
     }
@@ -246,6 +206,17 @@ export default {
           this.loading = false;
           this.order = response.data.data;
           this.orderDetails = response.data.data.orderDetails;
+        });
+    },
+    getStatusOrder() {
+      this.loading = true;
+      axios
+        .get(
+          route("api.shoppingcart.order.getStatusOrder")
+        )
+        .then((response) => {
+          this.loading = false;
+          this.statusOrders = response.data.statusOrders;
         });
     },
     getRoute() {

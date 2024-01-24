@@ -10,6 +10,11 @@ $router->group(['prefix' => '/shoppingcart', 'middleware' => ['api.token', 'auth
         'uses' => 'OrderController@indexServerSide',
         'middleware' => 'can:shoppingcart.orders.index'
     ]);
+    $router->get('getStatusOrder', [
+        'as' => 'api.shoppingcart.order.getStatusOrder',
+        'uses' => 'OrderController@getStatusOrder',
+        'middleware' => 'can:shoppingcart.orders.index'
+    ]);
     $router->get('orders/find', [
         'as' => 'api.shoppingcart.order.find',
         'uses' => 'OrderController@find',

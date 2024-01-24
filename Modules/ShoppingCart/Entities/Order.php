@@ -10,6 +10,7 @@ class Order extends Model
     protected $table = 'shoppingcart__orders';
     protected $fillable = [
         'order_code',
+        'payment_code',
         'fullname',
         'email',
         'phone_number',

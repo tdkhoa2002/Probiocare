@@ -30,6 +30,8 @@ return[
     'success' => 'Đặt hàng thành công',
     'noti' => 'Đơn hàng của bạn đã hoàn tất, vui lòng kiểm tra số dư của bạn',
     'view' => 'Xem đơn hàng',
+    'order_payment_fail_title'=>'Đơn hàng thanh toán thất bại.',
+    'order_payment_fail_description'=>'Đơn hàng của bạn thanh toán thất bại. Kiểm tra lại hoặc liên hệ admin để được hỗ trợ',
 
     //Your Order cho cả 2
     'your_order' => 'Đơn hàng của bạn',

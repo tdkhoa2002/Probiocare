@@ -20,6 +20,8 @@ class EloquentOrderRepository extends EloquentBaseRepository implements OrderRep
         if ($request->get('order_by') !== null && $request->get('order') !== 'null') {
             $order = $request->get('order') === 'ascending' ? 'asc' : 'desc';
             $orderData->orderBy($request->get('order_by'), $order);
+        }else {
+            $orderData->orderBy('id', 'desc');
         }
 
         return $orderData->paginate($request->get('per_page', 10));
