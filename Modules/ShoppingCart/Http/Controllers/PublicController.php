@@ -133,7 +133,7 @@ class PublicController extends BasePublicController
             return redirect()->route('homepage');
         }
     }
-    
+
     public function getPaymentFail($code)
     {
         $order = $this->orderRepository->findByAttributes(['order_code' => $code]);
@@ -266,6 +266,7 @@ class PublicController extends BasePublicController
         if (isset($request->transactionCode) && isset($request->errorCode) && $request->errorCode == '000') {
             $order = $this->orderRepository->findByAttributes(['order_code' => $order_code, 'status' => StatusOrderEnum::PAYMENTING, 'payment_code' => $request->transactionCode]);
             if ($order) {
+                Mail::to($order->email)->send(new OrderConfirm($order));
                 $this->orderRepository->update($order, ['status' => StatusOrderEnum::PAYMENT_COMPLETED]);
                 return redirect()->route('fe.shoppingcart.getThankYou', $order_code)->withError(trans('shoppingcart::orders.messages.order_payment_success'));
             } else {
