@@ -206,7 +206,7 @@ class PublicController extends BasePublicController
                     ];
                     $this->orderDetailRepository->create($orderDetail);
                 }
-                if ($request->payment_method == 3) {
+                if ($request->payment_method == 3 && $request->payment_method == 2) {
                     return $this->hanldeCheckoutAlepay($order);
                 } else {
                     $email = new OrderConfirm($order);
