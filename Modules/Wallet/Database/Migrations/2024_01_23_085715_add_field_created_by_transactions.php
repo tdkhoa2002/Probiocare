@@ -26,7 +26,7 @@ class AddFieldCreatedByTransactions extends Migration
     public function down()
     {
         Schema::table('wallet__transactions', function (Blueprint $table) {
-            $table->dropColumn('is_sync');
+            $table->dropColumn('created_by');
         });
     }
 }
