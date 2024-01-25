@@ -35,6 +35,7 @@
     if(count($transactions) > 0) {
         $activities = true;
     }
+    $now = \Carbon\Carbon::now();
 @endphp
 
 @extends('layouts.private')
@@ -56,6 +57,11 @@ Package Detail | @parent
 </div>
 <div id="detail-package">
     <div id="information-package">
+        <form action="/loyalty/subcribeLoyalty" method="post">
+        @csrf
+        <input type="text" name="packageId" value="{{ $package->id }}" hidden>
+        <input type="text" name="term_id" value="{{ $term }}" hidden>
+        <input type="text" name ="amount" value="{{ $package->min_stake }}" hidden>
         <div id="basic-info">
             <div id="icon-package">
                 <img src="{{ $iconUrl }}">
@@ -67,15 +73,11 @@ Package Detail | @parent
                         {{ $package->min_stake }} USD
                     </div>
                     <div id="status">
-                        @if(!isset($order)) 
-                        <button type="submit">
-                            
-                        </button>
-                        @elseif ($order->status == 0)
-                        Processing
-                        @else
-                        Completed
-                        @endif
+                            @if ($now->gte($startDateFormatted) && $now->lte($endDateFormatted))
+                            Processing
+                            @else
+                            Completed
+                            @endif
                     </div>
                 </div>
                 <div style="color: #29292999;">This NFT will give you some unique benefits.</div>
@@ -101,8 +103,14 @@ Package Detail | @parent
                         <span>{{ $termMatching }}</span>
                     </div>
                 </div>
+                @if(!isset($order)) 
+                <button class="btn btn-success" type="submit">
+                    Subcribe
+                </button>
+                @endif
             </div>
         </div>
+        </form>
         <div id="summary">
             <div>
                 <span>Loyalty Summary</span>

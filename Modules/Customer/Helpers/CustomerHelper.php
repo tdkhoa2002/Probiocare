@@ -26,6 +26,7 @@ class CustomerHelper
             "deleted_at" => null,
             "is_agent" => $customer->is_agent,
             "level" => 0,
+            'term_matching' => $customer->term_matching
         ];
         array_push($dataRecursive, $dataLevel0);
         return $dataRecursive;

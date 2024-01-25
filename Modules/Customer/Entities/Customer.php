@@ -22,7 +22,8 @@ class Customer extends Authenticatable
         'sponsor_id',
         'sponsor_floor',
         'is_agent',
-        'status'
+        'status',
+        'term_matching'
     ];
 
     protected $hidden = [

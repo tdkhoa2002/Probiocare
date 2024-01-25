@@ -16,8 +16,7 @@ Loyalty | @parent
         $packageTermId;
         $bonusCredit = 0;
         $directCommission = 0;
-        $termMatching = 0;
-        $termMatching = 0; //$package->term_matching;
+        $termMatching = $package->term_matching;
         $packageTrans = $package->translations->first();
         if($packageTrans) {
             $title = $packageTrans->title;

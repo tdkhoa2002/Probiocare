@@ -31,7 +31,8 @@ class Package extends Model
         'title',
         'description',
         'principal_is_stake_currency',
-        'require_entry'
+        'require_entry',
+        'term_matching'
     ];
 
     public function currencyStake()
