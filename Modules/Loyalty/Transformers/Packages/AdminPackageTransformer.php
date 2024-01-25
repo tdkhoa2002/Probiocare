@@ -13,6 +13,7 @@ class AdminPackageTransformer extends JsonResource
     {
         return [
             'id' => $this->resource->id,
+            'icon' => $this->resource->getIcon()->path_string ?? "",
             'currency_stake_id' => $this->resource->currency_stake_id,
             'currency_stake' => new SmallCurrencyTransformer($this->resource->currencyStake),
             'currency_reward_id' => $this->resource->currency_reward_id,

@@ -173,6 +173,9 @@
                       </el-form-item>
                     </div>
                   </div>
+                  <single-media :entity-id="packageData.id" zone="PACKAGE_ICON" entity="Modules\Loyalty\Entities\Package"
+                    @single-file-selected="selectSingleFile($event, 'packageData')"></single-media>
+                  <br>
                   <el-form-item :label="trans('packages.form.status')" :class="{
                     'el-form-item is-error': form.errors.has('status'),
                   }">

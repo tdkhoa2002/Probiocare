@@ -112,6 +112,8 @@ class PublicController extends BasePublicController
         try {
             $customerID = auth()->guard('customer')->user()->id;
             $package = $this->packageRepository->find($packageId);
+            $transactions = [];
+            $order;
             if ($package) {
                 $stakeCurrencyId = $package->currencyStake->id;
                 $term = $request->get('term');
@@ -120,10 +122,12 @@ class PublicController extends BasePublicController
                     'customer_id' => $customerID,
                     'packageterm_id' => $term
                 ]);
-                $transactions = $this->transactionRepository->getByAttributes([
-                    'order' => $order->id,
-                    'customer_id' => $customerID
-                ]);
+                if($order) {
+                    $transactions = $this->transactionRepository->getByAttributes([
+                        'order' => $order->id,
+                        'customer_id' => $customerID
+                    ]);
+                }
                 return view('loyalties.detail-package', compact('package', 'term', 'wallet', 'order', 'transactions'));
             } else {
                 return back()->withErrors(trans('staking::packages.messages.not_found'));

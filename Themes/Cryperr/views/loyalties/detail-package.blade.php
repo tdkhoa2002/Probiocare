@@ -2,6 +2,7 @@
     $pkTrans = $package->translations->first();
     $title = $pkTrans->title;
     $commissions =  $package->commissions;
+    $activities = false;
     foreach ($commissions as $commission) {
         if ($commission->level == 0 && $commission->status == true) {
             $rewardAmount = $package->min_stake * $commission->commission / 100;
@@ -24,15 +25,16 @@
         }
         $termMatching = $commission->level;
     }
-    // dd($package->getIcon());
-    // if ($package->getIcon()) {
-    //     $icon = $package->getIcon();
-    //     $iconUrl = $icon->path;
-    // } else {
-    //     $iconUrl = Theme::url('images/logo.png');
-    // }
-    // dd($iconUrl);
-// <img class="me-2" width="32px" height="32px" src="{{ $iconUrl }}" alt="" />
+    if ($package->getIcon()) {
+        $icon = $package->getIcon();
+        $iconUrl = $icon->path;
+    } else {
+        $iconUrl = Theme::url('images/logo.png');
+    }
+
+    if(count($transactions) > 0) {
+        $activities = true;
+    }
 @endphp
 
 @extends('layouts.private')
@@ -56,7 +58,7 @@ Package Detail | @parent
     <div id="information-package">
         <div id="basic-info">
             <div id="icon-package">
-                <img src="{{ Theme::url('images/icon-starter-package.png') }}">
+                <img src="{{ $iconUrl }}">
             </div>
             <div id="information">
                 <span id="title">{{ $title }}</span>
@@ -65,7 +67,11 @@ Package Detail | @parent
                         {{ $package->min_stake }} USD
                     </div>
                     <div id="status">
-                        @if ($order->status == 0)
+                        @if(!isset($order)) 
+                        <button type="submit">
+                            
+                        </button>
+                        @elseif ($order->status == 0)
                         Processing
                         @else
                         Completed
@@ -116,7 +122,11 @@ Package Detail | @parent
                 </div>
                 <div>
                     <span>Earned Reward</span>
+                    @if (!isset($order))
+                    <span>0</span>
+                    @else
                     <span>{{ $order->total_amount_reward }} {{ $currencyCashback }} </span>
+                    @endif
                 </div>
             </div>
         </div>
@@ -133,6 +143,7 @@ Package Detail | @parent
                 </tr>
             </thead>
             <tbody>
+                @if ($activities)
                 @foreach ($transactions as $transaction)
                     <tr>
                         @if ($transaction->action == "SUBCRIBE_LOYALTY")
@@ -159,6 +170,7 @@ Package Detail | @parent
                         <td>{{ $transaction->txhash }}</td>
                     </tr>
                 @endforeach
+                @endif
             </tbody>
         </table>
     </div>

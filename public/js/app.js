@@ -19828,7 +19828,7 @@ var render = function render() {
     },
     on: {
       "single-file-selected": function singleFileSelected($event) {
-        return _vm.selectSingleFile($event, "package");
+        return _vm.selectSingleFile($event, "packageData");
       }
     }
   }), _vm._v(" "), _c("br"), _vm._v(" "), _c("el-form-item", {
@@ -20326,7 +20326,18 @@ var render = function render() {
     domProps: {
       textContent: _vm._s(_vm.form.errors.first("require_entry"))
     }
-  }) : _vm._e()], 1)], 1)]), _vm._v(" "), _c("el-form-item", {
+  }) : _vm._e()], 1)], 1)]), _vm._v(" "), _c("single-media", {
+    attrs: {
+      "entity-id": _vm.packageData.id,
+      zone: "PACKAGE_ICON",
+      entity: "Modules\\Loyalty\\Entities\\Package"
+    },
+    on: {
+      "single-file-selected": function singleFileSelected($event) {
+        return _vm.selectSingleFile($event, "packageData");
+      }
+    }
+  }), _vm._v(" "), _c("br"), _vm._v(" "), _c("el-form-item", {
     "class": {
       "el-form-item is-error": _vm.form.errors.has("status")
     },
@@ -20512,6 +20523,35 @@ var render = function render() {
       width: "75",
       sortable: "custom"
     }
+  }), _vm._v(" "), _c("el-table-column", {
+    attrs: {
+      label: _vm.trans("packages.table.icon"),
+      prop: "icon"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(scope) {
+        return [_c("a", {
+          attrs: {
+            href: _vm.editRoute(scope)
+          },
+          on: {
+            click: function click($event) {
+              $event.preventDefault();
+              return _vm.goToEdit(scope);
+            }
+          }
+        }, [_c("el-image", {
+          staticStyle: {
+            width: "100px",
+            height: "100px"
+          },
+          attrs: {
+            src: scope.row.icon
+          }
+        })], 1)];
+      }
+    }])
   }), _vm._v(" "), _c("el-table-column", {
     attrs: {
       label: _vm.trans("packages.table.title"),
