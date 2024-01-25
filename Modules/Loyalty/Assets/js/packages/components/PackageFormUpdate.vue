@@ -67,7 +67,7 @@
                   </div>
                   <div class="row">
                     <div class="col-lg-6">
-                      <el-form-item :label="trans('packages.form.currency_reward_id')" :class="{
+                      <el-form-item :label="trans('packages.form.principal_convert_currency')" :class="{
                         'el-form-item is-error':
                           form.errors.has('currency_reward_id'),
                       }">
@@ -77,6 +77,16 @@
                         </el-select>
                         <div v-if="form.errors.has('currency_reward_id')" class="el-form-item__error"
                           v-text="form.errors.first('currency_reward_id')"></div>
+                      </el-form-item>
+                    </div>
+                    <div class="col-lg-6">
+                      <el-form-item :label="trans('packages.form.principal_convert_rate')" :class="{
+                        'el-form-item is-error':
+                          form.errors.has('principal_convert_rate'),
+                      }">
+                        <el-input-number v-model="packageData.principal_convert_rate" :min="0"></el-input-number>
+                        <div v-if="form.errors.has('principal_convert_rate')" class="el-form-item__error"
+                          v-text="form.errors.first('principal_convert_rate')"></div>
                       </el-form-item>
                     </div>
                   </div>

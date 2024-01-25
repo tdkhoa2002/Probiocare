@@ -15,6 +15,8 @@ use Modules\Wallet\Repositories\TransactionRepository;
 use Modules\Customer\Repositories\CustomerRepository;;
 use Modules\Customer\Helpers\CustomerHelper;
 use Modules\Wallet\Events\IncreaseBalanceWallet;
+use Modules\Affiliate\Repositories\AffiliateRepository;
+use Modules\Affiliate\Enums\TypeAffiliate;
 
 class CalRewardLoyalty extends Command
 {
@@ -37,6 +39,8 @@ class CalRewardLoyalty extends Command
     protected $transactionRepository;
     protected $customerRepository;
     protected $commissionRepository;
+    protected $affiliateRepository;
+    
     /**
      * Create a new command instance.
      *
@@ -47,7 +51,8 @@ class CalRewardLoyalty extends Command
          WalletRepository $walletRepository, 
          TransactionRepository $transactionRepository,
          CustomerRepository $customerRepository,
-         CommissionRepository $commissionRepository
+         CommissionRepository $commissionRepository,
+         AffiliateRepository $affiliateRepository
     ) {
         parent::__construct();
         $this->orderRepository = $orderRepository;
@@ -55,6 +60,7 @@ class CalRewardLoyalty extends Command
         $this->transactionRepository = $transactionRepository;
         $this->customerRepository = $customerRepository;
         $this->commissionRepository = $commissionRepository;
+        $this->affiliateRepository = $affiliateRepository;
     }
 
     /**
@@ -194,7 +200,10 @@ class CalRewardLoyalty extends Command
     private function handleCalCommissionLoyalty($order) {
         $term = $order->term;
         $package = $term->package;
-        $commissions =  $package->commissions;
+        $commissions =  $this->affiliateRepository->findByAttributes([
+            'type' => TypeAffiliate::INTEREST_BONUS,
+            'status' => true
+        ]);
         $customer = $this->customerRepository->find($order->customer_id);
         $customerFloors = CustomerHelper::getParentCustomer($customer);
         $currencyStake = $package->currencyStake;

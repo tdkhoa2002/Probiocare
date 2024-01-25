@@ -13,7 +13,7 @@ class Package extends Model
 {
     use Translatable, SoftDeletes, MediaRelation;
 
-    protected $table = 'loyalty__package';
+    protected $table = 'loyalty__packages';
     public $translatedAttributes = [
         'title',
         'description'
@@ -32,7 +32,8 @@ class Package extends Model
         'description',
         'principal_is_stake_currency',
         'require_entry',
-        'term_matching'
+        'term_matching',
+        'principal_convert_rate'
     ];
 
     public function currencyStake()

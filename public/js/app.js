@@ -9700,7 +9700,8 @@ __webpack_require__.r(__webpack_exports__);
         principal_is_stake_currency: true,
         require_entry: false,
         status: true,
-        term_matching: 0
+        term_matching: 0,
+        principal_convert_rate: 0
       }).value(),
       form: new form_backend_validation__WEBPACK_IMPORTED_MODULE_1___default.a(),
       activeTab: window.AsgardCMS.currentLocale || "en",
@@ -21108,7 +21109,7 @@ var render = function render() {
       "el-form-item is-error": _vm.form.errors.has("currency_reward_id")
     },
     attrs: {
-      label: _vm.trans("packages.form.currency_reward_id")
+      label: _vm.trans("packages.form.principal_convert_currency")
     }
   }, [_c("el-select", {
     attrs: {
@@ -21133,6 +21134,31 @@ var render = function render() {
     staticClass: "el-form-item__error",
     domProps: {
       textContent: _vm._s(_vm.form.errors.first("currency_reward_id"))
+    }
+  }) : _vm._e()], 1)], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-lg-6"
+  }, [_c("el-form-item", {
+    "class": {
+      "el-form-item is-error": _vm.form.errors.has("principal_convert_rate")
+    },
+    attrs: {
+      label: _vm.trans("packages.form.principal_convert_rate")
+    }
+  }, [_c("el-input-number", {
+    attrs: {
+      min: 0
+    },
+    model: {
+      value: _vm.packageData.principal_convert_rate,
+      callback: function callback($$v) {
+        _vm.$set(_vm.packageData, "principal_convert_rate", $$v);
+      },
+      expression: "packageData.principal_convert_rate"
+    }
+  }), _vm._v(" "), _vm.form.errors.has("principal_convert_rate") ? _c("div", {
+    staticClass: "el-form-item__error",
+    domProps: {
+      textContent: _vm._s(_vm.form.errors.first("principal_convert_rate"))
     }
   }) : _vm._e()], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "row"
@@ -21641,7 +21667,7 @@ var render = function render() {
       "el-form-item is-error": _vm.form.errors.has("currency_reward_id")
     },
     attrs: {
-      label: _vm.trans("packages.form.currency_reward_id")
+      label: _vm.trans("packages.form.principal_convert_currency")
     }
   }, [_c("el-select", {
     attrs: {
@@ -21666,6 +21692,31 @@ var render = function render() {
     staticClass: "el-form-item__error",
     domProps: {
       textContent: _vm._s(_vm.form.errors.first("currency_reward_id"))
+    }
+  }) : _vm._e()], 1)], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-lg-6"
+  }, [_c("el-form-item", {
+    "class": {
+      "el-form-item is-error": _vm.form.errors.has("principal_convert_rate")
+    },
+    attrs: {
+      label: _vm.trans("packages.form.principal_convert_rate")
+    }
+  }, [_c("el-input-number", {
+    attrs: {
+      min: 0
+    },
+    model: {
+      value: _vm.packageData.principal_convert_rate,
+      callback: function callback($$v) {
+        _vm.$set(_vm.packageData, "principal_convert_rate", $$v);
+      },
+      expression: "packageData.principal_convert_rate"
+    }
+  }), _vm._v(" "), _vm.form.errors.has("principal_convert_rate") ? _c("div", {
+    staticClass: "el-form-item__error",
+    domProps: {
+      textContent: _vm._s(_vm.form.errors.first("principal_convert_rate"))
     }
   }) : _vm._e()], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "row"

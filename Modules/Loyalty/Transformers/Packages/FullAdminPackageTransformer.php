@@ -24,6 +24,8 @@ class FullAdminPackageTransformer extends JsonResource
             'principal_is_stake_currency' => (bool) $this->resource->principal_is_stake_currency,
             'require_entry' => (bool) $this->resource->require_entry,
             'created_at' => $this->resource->created_at,
+            'principal_convert_rate' => $this->resource->principal_convert_rate,
+            'term_matching' => $this->resource->term_matching
         ];
 
         foreach (LaravelLocalization::getSupportedLocales() as $locale => $supportedLocale) {

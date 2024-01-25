@@ -208,13 +208,8 @@ class PublicController extends BasePublicController
                             ];
                             $walletReward = $this->walletRepository->create($dataCreate);
                         }
-                        $commissions =  $package->commissions;
-                        foreach ($commissions as $commission) {
-                            if ($commission->level == 0 && $commission->status == true) {
-                                $rewardAmount = $package->min_stake * $commission->commission / 100;
-                                $newBalanceReward = $walletReward->balance + $rewardAmount;
-                            }
-                        }
+                        $rewardAmount = $package->min_stake * $package->principal_convert_rate / 100;
+                        $newBalanceReward = $walletReward->balance + $rewardAmount;
                         event(new UpdateBalanceWallet($newBalanceReward, $walletReward->id));
                     }
                     $dataCreate = [
