@@ -53,7 +53,9 @@ return [
         'principal_is_stake_currency' => 'Principal is stake currency',
         'type'=>'Type',
         'require_entry' => 'Require entry',
-        'term_matching' => 'Term matching'
+        'term_matching' => 'Term matching',
+        'principal_convert_currency' => 'Principal convert currency',
+        'principal_convert_rate' => 'Principal convert rate (%)'
     ],
     'messages' => [
         'package created' => 'Package successfully created.',
