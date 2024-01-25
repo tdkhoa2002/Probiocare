@@ -19,12 +19,15 @@
                 <img class="arrow-bottom" src="{{ Theme::url('images/arrow-bottom.png') }}" alt="" />
             </a>
             <ul class="submenu">
-                <li class="{{ Route::currentRouteName() == 'fe.loyalty.loyalty.myhistory' ? 'active' : '' }}">
-                    <a href="{{ route('fe.loyalty.loyalty.myhistory') }}">History</a>
+                <li class="{{ Route::currentRouteName() == 'fe.loyalty.loyalty.list-packages' ? 'active' : '' }}">
+                    <a href="{{ route('fe.loyalty.loyalty.list-packages') }}">Loyaty Packages</a>
                 </li> 
                 <li class="{{ Route::currentRouteName() == 'fe.loyalty.loyalty.mystaking' ? 'active' : '' }}">
                     <a href="{{ route('fe.loyalty.loyalty.mystaking') }}">My Package</a>
                 </li>
+                <li class="{{ Route::currentRouteName() == 'fe.loyalty.loyalty.myhistory' ? 'active' : '' }}">
+                    <a href="{{ route('fe.loyalty.loyalty.myhistory') }}">History</a>
+                </li> 
             </ul>
             <a class="menu-item {{ Route::currentRouteName() =='fe.customer.customer.affiliate' ?'active':"" }}" href="{{route('fe.customer.customer.affiliate')}}">
                 <img src="{{ Theme::url('images/navigator/icon-affiliate.png') }}" alt="" />
