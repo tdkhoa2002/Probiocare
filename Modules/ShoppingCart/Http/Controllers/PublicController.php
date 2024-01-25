@@ -251,17 +251,19 @@ class PublicController extends BasePublicController
     {
         // Lấy transactionCode từ query parameters hoặc form data
         $transactionCode = $request->query('transactionCode');
-
         $callbackData = [
             'transactionCode' => $transactionCode
         ];
         // Gọi API get-transaction-info
         $alepay = new Alepay();
         $transactionInfo = $alepay->getTransactionInfo($callbackData);
+        if($transactionInfo['code'] !== '000') {
+            dd($transactionInfo);
+        }
         $transactionInfo['transactionTimeConvert'] = $this->convertMillisecondsToRealTime($transactionInfo['transactionTime']);
         $transactionInfo['successTimeConvert'] = $this->convertMillisecondsToRealTime($transactionInfo['successTime']);
-        // Xử lý kết quả response từ get-transaction-info
-        //dd($transactionInfo);
+        
+        dd($transactionInfo);
         return view('shoppingCarts.alepay.alepay-result', ['callbackData' => $transactionInfo]);
     }
 
