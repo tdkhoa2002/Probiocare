@@ -14,16 +14,18 @@ Loyalty | @parent
         @php
         $cashback;
         $packageTermId;
-        $bonusCredit;
-        $termMatching;
+        $bonusCredit = 0;
+        $directCommission = 0;
+        $termMatching = 0;
+        $termMatching = 0; //$package->term_matching;
         $packageTrans = $package->translations->first();
         if($packageTrans) {
             $title = $packageTrans->title;
         }
-        $packageCom0 = $package->commissions->first();
-        if($packageCom0 !== null) {
-            $bonusCredit = $packageCom0->commission - 100;
-        }
+        // $packageCom0 = $package->commissions->first();
+        // if($packageCom0 !== null) {
+        //     $bonusCredit = $packageCom0->commission - 100;
+        // }
         $packageTerm0 = $package->terms->first();
         if($packageTerm0 !== null) {
             $cashback = $package->min_stake / $packageTerm0->day_reward * $packageTerm0->apr_reward / 100;
@@ -32,11 +34,13 @@ Loyalty | @parent
         $currencyCashback = $package->currencyCashback;
         $commissions = $package->commissions;
         if($commissions) {
-            foreach ($commissions as $commission) {
-                if($commission->level == 1) {
+            foreach ($commissions as $key => $commission) {
+                if($commission->level == 0) { // get Credit Bonus for himself
+                    $bonusCredit = $commission->commission;
+                }
+                if($commission->level == 1) { // get F1 direct commission
                     $directCommission = $commission->commission;
                 }
-                $termMatching = $commission->level;
             }
         }
 
