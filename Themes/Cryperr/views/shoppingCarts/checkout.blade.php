@@ -15,6 +15,7 @@
         </div>
     </div>
     <form action="{{ route('fe.shoppingcart.checkout') }}" method="POST" id="form_checkout">
+        @csrf
         <section class="box-carts container-custom">
             <div class="row">
                 <div class="col-12 col-lg-8">

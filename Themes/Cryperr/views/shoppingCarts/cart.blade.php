@@ -104,7 +104,7 @@
                         <a class="btn btn-success" href="{{ route('fe.shoppingcart.getCheckout') }}">
                             {{ __('shopping.checkout_btn') }}
                         </a>
-                        <a href="#">{{ __('shopping.continue_shopping') }}</a>
+                        <a href="/san-pham">{{ __('shopping.continue_shopping') }}</a>
                     </div>
                 </div>
             </div>

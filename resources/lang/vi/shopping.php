@@ -36,7 +36,7 @@ return[
     //Your Order cho cả 2
     'your_order' => 'Đơn hàng của bạn',
     'subtotal' => 'Tạm tính',
-    'pay_plc' => 'Thanh toán bằng PLC',
+    'pay_plc' => 'Trao đổi bằng PLC point',
     'total_payment' => 'Tổng tiền',
     'checkout_btn' =>  'Thanh toán',
     'continue_shopping' => 'Tiếp tục mua sắm'    
