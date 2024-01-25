@@ -9046,7 +9046,8 @@ __webpack_require__.r(__webpack_exports__);
         end_date: "",
         principal_is_stake_currency: true,
         require_entry: false,
-        status: true
+        status: true,
+        term_matching: 0
       }).value(),
       form: new form_backend_validation__WEBPACK_IMPORTED_MODULE_1___default.a(),
       activeTab: window.AsgardCMS.currentLocale || "en",
@@ -9167,7 +9168,8 @@ __webpack_require__.r(__webpack_exports__);
         end_date: "",
         status: true,
         principal_is_stake_currency: true,
-        require_entry: false
+        require_entry: false,
+        term_matching: 0
       }).value(),
       form: new form_backend_validation__WEBPACK_IMPORTED_MODULE_1___default.a(),
       activeTab: window.AsgardCMS.currentLocale || "en",
@@ -19636,6 +19638,33 @@ var render = function render() {
   }) : _vm._e()], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
+    staticClass: "col-lg-6"
+  }, [_c("el-form-item", {
+    "class": {
+      "el-form-item is-error": _vm.form.errors.has("term_matching")
+    },
+    attrs: {
+      label: _vm.trans("packages.form.term_matching")
+    }
+  }, [_c("el-input-number", {
+    attrs: {
+      min: 0
+    },
+    model: {
+      value: _vm.packageData.term_matching,
+      callback: function callback($$v) {
+        _vm.$set(_vm.packageData, "term_matching", $$v);
+      },
+      expression: "packageData.term_matching"
+    }
+  }), _vm._v(" "), _vm.form.errors.has("term_matching") ? _c("div", {
+    staticClass: "el-form-item__error",
+    domProps: {
+      textContent: _vm._s(_vm.form.errors.first("term_matching"))
+    }
+  }) : _vm._e()], 1)], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
     staticClass: "col-md-4"
   }, [_c("el-form-item", {
     "class": {
@@ -20138,6 +20167,33 @@ var render = function render() {
     staticClass: "el-form-item__error",
     domProps: {
       textContent: _vm._s(_vm.form.errors.first("currency_cashback_id"))
+    }
+  }) : _vm._e()], 1)], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-lg-6"
+  }, [_c("el-form-item", {
+    "class": {
+      "el-form-item is-error": _vm.form.errors.has("term_matching")
+    },
+    attrs: {
+      label: _vm.trans("packages.form.term_matching")
+    }
+  }, [_c("el-input-number", {
+    attrs: {
+      min: 0
+    },
+    model: {
+      value: _vm.packageData.term_matching,
+      callback: function callback($$v) {
+        _vm.$set(_vm.packageData, "term_matching", $$v);
+      },
+      expression: "packageData.term_matching"
+    }
+  }), _vm._v(" "), _vm.form.errors.has("term_matching") ? _c("div", {
+    staticClass: "el-form-item__error",
+    domProps: {
+      textContent: _vm._s(_vm.form.errors.first("term_matching"))
     }
   }) : _vm._e()], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "row"
