@@ -81,7 +81,7 @@ class CalRewardLoyalty extends Command
                         $redemption_date = Carbon::parse($redemption_date);
                         $result = $now->gt($redemption_date);
                         if ($result) {
-                            $this->handleRedeemStaking($order, $package);
+                            // $this->handleRedeemStaking($order, $package);
                         } else {
                             $rate = $this->calApr($apr, $hour_reward);
                             $diffHour = $now->diffInHours($last_time_reward);
@@ -123,7 +123,7 @@ class CalRewardLoyalty extends Command
                                 event(new UpdateBalanceWallet($newBalance, $wallet->id));
                                 $last_time_reward = Carbon::parse($last_time_reward)->addHours($hour_reward);
                                 $this->orderRepository->update($order, ['total_amount_reward' => $order->total_amount_reward + $reward, 'last_time_reward' => $last_time_reward]);
-                                //Tra hoa hong lai tren lai
+                                //Interest Bonus
                                 $this->handleCalCommissionLoyalty($order);
                             }
                         }
