@@ -30,6 +30,9 @@ return[
     'success' => 'Order Successfully',
     'noti' => 'Your order has been completed, please check your balance',
     'view' => 'View Order',
+    'order_payment_fail_title'=>'Đơn hàng thanh toán thất bại.',
+    'order_payment_fail_description'=>'Đơn hàng của bạn thanh toán thất bại. Kiểm tra lại hoặc liên hệ admin để được hỗ trợ',
+
 
     //your order for both
     'your_order' => 'Your Order',

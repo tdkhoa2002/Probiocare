@@ -38,6 +38,11 @@ class Currency extends Model
         return $this->hasMany(Transaction::class, 'currency_id');
     }
 
+    public function currencyAttrs()
+    {
+        return $this->hasMany(CurrencyAttr::class, 'currency_id');
+    }
+
     public function wallets()
     {
         return $this->hasMany(Wallet::class, 'currency_id');

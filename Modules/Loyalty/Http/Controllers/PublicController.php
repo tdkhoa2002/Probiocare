@@ -174,7 +174,12 @@ class PublicController extends BasePublicController
                     $newBalance = $wallet->balance - $amount;
                     event(new UpdateBalanceWallet($newBalance, $wallet->id));
                     $amount_usd_stake = $amount * $stakeCurrency->usd_rate;
-                    $amount_reward = $amount_usd_stake / $rewardCurrency->usd_rate;
+                    // $amount_reward = $amount_usd_stake / $rewardCurrency->usd_rate;
+                    if( $rewardCurrency->usd_rate != 0){
+                        $amount_reward = $amount_usd_stake / $rewardCurrency->usd_rate;
+                    }else{
+                        $amount_reward = $amount_usd_stake;
+                    }
                     $now = now();
                     $redemption_date = null;
                     if ($term->type == 'LOCKED') {

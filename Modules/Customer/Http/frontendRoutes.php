@@ -57,6 +57,10 @@ $router->group(['prefix' => '/api/customer', 'middleware' => 'check-auth'], func
 });
 
 $router->get('list-country', ['uses' => 'ApiPublicController@listCountry']);
+$router->get('wallets/check-module-wallet-status', [
+    'as' => 'api.customer.wallet.check-wallet-module',
+    'uses' => 'ApiPublicController@checkModuleWallet'
+]);
 
 $router->group(['prefix' => '/customer/api-management', 'middleware' => 'check-auth'], function (Router $router) {
     $router->post('create', [

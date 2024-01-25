@@ -28,4 +28,11 @@ class ApiPublicController extends BaseApiController
             return $this->respondWithError($e->getMessage());
         }
     }
+
+    public function checkModuleWallet() {
+        if(app('modules')->isEnabled('Wallet')) {
+            return $this->respondWithSuccess(['enabled' => True]);
+        }
+        return $this->respondWithError(['enabled' => False]);
+    }
 }

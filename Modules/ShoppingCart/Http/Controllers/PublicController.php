@@ -9,9 +9,11 @@ use Modules\Product\Repositories\ProductRepository;
 use Modules\Product\Repositories\CategoryRepository;
 use Modules\ShoppingCart\CartItem;
 use Modules\ShoppingCart\Emails\OrderConfirm;
+use Modules\ShoppingCart\Enums\StatusOrderEnum;
 use Modules\ShoppingCart\Facades\Cart;
 use Modules\ShoppingCart\Repositories\OrderRepository;
 use Modules\ShoppingCart\Repositories\OrderDetailRepository;
+use Modules\ShoppingCart\Services\Alepay;
 
 class PublicController extends BasePublicController
 {
@@ -118,7 +120,6 @@ class PublicController extends BasePublicController
         $subtotal = Cart::subtotalPrice();
         $total = $subtotal + $plc;
         $carts = Cart::content();
-
         return view('shoppingCarts.cart', ['carts' => $carts, 'plc' => $plc, 'total' => number_format($total), 'subtotal' => number_format($subtotal)]);
     }
 
@@ -127,6 +128,16 @@ class PublicController extends BasePublicController
         $order = $this->orderRepository->findByAttributes(['order_code' => $code]);
         if ($order) {
             return view('shoppingCarts.thank-you', compact('code'));
+        } else {
+            return redirect()->route('homepage');
+        }
+    }
+
+    public function getPaymentFail($code)
+    {
+        $order = $this->orderRepository->findByAttributes(['order_code' => $code]);
+        if ($order) {
+            return view('shoppingCarts.payment-fail', compact('code'));
         } else {
             return redirect()->route('homepage');
         }
@@ -181,7 +192,7 @@ class PublicController extends BasePublicController
                     'time_ship' => null,
                     'payment_method' => $request->payment_method,
                     'delivery_method' => $request->delivery_method,
-                    'status' => 'CREATED'
+                    'status' => StatusOrderEnum::CREATED
                 ];
                 $order = $this->orderRepository->create($order);
                 foreach ($carts as $cart) {
@@ -194,16 +205,85 @@ class PublicController extends BasePublicController
                     ];
                     $this->orderDetailRepository->create($orderDetail);
                 }
-                $email = new OrderConfirm($order);
-                Mail::to($request->email)->send($email);
-                Cart::destroy();
-                return response()->json(['error' => false, 'message' => trans('shoppingcart::orders.messages.order_success'), 'url' => route('fe.shoppingcart.getThankYou', $rand)]);
+                if ($request->payment_method == 3 || $request->payment_method == 2) {
+                    return $this->hanldeCheckoutAlepay($order);
+                } else {
+                    $email = new OrderConfirm($order);
+                    Mail::to($request->email)->send($email);
+                    Cart::destroy();
+
+                    return response()->json(['error' => false, 'message' => trans('shoppingcart::orders.messages.order_success'), 'url' => route('fe.shoppingcart.getThankYou', $rand)]);
+                }
             } else {
                 return response()->json(['error' => true, 'message' => "Giỏ hàng đang trống, hãy chọn mua sản phẩm"]);
             }
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
+        }
+    }
+
+    private function hanldeCheckoutAlepay($order)
+    {
+        try {
+            $alepay = new Alepay;
+            $dataRequest = [
+                'orderDescription' => $order->order_code,
+                'orderCode' => $order->order_code,
+                'amount' => $order->total,
+                'currency' => 'VND',
+                'totalItem' => $order->orderDetails->count(),
+                'returnUrl' => route('fe.shoppingcart.alepayCheckoutSuccess', $order->order_code),
+                'cancelUrl' => route('fe.shoppingcart.alepayCheckoutFail', $order->order_code),
+                'buyerName' => $order->fullname,
+                'buyerEmail' => $order->email,
+                'buyerPhone' => $order->phone_number,
+                'buyerAddress' => $order->address,
+                'buyerCity' => 'Ho Chi Minh',
+                'buyerCountry' => 'Viet Nam',
+                'allowDomestic' => true,
+                'checkoutType' => 3
+            ];
+
+            $data = $alepay->requestPayment($dataRequest);
+            Cart::destroy();
+            if ($data !== false && isset($data->code) && $data->code == "000") {
+                $this->orderRepository->update($order, ['payment_code' => $data->transactionCode, 'status' => StatusOrderEnum::PAYMENTING]);
+                return response()->json(['error' => false, 'message' => trans('shoppingcart::orders.messages.order_success'), 'type' => 'alepay', 'url' => $data->checkoutUrl]);
+            } else {
+                $this->orderRepository->update($order, ['payment_code' => $data->transactionCode, 'status' => StatusOrderEnum::PAYMENT_FAILED]);
+                return response()->json(['error' => true, 'message' => trans('shoppingcart::orders.messages.order_payment_fail'), 'url' => route('fe.shoppingcart.alepayCheckoutFail', $order->order_code)]);
+            }
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function alepayCheckoutSuccess($order_code, Request $request)
+    {
+        if (isset($request->transactionCode) && isset($request->errorCode) && $request->errorCode == '000') {
+            $order = $this->orderRepository->findByAttributes(['order_code' => $order_code, 'status' => StatusOrderEnum::PAYMENTING, 'payment_code' => $request->transactionCode]);
+            if ($order) {
+                Mail::to($order->email)->send(new OrderConfirm($order));
+                $this->orderRepository->update($order, ['status' => StatusOrderEnum::PAYMENT_COMPLETED]);
+                return redirect()->route('fe.shoppingcart.getThankYou', $order_code)->withError(trans('shoppingcart::orders.messages.order_payment_success'));
+            } else {
+                return redirect()->route('homepage')->withErrors(trans('shoppingcart::orders.messages.order_not_found'));
+            }
+        } else {
+            return redirect()->route('homepage')->withErrors(trans('shoppingcart::orders.messages.order_not_found'));
+        }
+    }
+
+    public function alepayCheckoutFail($order_code)
+    {
+        $order = $this->orderRepository->findByAttributes(['order_code' => $order_code]);
+        if ($order) {
+            $this->orderRepository->update($order, ['status' => StatusOrderEnum::PAYMENT_FAILED]);
+            return redirect()->route('fe.shoppingcart.getPaymentFail', $order_code)->withError(trans('shoppingcart::orders.messages.order_payment_fail'));
+        } else {
+            return redirect()->route('homepage')->withErrors(trans('shoppingcart::orders.messages.order_not_found'));
         }
     }
 }

@@ -8,6 +8,7 @@ use Modules\Core\Repositories\BaseRepository;
 
 interface TransactionRepository extends BaseRepository
 {
+    public function getListTransactionCustomerAdmin($customer_id, Request $request): LengthAwarePaginator;
     public function getListTransaction($customer_id,$action, Request $request): LengthAwarePaginator;
     public function getTxnsByAction($customer_id, array $actions);
     public function serverPaginationFilteringFor(Request $request): LengthAwarePaginator;

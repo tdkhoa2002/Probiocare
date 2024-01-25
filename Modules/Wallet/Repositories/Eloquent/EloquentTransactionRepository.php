@@ -10,6 +10,24 @@ use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
 
 class EloquentTransactionRepository extends EloquentBaseRepository implements TransactionRepository
 {
+    public function getListTransactionCustomerAdmin($customerId, Request $request): LengthAwarePaginator {
+        $transactions = $this->allWithBuilder();
+        $transactions->where('customer_id', $customerId);
+
+        if ($request->has('currency') && $request->get('currency') != "") {
+            $transactions->where('currency_id', $request->get('currency'));
+        }
+
+        if ($request->get('order_by') !== null && $request->get('order') !== 'null') {
+            $order = $request->get('order') === 'ascending' ? 'asc' : 'desc';
+            $transactions->orderBy($request->get('order_by'), $order);
+        } else {
+            $transactions->orderBy('created_at', 'DESC');
+        }
+
+        return $transactions->paginate($request->get('per_page', 10));
+    }
+
     public function getListTransaction($customer_id, $action, Request $request): LengthAwarePaginator
     {
         $transactions = $this->allWithBuilder();

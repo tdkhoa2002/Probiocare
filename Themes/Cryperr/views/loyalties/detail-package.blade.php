@@ -16,7 +16,7 @@
     $endDateFormatted = date("m/d/Y", strtotime($package->end_date));
     $customer = auth()->guard('customer')->user();
     $packageCom0 = $package->commissions->first();
-    $bonusCredit = $packageCom0->commission - 100;
+    $bonusCredit = $packageCom0->commission;
     $packageTerm0 = $package->terms->first();
     $cashback = $package->min_stake / $packageTerm0->day_reward * $packageTerm0->apr_reward / 100;
     foreach ($commissions as $commission) {
