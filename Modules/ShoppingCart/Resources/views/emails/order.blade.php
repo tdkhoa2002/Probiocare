@@ -214,10 +214,10 @@
                                                 <td width="70%" align="left"
                                                     style=" font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
                                                     <p class="txt">
-                                                        @if($order->payment_method == 2 || $order->payment_method == 3)
-                                                        Chuyển khoản Ngân hàng/Thẻ
+                                                        @if($order->payment_method == 2)
+                                                        Chuyển khoản Ngân hàng
                                                         @else
-                                                        Tiền mặt khi nhận hàng
+                                                        Thanh toán Visa
                                                         @endif
                                                     </p>
                                                 </td>
