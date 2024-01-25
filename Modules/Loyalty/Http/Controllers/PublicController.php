@@ -8,6 +8,7 @@ use Modules\Wallet\Repositories\WalletRepository;
 use Modules\Loyalty\Repositories\PackageRepository;
 use Modules\Loyalty\Repositories\PackageTermRepository;
 use Modules\Loyalty\Repositories\OrderRepository;
+use Modules\Customer\Repositories\CustomerRepository;
 use Illuminate\Http\Request;
 use Modules\Loyalty\Jobs\CalCommissionLoyalty;
 use Modules\Loyalty\Transformers\Orders\Frontend\FullOrderTransformer;
@@ -29,6 +30,7 @@ class PublicController extends BasePublicController
     private $orderRepository;
     private $packageTermRepository;
     private $transactionRepository;
+    private $customerRepository;
 
     public function __construct(
         Application $app,
@@ -36,7 +38,8 @@ class PublicController extends BasePublicController
         PackageTermRepository $packageTermRepository,
         OrderRepository $orderRepository,
         WalletRepository $walletRepository,
-        TransactionRepository $transactionRepository
+        TransactionRepository $transactionRepository,
+        CustomerRepository $customerRepository
     ) {
         parent::__construct();
         $this->app = $app;
@@ -45,6 +48,7 @@ class PublicController extends BasePublicController
         $this->orderRepository = $orderRepository;
         $this->walletRepository = $walletRepository;
         $this->transactionRepository = $transactionRepository;
+        $this->customerRepository = $customerRepository;
     }
 
     public function getStakingList()
@@ -112,6 +116,8 @@ class PublicController extends BasePublicController
         try {
             $customerID = auth()->guard('customer')->user()->id;
             $package = $this->packageRepository->find($packageId);
+            $transactions = [];
+            $order;
             if ($package) {
                 $stakeCurrencyId = $package->currencyStake->id;
                 $term = $request->get('term');
@@ -120,10 +126,14 @@ class PublicController extends BasePublicController
                     'customer_id' => $customerID,
                     'packageterm_id' => $term
                 ]);
-                $transactions = $this->transactionRepository->getByAttributes([
-                    'order' => $order->id,
-                    'customer_id' => $customerID
-                ]);
+                if($order) {
+                    $actions = ['SUBCRIBE_LOYALTY', 'COMMISSION_LOYALTY', 'REWARD_LOYALTY'];
+                    $transactions = $this->transactionRepository->where('order', $order->id)
+                    ->where('customer_id', $customerID)
+                    ->whereIn('action', $actions)
+                    ->get();
+                    info($transactions);
+                }
                 return view('loyalties.detail-package', compact('package', 'term', 'wallet', 'order', 'transactions'));
             } else {
                 return back()->withErrors(trans('staking::packages.messages.not_found'));
@@ -155,20 +165,26 @@ class PublicController extends BasePublicController
             }
             $package = $this->packageRepository->findByAttributes(['id' => $packageId, 'status' => true]);
             if ($package) {
+                if($customer->term_matching < $package->term_matching) {
+                    $dataUpdate = [
+                        'term_matching' => $package->term_matching
+                    ];
+                    $this->customerRepository->update($customer, $dataUpdate);
+                }
                 $term = $this->packageTermRepository->findByAttributes(['id' => $term_id, 'package_id' => $package->id]);
                 if ($term) {
                     $stakeCurrency = $package->currencyStake;
                     $rewardCurrency = $package->currencyReward;
-                    $wallet = $this->walletRepository->where("customer_id", $customer->id)->where("currency_id", $stakeCurrency->id)->first();
-                    if (!$wallet) {
+                    $walletStake = $this->walletRepository->where("customer_id", $customer->id)->where("currency_id", $stakeCurrency->id)->first();
+                    if (!$walletStake) {
                         return back()->withErrors(trans('wallet::wallets.messages.balance_dont_enough'));
                     }
 
-                    if ($wallet->balance < $amount) {
+                    if ($walletStake->balance < $amount) {
                         return back()->withErrors(trans('wallet::wallets.messages.balance_dont_enough'));
                     }
-                    $newBalance = $wallet->balance - $amount;
-                    event(new UpdateBalanceWallet($newBalance, $wallet->id));
+                    $newBalanceStake = $walletStake->balance - $amount;
+                    event(new UpdateBalanceWallet($newBalanceStake, $walletStake->id));
                     $amount_usd_stake = $amount * $stakeCurrency->usd_rate;
                     // $amount_reward = $amount_usd_stake / $rewardCurrency->usd_rate;
                     if( $rewardCurrency->usd_rate != 0){
@@ -181,8 +197,8 @@ class PublicController extends BasePublicController
                     if ($term->type == 'LOCKED') {
                         $redemption_date =  now()->addDays($term->day_reward);
                     } elseif ($term->type == 'LOCKED-PRINCIPLE-PREPAID') {
-                        $wallet = $this->walletRepository->where("customer_id", $customer->id)->where("currency_id", $rewardCurrency->id)->first();
-                        if(!$wallet) {
+                        $walletReward = $this->walletRepository->where("customer_id", $customer->id)->where("currency_id", $rewardCurrency->id)->first();
+                        if(!$walletReward) {
                             $dataCreate = [
                                 'customer_id' => $customer->id,
                                 'currency_id' => $rewardCurrency->id,
@@ -190,16 +206,16 @@ class PublicController extends BasePublicController
                                 'balance' => 0,
                                 'status' => true,
                             ];
-                            $wallet = $this->walletRepository->create($dataCreate);
+                            $walletReward = $this->walletRepository->create($dataCreate);
                         }
                         $commissions =  $package->commissions;
                         foreach ($commissions as $commission) {
                             if ($commission->level == 0 && $commission->status == true) {
                                 $rewardAmount = $package->min_stake * $commission->commission / 100;
-                                $newBalance = $wallet->balance + $rewardAmount;
+                                $newBalanceReward = $walletReward->balance + $rewardAmount;
                             }
                         }
-                        event(new UpdateBalanceWallet($newBalance, $wallet->id));
+                        event(new UpdateBalanceWallet($newBalanceReward, $walletReward->id));
                     }
                     $dataCreate = [
                         'code' => random_strings(20),
@@ -224,8 +240,8 @@ class PublicController extends BasePublicController
                         'amount' => $amount,
                         'amount_usd' => $amount * $stakeCurrency->usd_rate,
                         'fee' => 0,
-                        'balance' => $newBalance,
-                        'balanceBefore' => $wallet->balance,
+                        'balance' => $newBalanceStake,
+                        'balanceBefore' => $walletStake->balance,
                         'payment_method' => 'CRYPTO',
                         'txhash' => random_strings(30),
                         'from' => "",
@@ -246,8 +262,8 @@ class PublicController extends BasePublicController
                         'amount' => $rewardAmount,
                         'amount_usd' => $rewardAmount * $rewardCurrency->usd_rate,
                         'fee' => 0,
-                        'balance' => $newBalance,
-                        'balanceBefore' => $wallet->balance,
+                        'balance' => $newBalanceReward,
+                        'balanceBefore' => $walletReward->balance,
                         'payment_method' => 'CRYPTO',
                         'txhash' => random_strings(30),
                         'from' => "",

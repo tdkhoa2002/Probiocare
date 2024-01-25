@@ -33,15 +33,16 @@
                 </div>
               </div>
 
-              <el-table
-                ref="pageTable"
-                v-loading.body="tableIsLoading"
-                :data="data"
-                stripe
-                style="width: 100%"
-                @sort-change="handleSortChange"
-              >
+              <el-table ref="pageTable" v-loading.body="tableIsLoading" :data="data" stripe style="width: 100%"
+                @sort-change="handleSortChange">
                 <el-table-column prop="id" label="Id" width="75" sortable="custom"> </el-table-column>
+                <el-table-column :label="trans('packages.table.icon')" prop="icon">
+                  <template slot-scope="scope">
+                    <a :href="editRoute(scope)" @click.prevent="goToEdit(scope)">
+                      <el-image style="width: 100px; height: 100px" :src="scope.row.icon"></el-image>
+                    </a>
+                  </template>
+                </el-table-column>
                 <el-table-column :label="trans('packages.table.title')" prop="translations.title">
                   <template slot-scope="scope">
                     <a :href="editRoute(scope)" @click.prevent="goToEdit(scope)">
@@ -49,12 +50,12 @@
                     </a>
                   </template>
                 </el-table-column>
-                <el-table-column :label="trans('packages.table.currency_stake_id')" prop="currency_stake_id" >
+                <el-table-column :label="trans('packages.table.currency_stake_id')" prop="currency_stake_id">
                   <template slot-scope="scope">
                     <span>{{ scope.row.currency_stake.title }}</span>
                   </template>
                 </el-table-column>
-                <el-table-column :label="trans('packages.table.currency_reward_id')" prop="currency_reward_id" >
+                <el-table-column :label="trans('packages.table.currency_reward_id')" prop="currency_reward_id">
                   <template slot-scope="scope">
                     <span>{{ scope.row.currency_reward.title }}</span>
                   </template>
@@ -81,7 +82,8 @@
                 </el-table-column>
                 <el-table-column :label="trans('packages.table.require_entry')" width="130">
                   <template slot-scope="scope">
-                    <i :class="scope.row.require_entry === true ? 'text-success' : 'text-danger'" class="fa fa-circle"></i>
+                    <i :class="scope.row.require_entry === true ? 'text-success' : 'text-danger'"
+                      class="fa fa-circle"></i>
                   </template>
                 </el-table-column>
                 <el-table-column :label="trans('packages.table.status')" width="60">
@@ -92,22 +94,18 @@
                 <el-table-column :label="trans('core.table.actions')" prop="actions" fixed="right">
                   <template slot-scope="scope">
                     <el-button-group>
-                      <edit-button :to="{ name: 'admin.loyalty.package.edit', params: { packageId: scope.row.id } }"></edit-button>
+                      <edit-button
+                        :to="{ name: 'admin.loyalty.package.edit', params: { packageId: scope.row.id } }"></edit-button>
                       <delete-button :scope="scope" :rows="data"></delete-button>
                     </el-button-group>
                   </template>
                 </el-table-column>
               </el-table>
               <div class="pagination-wrap" style="text-align: center; padding-top: 20px">
-                <el-pagination
-                  :current-page.sync="meta.current_page"
-                  :page-sizes="[10, 20, 30, 50, 100]"
-                  :page-size="parseInt(meta.per_page)"
-                  :total="meta.total"
-                  layout="total, sizes, prev, pager, next, jumper"
-                  @size-change="handleSizeChange"
-                  @current-change="handleCurrentChange"
-                ></el-pagination>
+                <el-pagination :current-page.sync="meta.current_page" :page-sizes="[10, 20, 30, 50, 100]"
+                  :page-size="parseInt(meta.per_page)" :total="meta.total"
+                  layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange"
+                  @current-change="handleCurrentChange"></el-pagination>
               </div>
             </div>
           </div>

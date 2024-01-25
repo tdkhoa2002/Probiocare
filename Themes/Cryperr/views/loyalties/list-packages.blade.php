@@ -16,8 +16,7 @@ Loyalty | @parent
         $packageTermId;
         $bonusCredit = 0;
         $directCommission = 0;
-        $termMatching = 0;
-        $termMatching = 0; //$package->term_matching;
+        $termMatching = $package->term_matching;
         $packageTrans = $package->translations->first();
         if($packageTrans) {
             $title = $packageTrans->title;
@@ -46,12 +45,16 @@ Loyalty | @parent
 
         $customer = auth()->guard('customer')->user();
         $subscribed = false;
+        if ($package->getIcon()) {
+            $icon = $package->getIcon();
+            $iconUrl = $icon->path;
+        } else {
+            $iconUrl = Theme::url('images/logo.png');
+        }
         @endphp
         <div class="loyalty-item">
-            <form action="/loyalty/subcribeLoyalty" method="post">
-            @csrf
             <div>
-                <img src="{{ Theme::url('images/icon-starter-package.png') }}">
+                <img src="{{ $iconUrl }}">
                 <h4>{{ $title }}</h4>
                 <div>
                     <input type="text" name="packageId" value="{{ $package->id }}" hidden>
@@ -90,9 +93,10 @@ Loyalty | @parent
                 @if ($subscribed)
                     <button type="button" class="btn btn-secondary btn-lg" disabled>Subscribed</button>
                 @else
-                    <button type="submit" class="btn btn-success">Subscribe</button>
+                    <a href="{{ route('fe.loyalty.loyalty.loyalty-detail', ['packageId' => $package->id, 'term' => $packageTermId]) }}">
+                        <button type="submit" class="btn btn-success">Subcribe</button>
+                    </a>
                 @endif
-            </form>
         </div>
     </div>
         @endforeach

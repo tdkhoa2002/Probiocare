@@ -95,6 +95,18 @@
                 </div>
               </div>
               <div class="row">
+                <div class="col-lg-6">
+                  <el-form-item :label="trans('packages.form.term_matching')" :class="{
+                    'el-form-item is-error':
+                      form.errors.has('term_matching'),
+                  }">
+                    <el-input-number v-model="packageData.term_matching" :min="0"></el-input-number>
+                    <div v-if="form.errors.has('term_matching')" class="el-form-item__error"
+                      v-text="form.errors.first('term_matching')"></div>
+                  </el-form-item>
+                </div>
+              </div>
+              <div class="row">
                 <div class="col-md-4">
                   <el-form-item :label="trans('packages.form.min_stake')" :class="{
                     'el-form-item is-error': form.errors.has('min_stake'),
@@ -163,8 +175,7 @@
                   <el-form-item :label="trans('packages.form.require_entry')" :class="{
                     'el-form-item is-error': form.errors.has('require_entry'),
                   }">
-                    <el-switch v-model="packageData.require_entry" active-color="#13ce66"
-                      inactive-color="#ff4949">
+                    <el-switch v-model="packageData.require_entry" active-color="#13ce66" inactive-color="#ff4949">
                     </el-switch>
                     <div v-if="form.errors.has('require_entry')" class="el-form-item__error"
                       v-text="form.errors.first('require_entry')"></div>
@@ -172,7 +183,7 @@
                 </div>
               </div>
               <single-media :entity-id="packageData.id" zone="PACKAGE_ICON" entity="Modules\Loyalty\Entities\Package"
-                @single-file-selected="selectSingleFile($event, 'package')"></single-media>
+                @single-file-selected="selectSingleFile($event, 'packageData')"></single-media>
               <br>
               <el-form-item :label="trans('packages.form.status')" :class="{
                 'el-form-item is-error': form.errors.has('status'),
@@ -253,6 +264,7 @@ export default {
           principal_is_stake_currency: true,
           require_entry: false,
           status: true,
+          term_matching: 0
         })
         .value(),
       form: new Form(),
