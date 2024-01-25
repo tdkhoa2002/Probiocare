@@ -26,6 +26,7 @@ class FullOrderTransformer extends JsonResource
             'total' =>  $this->resource->total,
             'payment_method' =>  $this->resource->payment_method,
             'delivery_method' =>  $this->resource->delivery_method,
+            'payment_code' =>  $this->resource->payment_code,
             'time_ship' =>  $this->resource->time_ship,
             'status' =>  $this->resource->status,
             'created_at' =>  $this->resource->created_at,

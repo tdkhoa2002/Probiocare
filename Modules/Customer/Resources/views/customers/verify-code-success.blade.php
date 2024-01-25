@@ -3,7 +3,6 @@
 @php
 $customer_name = $customer->profile->firstname;
 $customer_id = $customer->id;
-$link = route('fe.customer.customer.verifyRegister').'?token='.$code;
 @endphp
 
 @section('title')

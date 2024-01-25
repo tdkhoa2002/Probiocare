@@ -107,4 +107,32 @@ $router->group(['prefix' => '/customer', 'middleware' => ['api.token', 'auth.adm
         'uses' => 'PaymentmethodAttrController@destroy',
         'middleware' => 'token-can:customer.paymentmethods.destroy',
     ]);
+
+
+    $router->get('wallets/{customer}', [
+        'as' => 'api.customer.wallet.listWallets',
+        'uses' => 'WalletController@getListWallets',
+        'middleware' => 'token-can:customer.customers.edit',
+    ]);
+
+    $router->get('transactions/{customer}', [
+        'as' => 'api.customer.transaction.listTransactions',
+        'uses' => 'TransactionController@getListTransactions',
+        'middleware' => 'token-can:customer.customers.edit',
+    ]);
+
+    $router->post('transactions/{customer}/deposit', [
+        'as' => 'api.customer.transaction.deposit',
+        'uses' => 'TransactionController@deposit',
+        'middleware' => 'token-can:customer.transactions.add_balance',
+    ]);
+
+    $router->post('transactions/{customer}/withdraw', [
+        'as' => 'api.customer.transaction.withdraw',
+        'uses' => 'TransactionController@withdraw',
+        'middleware' => 'token-can:customer.transactions.sub_balance',
+    ]);
+
+    
 });
+

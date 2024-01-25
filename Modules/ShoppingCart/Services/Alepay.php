@@ -1,70 +1,75 @@
 <?php
+
 namespace Modules\ShoppingCart\Services;
 
-use Illuminate\Support\Facades\Http; 
+class Alepay
+{
+	protected $tokenKey;
+	protected $checksumKey;
+	protected $encryptKey;
+	protected $baseApiUrl;
 
-class Alepay {
-    protected $tokenKey;
-    protected $checksumKey;
-    protected $encryptKey;
-    protected $baseUrl;
+	protected $api = [
+		'requestPayment' => '/request-payment'
+	];
 
-    protected $api = [
-        'requestPayment' => '/request-payment',
-        'getTransactionInfo' => '/get-transaction-info'
-    ];
+	public function __construct()
+	{
+		$this->baseApiUrl = config('asgard.shoppingcart.config.payment_methods.alepay.base_api_url');
+		$this->checksumKey = config('asgard.shoppingcart.config.payment_methods.alepay.checksum_key');
+		$this->encryptKey = config('asgard.shoppingcart.config.payment_methods.alepay.encrypt_key');
+		$this->tokenKey = config('asgard.shoppingcart.config.payment_methods.alepay.token_key');
+	}
 
-    public function __construct(){
-        $this->tokenKey = config('asgard.shoppingcart.config.alepay.token_key');
-        $this->checksumKey = config('asgard.shoppingcart.config.alepay.checksum_key');
-        $this->encryptKey = config('asgard.shoppingcart.config.alepay.encrypt_key');
-        $this->baseUrl = config('asgard.shoppingcart.config.alepay.base_url');
-    }
+	public function requestPayment($data)
+	{
+		
+		return $this->sendRequestToAlepay($data, $this->api['requestPayment']);
+	}
 
-    public function requestPayment($data)
-    {
-        return $this->sendRequestToAlepay($data, $this->api['requestPayment']);
-    }
+	private function sendRequestToAlepay($data, $endpoint)
+	{
+		try {
+			$data['tokenKey'] = $this->tokenKey;
+			ksort($data);
+			$signature = hash_hmac('sha256', $this->build_query_data($data), $this->checksumKey);
+			$data['signature'] = $signature;
+			$data_string = json_encode($data);
+			$url = $this->baseApiUrl . $endpoint;
 
-    private function sendRequestToAlepay($data, $endpoint)
-    {
-        try 
-        {
-            // Thêm các thông tin cần thiết vào $data
-            $data['tokenKey'] = $this->tokenKey;
-            $data['signature'] = $this->generateSignature($data);
+			$ch = curl_init($url);
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt(
+				$ch,
+				CURLOPT_HTTPHEADER,
+				[
+					'Content-Type: application/json'
+				]
+			);
+			$result = curl_exec($ch);
+			curl_close($ch);
 
-            // Gửi request đến Alepay
-            $response = Http::post($this->baseUrl . $endpoint, $data);
+			return json_decode($result);
+		} catch (\Exception $e) {
+			\Log::error($e->getMessage());
+			return false;
+		}
+	}
 
-            // Xử lý response
-            $data = $response->json();
-            return $data;
-        }
-        catch (\Exception $e)
-        {
-            \Log::error($e->getMessage());
-            return ['error' => true, 'message' => $e->getMessage()];
-        }
-    }
+	private function build_query_data($array)
+	{
+		return urldecode(http_build_query(array_map(function ($value) {
+			if ($value === true) {
+				return 'true';
+			}
+			if ($value === false) {
+				return 'false';
+			}
 
-    public function getTransactionInfo($transactionCode)
-    {
-        return $this->sendRequestToAlepay($transactionCode, $this->api['getTransactionInfo']);
-    }
-
-    private function generateSignature($data)
-    {
-        // Sắp xếp các key theo alphabet
-        ksort($data);
-        // Dữ liệu signature
-        $dataString = urldecode(http_build_query($data));
-        // Tạo signature theo thuật toán HMAC_SHA256
-        $signature = HASH_HMAC('sha256', $dataString, $this->checksumKey);
-        // Thêm chữ ký vào trong danh sách data
-        $data['signature'] = $signature;
-        // Tạo chữ ký
-        return $signature;
-    }
+			return $value;
+		}, $array)));
+	}
 }
-?>

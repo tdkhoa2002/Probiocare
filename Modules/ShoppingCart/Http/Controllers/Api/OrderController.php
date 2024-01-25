@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\ShoppingCart\Entities\Order;
+use Modules\ShoppingCart\Enums\StatusOrderEnum;
 use Modules\ShoppingCart\Http\Requests\UpdateOrderRequest;
 use Modules\ShoppingCart\Repositories\OrderRepository;
 use Modules\ShoppingCart\Transformers\FullOrderTransformer;
@@ -51,6 +52,13 @@ class OrderController extends Controller
         return response()->json([
             'errors' => false,
             'message' => trans('shoppingcart::messages.order deleted'),
+        ]);
+    }
+
+    public function getStatusOrder(){
+        return response()->json([
+            'errors' => false,
+            'statusOrder' => StatusOrderEnum::cases(),
         ]);
     }
 }

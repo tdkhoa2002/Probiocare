@@ -1,6 +1,8 @@
 import CustomerTable from "./components/CustomerTable.vue";
 import CustomerForm from "./components/CustomerForm.vue";
 import CustomerDetail from "./components/CustomerDetail.vue";
+import TransactionAddBalance from "./components/TransactionAddBalance.vue";
+import TransactionSubBalance from "./components/TransactionSubBalance.vue";
 
 const { locales } = window.AsgardCMS;
 
@@ -26,6 +28,24 @@ export default [
     props: {
       locales,
       postTitle: "edit customer",
+    },
+  },
+  {
+    path: "/customer/:customerId/transactions/add_balance",
+    name: "admin.customer.transaction.add_balance",
+    component: TransactionAddBalance,
+    props: {
+      locales,
+      postTitle: "add balance",
+    },
+  },
+  {
+    path: "/customer/:customerId/transactions/sub_balance",
+    name: "admin.customer.transaction.sub_balance",
+    component: TransactionSubBalance,
+    props: {
+      locales,
+      postTitle: "sub balance",
     },
   },
 ];

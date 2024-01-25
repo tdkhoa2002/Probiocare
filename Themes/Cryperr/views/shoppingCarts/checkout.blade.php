@@ -24,16 +24,16 @@
                             <span>{{ __('shopping.payment_method') }}</span>
                         </div>
                         <div class="box-form">
-                            <div class="form-check form-check-inline">
+                            {{-- <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="payment_method" id="payment_method1"
                                     value="1" checked>
                                 <label class="form-check-label" for="payment_method1"> <img class="pointer"
                                         src="{{ Theme::url('images/icons/icon-cod.png') }}"
                                         alt=""><span>COD</span></label>
-                            </div>
+                            </div> --}}
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="payment_method" id="payment_method2"
-                                    value="2">
+                                    value="2" checked>
                                 <label class="form-check-label" for="payment_method2"><img class="pointer"
                                         src="{{ Theme::url('images/icons/icon-bank.png') }}" alt=""><span>
                                             {{ __('shopping.bank_transfer') }}    

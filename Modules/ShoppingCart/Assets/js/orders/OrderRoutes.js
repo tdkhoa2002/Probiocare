@@ -15,7 +15,7 @@ export default [
     component: OrderForm,
     props: {
       locales,
-      categoryTitle: "edit order",
+      orderTitle: "edit order",
     },
   },
 ];

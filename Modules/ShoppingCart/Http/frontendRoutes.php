@@ -31,8 +31,8 @@ $router->group(['prefix' => '/shoppingcart'], function (Router $router) {
         'uses' => 'PublicController@checkout'
     ]);
 });
-$checkAuth =config('asgard.shoppingcart.config.check_auth');
-if($checkAuth) {
+$checkAuth = config('asgard.shoppingcart.config.check_auth');
+if ($checkAuth) {
     $router->get(trans('shoppingcart::shoppingcarts.router.carts'), [
         'as' => 'fe.shoppingcart.getCart',
         'uses' => 'PublicController@getCart'
@@ -45,7 +45,7 @@ if($checkAuth) {
         'as' => 'fe.shoppingcart.getThankYou',
         'uses' => 'PublicController@getThankYou'
     ])->middleware('check-auth');
-}else {
+} else {
     $router->get(trans('shoppingcart::shoppingcarts.router.carts'), [
         'as' => 'fe.shoppingcart.getCart',
         'uses' => 'PublicController@getCart'
@@ -57,22 +57,26 @@ if($checkAuth) {
     $router->get(trans('shoppingcart::shoppingcarts.router.order-success') . '/{code}', [
         'as' => 'fe.shoppingcart.getThankYou',
         'uses' => 'PublicController@getThankYou'
+    ]);
+    $router->get(trans('shoppingcart::shoppingcarts.router.order-fail') . '/{code}', [
+        'as' => 'fe.shoppingcart.getPaymentFail',
+        'uses' => 'PublicController@getPaymentFail'
     ]);
 }
 
-$router->get('alepay-payment', [
-    'as' => 'alepay.payment.view',
-    'uses' => 'PublicController@getAlepay',
-]);    
-$router->get('callback', [
-    'as' => 'alepay.payment.callback',
-    'uses' => 'PublicController@callback',
+$router->get('testAlepay', [
+    'as' => 'fe.shoppingcart.testAlepay',
+    'uses' => 'PublicController@testAlepay'
 ]);
-$router->get('cancel', [
-    'as' => 'alepay.payment.cancel',
-    'uses' => 'PublicController@cancel',
-]);
-$router->post('request-payment', [
-    'as' => 'alepay.shoppingcart.payment',
-    'uses' => 'PublicController@alepayPayment'
-]);
+
+$router->group(['prefix' => '/alepay'], function (Router $router) {
+
+    $router->get('order-success/{code}', [
+        'as' => 'fe.shoppingcart.alepayCheckoutSuccess',
+        'uses' => 'PublicController@alepayCheckoutSuccess'
+    ]);
+    $router->get('order-fail/{code}', [
+        'as' => 'fe.shoppingcart.alepayCheckoutFail',
+        'uses' => 'PublicController@alepayCheckoutFail'
+    ]);
+});

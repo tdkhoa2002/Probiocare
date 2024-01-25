@@ -13,12 +13,11 @@ return [
     'button' => [
         'create order' => 'Create a order',
     ],
-    'table' => [
-    ],
-    'form' => [
-    ],
+    'table' => [],
+    'form' => [],
     'messages' => [
+        'order_success' => 'Đơn hàng thành công',
+        'order_payment_fail' => 'Đơn hàng thanh toán thất bại'
     ],
-    'validation' => [
-    ],
+    'validation' => [],
 ];
