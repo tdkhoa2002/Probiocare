@@ -29,7 +29,9 @@ return [
         'total_stake' => 'Total stake',
         'type'=> 'Type',
         'price' => 'Price',
-        'require_entry' => 'Require entry'
+        'require_entry' => 'Require entry',
+        'icon' => 'Icon',
+        'term_matching' => 'Term matching'
     ],
     'form' => [
         'status' => 'Status',
@@ -50,7 +52,8 @@ return [
         'max_total_stake' => 'Max Total stake',
         'principal_is_stake_currency' => 'Principal is stake currency',
         'type'=>'Type',
-        'require_entry' => 'Require entry'
+        'require_entry' => 'Require entry',
+        'term_matching' => 'Term matching'
     ],
     'messages' => [
         'package created' => 'Package successfully created.',

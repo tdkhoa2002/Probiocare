@@ -79,53 +79,49 @@ class CalRewardLoyalty extends Command
                         $last_time_reward = $order->last_time_reward;
                         $redemption_date = $order->redemption_date;
                         $redemption_date = Carbon::parse($redemption_date);
-                        $result = $now->gt($redemption_date);
-                        if ($result) {
-                            // $this->handleRedeemStaking($order, $package);
-                        } else {
-                            $rate = $this->calApr($apr, $hour_reward);
-                            $diffHour = $now->diffInHours($last_time_reward);
-                            if ($diffHour > 0 && $diffHour >= $hour_reward) {
-                                $wallet = $this->walletRepository->where("customer_id", $order->customer_id)->where("currency_id",  $package->currency_cashback_id)->first();
-                                if (!$wallet) {
-                                    $dataCreate = [
-                                        'customer_id' => $order->customer_id,
-                                        'currency_id' => $package->currency_cashback_id,
-                                        'type' => 'CRYPTO',
-                                        'balance' => 0,
-                                        'status' => true,
-                                    ];
-                                    $wallet = $this->walletRepository->create($dataCreate);
-                                }
-                                $rewardCurrency = $package->currencyReward;
-                                $reward = ($amount_stake * $rate) / 100;
-                                $newBalance = $wallet->balance + $reward;
+
+                        $rate = $this->calApr($apr, $hour_reward);
+                        $diffHour = $now->diffInHours($last_time_reward);
+                        if ($diffHour > 0 && $diffHour >= $hour_reward) {
+                            $wallet = $this->walletRepository->where("customer_id", $order->customer_id)->where("currency_id",  $package->currency_cashback_id)->first();
+                            if (!$wallet) {
                                 $dataCreate = [
                                     'customer_id' => $order->customer_id,
                                     'currency_id' => $package->currency_cashback_id,
-                                    'blockchain_id' => null,
-                                    'action' => TypeTransactionActionEnum::REWARD_LOYALTY,
-                                    'amount' => $reward,
-                                    'amount_usd' => $reward * $rewardCurrency->usd_rate,
-                                    'fee' => 0,
-                                    'balance' => $newBalance,
-                                    'balanceBefore' => $wallet->balance,
-                                    'payment_method' => 'CRYPTO',
-                                    'txhash' => random_strings(30),
-                                    'from' => "",
-                                    'to' => "",
-                                    'tag' => null,
-                                    'order' => $order->id,
-                                    'note' => null,
-                                    'status' => StatusTransactionEnum::COMPLETED
+                                    'type' => 'CRYPTO',
+                                    'balance' => 0,
+                                    'status' => true,
                                 ];
-                                event(new CreateTransaction($dataCreate));
-                                event(new UpdateBalanceWallet($newBalance, $wallet->id));
-                                $last_time_reward = Carbon::parse($last_time_reward)->addHours($hour_reward);
-                                $this->orderRepository->update($order, ['total_amount_reward' => $order->total_amount_reward + $reward, 'last_time_reward' => $last_time_reward]);
-                                //Interest Bonus
-                                $this->handleCalCommissionLoyalty($order);
+                                $wallet = $this->walletRepository->create($dataCreate);
                             }
+                            $rewardCurrency = $package->currencyReward;
+                            $reward = ($amount_stake * $rate) / 100;
+                            $newBalance = $wallet->balance + $reward;
+                            $dataCreate = [
+                                'customer_id' => $order->customer_id,
+                                'currency_id' => $package->currency_cashback_id,
+                                'blockchain_id' => null,
+                                'action' => TypeTransactionActionEnum::REWARD_LOYALTY,
+                                'amount' => $reward,
+                                'amount_usd' => $reward * $rewardCurrency->usd_rate,
+                                'fee' => 0,
+                                'balance' => $newBalance,
+                                'balanceBefore' => $wallet->balance,
+                                'payment_method' => 'CRYPTO',
+                                'txhash' => random_strings(30),
+                                'from' => "",
+                                'to' => "",
+                                'tag' => null,
+                                'order' => $order->id,
+                                'note' => null,
+                                'status' => StatusTransactionEnum::COMPLETED
+                            ];
+                            event(new CreateTransaction($dataCreate));
+                            event(new UpdateBalanceWallet($newBalance, $wallet->id));
+                            $last_time_reward = Carbon::parse($last_time_reward)->addHours($hour_reward);
+                            $this->orderRepository->update($order, ['total_amount_reward' => $order->total_amount_reward + $reward, 'last_time_reward' => $last_time_reward]);
+                            //Tra hoa hong lai tren lai
+                            $this->handleCalCommissionLoyalty($order);
                         }
                     }
                 }
@@ -203,12 +199,12 @@ class CalRewardLoyalty extends Command
         $customer = $this->customerRepository->find($order->customer_id);
         $customerFloors = CustomerHelper::getParentCustomer($customer);
         $currencyStake = $package->currencyStake;
-        $lastLevel = $this->commissionRepository->getCommissionLastLevel($package->id);
+        $termMatching = $package->term_matching;
         foreach ($commissions as $commission) {
             $key = array_search($commission->level, array_column($customerFloors, 'level'));
             if ($key !== false && isset($customerFloors[$key]) && $commission->commission != 0) {
                 $cus = $customerFloors[$key];
-                if($cus['level'] > 0 && $cus['level'] <= $lastLevel->level) {
+                if($cus['term_matching'] >= $termMatching) {
                     $this->hanldeCalcommission($cus, $order, $commission, $currencyStake, $term, $package);
                 }
             }

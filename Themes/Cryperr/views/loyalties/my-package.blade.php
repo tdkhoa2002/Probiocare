@@ -42,12 +42,18 @@ My Package | @parent
         }
 
         $customer = auth()->guard('customer')->user();
+        if ($package->getIcon()) {
+            $icon = $package->getIcon();
+            $iconUrl = $icon->path;
+        } else {
+            $iconUrl = Theme::url('images/logo.png');
+        }
         @endphp
         <div class="loyalty-item">
             <form action="/loyalty/subcribeLoyalty" method="post">
             @csrf
             <div>
-                <img src="{{ Theme::url('images/icon-starter-package.png') }}">
+                <img src="{{ $iconUrl }}">
                 <a href="{{ route('fe.loyalty.loyalty.loyalty-detail', ['packageId' => $package->id, 'term' => $packageTermId]) }}" style="font-size: 20px; font-weight: 500; line-height:28px; color: #292929; margin-bottom: 10px;">{{ $title }}</a>
                 <div>
                     <input type="text" name="packageId" value="{{ $package->id }}" hidden>

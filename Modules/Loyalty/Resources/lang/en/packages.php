@@ -29,7 +29,7 @@ return [
         'total_stake' => 'Total stake',
         'type'=>'Type',
         'price' => 'Price',
-        'require_entry' => 'Require entry'
+        'require_entry' => 'Require entry',
     ],
     'form' => [
         'status' => 'Status',

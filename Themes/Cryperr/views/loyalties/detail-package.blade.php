@@ -2,6 +2,7 @@
     $pkTrans = $package->translations->first();
     $title = $pkTrans->title;
     $commissions =  $package->commissions;
+    $activities = false;
     foreach ($commissions as $commission) {
         if ($commission->level == 0 && $commission->status == true) {
             $rewardAmount = $package->min_stake * $commission->commission / 100;
@@ -24,15 +25,17 @@
         }
         $termMatching = $commission->level;
     }
-    // dd($package->getIcon());
-    // if ($package->getIcon()) {
-    //     $icon = $package->getIcon();
-    //     $iconUrl = $icon->path;
-    // } else {
-    //     $iconUrl = Theme::url('images/logo.png');
-    // }
-    // dd($iconUrl);
-// <img class="me-2" width="32px" height="32px" src="{{ $iconUrl }}" alt="" />
+    if ($package->getIcon()) {
+        $icon = $package->getIcon();
+        $iconUrl = $icon->path;
+    } else {
+        $iconUrl = Theme::url('images/logo.png');
+    }
+
+    if(count($transactions) > 0) {
+        $activities = true;
+    }
+    $now = \Carbon\Carbon::now();
 @endphp
 
 @extends('layouts.private')
@@ -54,9 +57,14 @@ Package Detail | @parent
 </div>
 <div id="detail-package">
     <div id="information-package">
+        <form action="/loyalty/subcribeLoyalty" method="post">
+        @csrf
+        <input type="text" name="packageId" value="{{ $package->id }}" hidden>
+        <input type="text" name="term_id" value="{{ $term }}" hidden>
+        <input type="text" name ="amount" value="{{ $package->min_stake }}" hidden>
         <div id="basic-info">
             <div id="icon-package">
-                <img src="{{ Theme::url('images/icon-starter-package.png') }}">
+                <img src="{{ $iconUrl }}">
             </div>
             <div id="information">
                 <span id="title">{{ $title }}</span>
@@ -65,11 +73,11 @@ Package Detail | @parent
                         {{ $package->min_stake }} USD
                     </div>
                     <div id="status">
-                        @if ($order->status == 0)
-                        Processing
-                        @else
-                        Completed
-                        @endif
+                            @if ($now->gte($startDateFormatted) && $now->lte($endDateFormatted))
+                            Processing
+                            @else
+                            Completed
+                            @endif
                     </div>
                 </div>
                 <div style="color: #29292999;">This NFT will give you some unique benefits.</div>
@@ -95,8 +103,14 @@ Package Detail | @parent
                         <span>{{ $termMatching }}</span>
                     </div>
                 </div>
+                @if(!isset($order)) 
+                <button class="btn btn-success" type="submit">
+                    Subcribe
+                </button>
+                @endif
             </div>
         </div>
+        </form>
         <div id="summary">
             <div>
                 <span>Loyalty Summary</span>
@@ -116,7 +130,11 @@ Package Detail | @parent
                 </div>
                 <div>
                     <span>Earned Reward</span>
+                    @if (!isset($order))
+                    <span>0</span>
+                    @else
                     <span>{{ $order->total_amount_reward }} {{ $currencyCashback }} </span>
+                    @endif
                 </div>
             </div>
         </div>
@@ -133,6 +151,7 @@ Package Detail | @parent
                 </tr>
             </thead>
             <tbody>
+                @if ($activities)
                 @foreach ($transactions as $transaction)
                     <tr>
                         @if ($transaction->action == "SUBCRIBE_LOYALTY")
@@ -159,6 +178,7 @@ Package Detail | @parent
                         <td>{{ $transaction->txhash }}</td>
                     </tr>
                 @endforeach
+                @endif
             </tbody>
         </table>
     </div>
