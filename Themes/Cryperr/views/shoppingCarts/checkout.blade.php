@@ -116,7 +116,6 @@
                                 {{ __('shopping.checkout_btn') }}
                             </button>
                             <a href="/san-pham">{{ __('shopping.continue_shopping') }}</a>
-                            <a href="{{ route('alepay.payment.view') }}">Link Text</a>
                         </div>
                     </div>
                 </div>
