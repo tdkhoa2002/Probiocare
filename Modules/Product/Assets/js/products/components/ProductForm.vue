@@ -177,6 +177,13 @@
                 <div v-if="form.errors.has('price')" class="el-form-item__error" v-text="form.errors.first('price')">
                 </div>
               </el-form-item>
+              <el-form-item :label="trans('products.form.price_member')" :class="{
+                'el-form-item is-error': form.errors.has('price_member'),
+              }">
+                <el-input-number v-model="product.price_member" :min="0"></el-input-number>
+                <div v-if="form.errors.has('price_member')" class="el-form-item__error" v-text="form.errors.first('price_member')">
+                </div>
+              </el-form-item>
               <el-form-item :label="trans('products.form.price_sale')" :class="{
                 'el-form-item is-error': form.errors.has('price_sale'),
               }">
@@ -315,6 +322,7 @@ export default {
           total_sold: 0,
           code: "",
           price_sale: 0,
+          price_member: 0,
         })
         .value(),
       categories: [],

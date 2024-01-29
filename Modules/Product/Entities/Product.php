@@ -34,6 +34,7 @@ class Product extends Model
         'total_sold',
         'code',
         'price',
+        'price_member',
         'price_sale',
         'title',
         'slug',

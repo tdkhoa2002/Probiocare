@@ -46,9 +46,14 @@ class PublicController extends BasePublicController
                 return response()->json(['error' => true, 'message' => trans('product::products.messages.outofstock')]);
             }
             $avatar = $product->getAvatar();
+            $authCheck = auth()->guard('customer')->check();
+            $price = $product->price;
+            if ($authCheck && $product->price_member > 0) {
+                $price = $product->price_member;
+            }
             Cart::add([
-                'id' => $productId, 'name' => $product->title, 'qty' => 1, 'price' => $product->price_sale,
-                'options' => ['avatar' =>  $avatar->path_string, 'slug' => $product->slug, 'code' => $product->code, 'price_old' => $product->price]
+                'id' => $productId, 'name' => $product->title, 'qty' => 1, 'price' => $price,
+                'options' => ['avatar' =>  $avatar->path_string, 'slug' => $product->slug, 'code' => $product->code, 'price_old' => $product->price_sale]
             ]);
             return response()->json(['error' => false, 'message' =>  trans('shoppingcart::orders.messages.add_product_success'), 'url' => route('fe.shoppingcart.getCart')]);
         } else {
@@ -65,9 +70,14 @@ class PublicController extends BasePublicController
                 return response()->json(['error' => true, 'message' => trans('product::products.messages.outofstock')]);
             }
             $avatar = $product->getAvatar();
+            $authCheck = auth()->guard('customer')->check();
+            $price = $product->price;
+            if ($authCheck && $product->price_member > 0) {
+                $price = $product->price_member;
+            }
             Cart::add([
-                'id' => $productId, 'name' => $product->title, 'qty' => 1, 'price' => $product->price_sale,
-                'options' => ['avatar' =>  $avatar->path_string, 'slug' => $product->slug, 'code' => $product->code, 'price_old' => $product->price]
+                'id' => $productId, 'name' => $product->title, 'qty' => 1, 'price' => $price,
+                'options' => ['avatar' =>  $avatar->path_string, 'slug' => $product->slug, 'code' => $product->code, 'price_old' => $product->price_sale]
             ]);
             return response()->json(['error' => false, 'message' =>  trans('shoppingcart::orders.messages.add_product_success'), 'count' => Cart::count(), 'title' => $product->title]);
         } else {
@@ -196,14 +206,14 @@ class PublicController extends BasePublicController
                 ];
                 $order = $this->orderRepository->create($order);
                 foreach ($carts as $cart) {
-                $orderDetail = [
-                    'order_id' => $order->id,
-                    'product_id' => $cart->id,
-                    'price' => $cart->price,
-                    'qty' => $cart->qty,
-                    'total' => $cart->price * $cart->qty
-                ];
-                $this->orderDetailRepository->create($orderDetail);
+                    $orderDetail = [
+                        'order_id' => $order->id,
+                        'product_id' => $cart->id,
+                        'price' => $cart->price,
+                        'qty' => $cart->qty,
+                        'total' => $cart->price * $cart->qty
+                    ];
+                    $this->orderDetailRepository->create($orderDetail);
                 }
                 if ($request->payment_method == 3 || $request->payment_method == 2) {
                     return $this->hanldeCheckoutAlepay($order);

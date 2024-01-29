@@ -77,6 +77,10 @@ class RegisterController extends BasePublicController
                 }
             }
 
+            if ($sponsor == null) {
+                $sponsor = $this->customerRepository->find(setting('customer::id_ref_top'));
+            }
+
             if ($sponsor) {
                 $dataRequest['sponsor_id'] = $sponsor->id;
                 $dataRequest['sponsor_floor'] = $sponsor->sponsor_floor + 1;

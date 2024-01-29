@@ -21,6 +21,7 @@ class ProductTransformer extends JsonResource
             'status' => (bool) $this->resource->status,
             'price' => number_format($this->resource->price),
             'price_sale' => number_format($this->resource->price_sale),
+            'price_member' => number_format($this->resource->price_member),
             'avatar' => $avatar != "" ? (string) $avatar->path : "",
             'created_at' => $this->resource->created_at->format('d-m-Y'),
             'translations' => [

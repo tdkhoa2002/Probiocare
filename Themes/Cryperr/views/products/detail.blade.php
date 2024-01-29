@@ -11,6 +11,8 @@
 @section('content')
 @php
 $image = $product->getAvatar();
+$authCheck = auth()->guard('customer')->check();
+
 $urlImage =Theme::url('images/top-banner.png');
 if($image != ""){
 $urlImage = $image->path_string;
@@ -37,7 +39,10 @@ $urlImage = $image->path_string;
                     <div class="box-title">
                         <h1>{{ $product->title }}</h1>
                         <div class="box-price">
-                            @include('shoppingCarts.partials.price',['price_sale'=>$product->price_sale,'price'=>$product->price])
+                            @include('shoppingCarts.partials.price',[
+                            'price_sale'=>$product->price_sale,
+                            'price'=>$product->price,
+                            'price_member'=> $authCheck ?$product->price_member:0])
                         </div>
                         <p class="sumary">{{ $product->sumary }}</p>
                         <div class="box-action">

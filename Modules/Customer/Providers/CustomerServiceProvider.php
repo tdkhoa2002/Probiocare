@@ -53,6 +53,7 @@ class CustomerServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishConfig('customer', 'permissions');
+        $this->publishConfig('customer', 'settings');
         $this->registerMiddleware();
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
     }
