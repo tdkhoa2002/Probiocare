@@ -112,16 +112,28 @@ class RegisterController extends BasePublicController
                     if ($now > $createdAt) {
                         $this->customerCodeRepository->destroy($code);
                         JobSendCodeRegister::dispatch($customer);
-                        return back()->withSuccess(trans('customer::customers.messages.resend_email_success'));
+                        return response()->json([
+                            'errors' => false,
+                            'message' => trans('customer::customers.messages.resend_email_success'),
+                        ]);
                     } else {
-                        return back()->withErrors(trans('customer::customers.messages.err_request_too_often'));
+                        return response()->json([
+                            'errors' => true,
+                            'message' => trans('customer::customers.messages.err_request_too_often'),
+                        ]);
                     }
                 } else {
                     JobSendCodeRegister::dispatch($customer);
-                    return back()->withSuccess(trans('customer::customers.messages.resend_email_success'));
+                    return response()->json([
+                        'errors' => false,
+                        'message' => trans('customer::customers.messages.resend_email_success'),
+                    ]);
                 }
             } else {
-                return back()->withErrors(trans('customer::customers.messages.email_wrong_not_esxit'));
+                return response()->json([
+                    'errors' => true,
+                    'message' => trans('customer::customers.messages.email_wrong_not_esxit'),
+                ]);
             }
         } catch (\Exception $e) {
             \Log::error($e->getMessage());

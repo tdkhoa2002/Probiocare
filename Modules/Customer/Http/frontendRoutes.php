@@ -19,7 +19,7 @@ $router->group(['prefix' => '/customer'], function (Router $router) {
 
     $router->post('register', ['as' => 'fe.customer.customer.postRegister', 'uses' => 'RegisterController@postRegister']);
     $router->post('hanlde-verify-register', ['as' => 'fe.customer.customer.handleVerifyRegister', 'uses' => 'RegisterController@handleVerifyRegister']);
-    $router->post('resend-verify-register', ['as' => 'fe.customer.customer.resendVerifyRegister', 'uses' => 'RegisterController@resendVerifyRegister']);
+    $router->get('resend-verify-register', ['as' => 'fe.customer.customer.resendVerifyRegister', 'uses' => 'RegisterController@resendVerifyRegister']);
     $router->post('forgot-password', ['as' => 'fe.customer.customer.forgotPassword', 'uses' => 'ForgotController@forgotPassword']);
     $router->post('verify-change-password', ['as' => 'fe.customer.customer.changePassword', 'uses' => 'ForgotController@changePassword']);
 });
