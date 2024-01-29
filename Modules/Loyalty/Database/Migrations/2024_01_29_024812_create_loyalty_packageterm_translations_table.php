@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLoyaltyPackageTermTranslationsTable extends Migration
+class CreateLoyaltyPackagetermTranslationsTable extends Migration
 {
-    /**
+     /**
      * Run the migrations.
      *
      * @return void
@@ -17,10 +18,10 @@ class CreateLoyaltyPackageTermTranslationsTable extends Migration
             $table->increments('id');
             // Your translatable fields
             $table->string('title');
-            $table->integer('package_term_id')->unsigned();
+            $table->integer('packageterm_id')->unsigned();
             $table->string('locale')->index();
-            $table->unique(['package_term_id', 'locale']);
-            $table->foreign('package_term_id')->references('id')->on('loyalty__packageterms')->onDelete('cascade');
+            $table->unique(['packageterm_id', 'locale']);
+            $table->foreign('packageterm_id')->references('id')->on('loyalty__packageterms')->onDelete('cascade');
         });
     }
 
@@ -32,7 +33,7 @@ class CreateLoyaltyPackageTermTranslationsTable extends Migration
     public function down()
     {
         Schema::table('loyalty__packageterm_translations', function (Blueprint $table) {
-            $table->dropForeign(['package_term_id']);
+            $table->dropForeign(['packageterm_id']);
         });
         Schema::dropIfExists('loyalty__packageterm_translations');
     }

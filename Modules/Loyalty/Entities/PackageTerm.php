@@ -9,11 +9,13 @@ use Modules\Loyalty\Entities\Package;
 
 class PackageTerm extends Model
 {
-    use SoftDeletes,Translatable;
+    use SoftDeletes, Translatable;
 
     protected $table = 'loyalty__packageterms';
 
     public $translatedAttributes = ['title'];
+    protected $translationForeignKey = 'packageterm_id';
+
     protected $fillable = [
         'package_id',
         'day_reward',

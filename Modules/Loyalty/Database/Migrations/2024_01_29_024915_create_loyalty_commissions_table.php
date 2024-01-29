@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -17,9 +18,7 @@ class CreateLoyaltyCommissionsTable extends Migration
             $table->increments('id');
             // Your fields
             $table->integer('package_id')->unsigned();
-            $table->foreign('package_id')->references('id')->on('loyalty__package')->onDelete('cascade');
-            $table->integer('currency_commission_id')->unsigned();
-            $table->foreign('currency_commission_id')->references('id')->on('wallet__currencies')->onDelete('cascade');
+            $table->foreign('package_id')->references('id')->on('loyalty__packages')->onDelete('cascade');
             $table->integer('level')->default(0);
             $table->double('commission')->default(0);
             $table->tinyInteger('type')->default(0);

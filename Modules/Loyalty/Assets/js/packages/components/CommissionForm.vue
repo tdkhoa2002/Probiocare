@@ -35,7 +35,7 @@
                   ></div>
                 </el-form-item>
               </div>
-              <div class="col-lg-6">
+              <div class="col-md-6">
                 <el-form-item
                   :label="trans('commissions.form.type')"
                   :class="{

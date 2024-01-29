@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -27,11 +28,13 @@ class CreateLoyaltyOrdersTable extends Migration
             $table->dateTime('redemption_date')->nullable();
             $table->dateTime('last_time_reward')->nullable();
             $table->double('total_amount_reward')->default(0);
+            $table->double('amount_reward')->default(0);
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
     }
+
     /**
      * Reverse the migrations.
      *

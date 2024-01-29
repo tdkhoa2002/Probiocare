@@ -1,18 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLoyaltyPackagesTranslationsTable extends Migration
+class CreateLoyaltyPackageTranslationsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        Schema::create('loyalty__packages_translations', function (Blueprint $table) {
+        Schema::create('loyalty__package_translations', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             // Your translatable fields
@@ -21,7 +17,7 @@ class CreateLoyaltyPackagesTranslationsTable extends Migration
             $table->integer('package_id')->unsigned();
             $table->string('locale')->index();
             $table->unique(['package_id', 'locale']);
-            $table->foreign('package_id')->references('id')->on('loyalty__package')->onDelete('cascade');
+            $table->foreign('package_id')->references('id')->on('loyalty__packages')->onDelete('cascade');
         });
     }
 
@@ -32,9 +28,9 @@ class CreateLoyaltyPackagesTranslationsTable extends Migration
      */
     public function down()
     {
-        Schema::table('loyalty__packages_translations', function (Blueprint $table) {
+        Schema::table('loyalty__package_translations', function (Blueprint $table) {
             $table->dropForeign(['package_id']);
         });
-        Schema::dropIfExists('loyalty__packages_translations');
+        Schema::dropIfExists('loyalty__package_translations');
     }
 }

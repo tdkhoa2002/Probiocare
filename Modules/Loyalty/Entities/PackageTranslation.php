@@ -12,5 +12,5 @@ class PackageTranslation extends Model
         'description',
     ];
 
-    protected $table = 'loyalty__packages_translations';
+    protected $table = 'loyalty__package_translations';
 }
