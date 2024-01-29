@@ -5,15 +5,15 @@ $checkAuth = auth()->guard('customer')->check();
 $balance_usd = 0;
 
 if($checkAuth){
-    $customer = auth()->guard('customer')->user();
-    if($customer->wallets){
-        foreach ($customer->wallets as $wallet) {
-            $walletCurrency = $wallet->currency;
-            if($walletCurrency){
-                $balance_usd += $wallet->balance * $wallet->currency->usd_rate;   
-            }
-        }
-    }
+$customer = auth()->guard('customer')->user();
+if($customer->wallets){
+foreach ($customer->wallets as $wallet) {
+$walletCurrency = $wallet->currency;
+if($walletCurrency){
+$balance_usd += $wallet->balance * $wallet->currency->usd_rate;
+}
+}
+}
 }
 @endphp
 
@@ -45,12 +45,12 @@ if($checkAuth){
                 </ul>
 
                 <div class="right-nav">
-                    {{-- @if (!$checkAuth)
+                    @if (!$checkAuth)
                     <div class="d-flex">
-                        <a class="btn btn-signin {{ Route::currentRouteName() !='fe.customer.customer.register' ?' btn-primary':"" }} me-2" style="white-space: nowrap"
-                            href="{{route('fe.customer.customer.login')}}">Sign In</a>
-                        <a class="btn btn-signup {{ Route::currentRouteName() =='fe.customer.customer.register' ?' btn-primary':"" }} btn-text" style="white-space: nowrap"
-                            href="{{route('fe.customer.customer.register')}}">Sign Up</a>
+                        <a class="btn btn-signin {{ Route::currentRouteName() !='fe.customer.customer.register' ?' btn-primary':"" }} me-2"
+                            style="white-space: nowrap" href="{{route('fe.customer.customer.login')}}">{{ trans('home.sign_in') }}</a>
+                        <a class="btn btn-signup {{ Route::currentRouteName() =='fe.customer.customer.register' ?' btn-primary':"" }} btn-text"
+                            style="white-space: nowrap" href="{{route('fe.customer.customer.register')}}">{{ trans('home.sign_up') }}</a>
                     </div>
                     @else
                     <div class="d-flex align-items-center">
@@ -58,20 +58,22 @@ if($checkAuth){
                             <button type="button" style="width:120px; height: 43px" class="btn btn-success">
                                 $<span class="total_balance_usd" style="color: #fff;">
                                 </span>
-                                <img class="pointer" style="filter: brightness(0) invert(1);" width="20px" src="{{ Theme::url('images/icons/eye.png') }}" alt="">
+                                <img class="pointer" style="filter: brightness(0) invert(1);" width="20px"
+                                    src="{{ Theme::url('images/icons/eye.png') }}" alt="">
                             </button>
                         </div>
                         <div class="ms-3">
                             <a href="{{route('fe.customer.customer.account')}}">
                                 <div class="d-flex align-items-center">
-                                    <span class="avatar-profile">{{ substr($customer->profile->firstname, 0, 1) }}</span>
+                                    <span class="avatar-profile">{{ substr($customer->profile->firstname, 0, 1)
+                                        }}</span>
                                     <span class="ms-2">{{$customer->profile->firstname}}
                                         {{$customer->profile->lastname}}</span>
                                 </div>
                             </a>
                         </div>
                     </div>
-                    @endif --}}
+                    @endif
                 </div>
             </div>
 
@@ -102,14 +104,13 @@ if($checkAuth){
 
                     </ul>
                 </div>
-                {{-- <div class="offcanvas-footer pb-2">
+                <div class="offcanvas-footer pb-2">
                     @if (!$checkAuth)
                     <a class="btn btn-primary btn-sign-with-email"
-                        href="{{route('fe.customer.customer.register')}}">Sign up with Email</a>
-                    <a class="btn btn-outline btn-sign-with-email" href="{{route('fe.customer.customer.login')}}">Sign
-                        in</a>
+                        href="{{route('fe.customer.customer.register')}}">{{ trans('home.sign_up') }}</a>
+                    <a class="btn btn-outline btn-sign-with-email" href="{{route('fe.customer.customer.login')}}">{{ trans('home.sign_in') }}</a>
                     @endif
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>
