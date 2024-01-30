@@ -1,7 +1,15 @@
 export default {
     methods: {
-        trans(key) {
-            return translations[key];
+        trans(string) {
+            const array = string.split('.');
+
+            if (array.length < 2) {
+                return this.$t(string);
+            }
+
+            const first = array.splice(0, 1),
+                key = array.join('.');
+            return translations[first][key];
         },
     },
 };
