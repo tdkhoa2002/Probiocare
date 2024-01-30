@@ -17,7 +17,7 @@
       ></div>
     </div>
     <div class="col-12 mb-3">
-      <label for="password" class="form-label">Password</label>
+      <label for="password" class="form-label">{{ translations.password }}</label>
       <div class="input-group-password">
         <input
           type="password"
@@ -82,6 +82,7 @@ export default {
   created() {},
   data() {
     return {
+      translations : window.translations,
       modalShowConfirmCode: false,
       visibleLoading: false,
       form: new Form(),

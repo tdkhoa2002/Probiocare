@@ -10,7 +10,7 @@
     "User": true,
     "Workshop": true,
     "Dynamicfield": true,
-    "Slider": false,
+    "Slider": true,
     "Cryperrswap": false,
     "Customer": true,
     "Wallet": true,
