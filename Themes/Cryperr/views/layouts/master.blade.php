@@ -28,7 +28,9 @@ $site_description = setting('core::site-description') ? setting('core::site-desc
     @endif
     <link rel="canonical" href="{{ url()->current() }}" />
     <link rel="shortcut icon" href="{{ $favicon }}">
-
+    <script>
+        window.translations = @json(trans('auth'))
+    </script>
     {{-- Font --}}
     <link
         href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500;600;700&family=Montserrat:wght@100;300;400;500&display=swap"
@@ -78,7 +80,8 @@ $site_description = setting('core::site-description') ? setting('core::site-desc
         </div>
     </main>
     @include('partials.footer')
-    <script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"
+        integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
     {!! Theme::script('js/lib.js') !!}
     @yield('scripts')
 
