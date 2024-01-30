@@ -17,7 +17,7 @@
       ></div>
     </div>
     <div class="col-12 mb-3">
-      <label for="password" class="form-label">Password</label>
+      <label for="password" class="form-label">{{ translations.password }}</label>
       <div class="input-group-password">
         <input
           type="password"
@@ -44,13 +44,13 @@
           id="remember"
           v-model="dataRequest.remember"
         />
-        <label class="form-check-label" for="remember">Remember me</label>
+        <label class="form-check-label" for="remember">{{ translations.remember }}</label>
       </div>
-      <a class="form-link" :href="linkForgot">Forgot Password?</a>
+      <a class="form-link" :href="linkForgot">{{ translations.forgotpassword }}</a>
     </div>
     <div class="action mt-3 d-flex justify-content-center">
       <button type="button" class="btn btn-primary" @click="submitLogin">
-        Sign In
+        {{ translations.signin }}
       </button>
     </div>
     <ModalVerifyLogin
@@ -82,6 +82,7 @@ export default {
   created() {},
   data() {
     return {
+      translations : window.translations,
       modalShowConfirmCode: false,
       visibleLoading: false,
       form: new Form(),

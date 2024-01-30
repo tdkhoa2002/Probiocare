@@ -1,5 +1,5 @@
 @php
-$lang = LaravelLocalization::setLocale() ? LaravelLocalization::setLocale() : 'en';
+$lang = LaravelLocalization::setLocale() ? LaravelLocalization::setLocale() : 'vi';
 $favicon = setting('core::favicon') ? setting('core::favicon') : Theme::url('favicon.ico');
 $site_name = setting('core::site-name') ? setting('core::site-name') : 'Cryperr Trading';
 $site_description = setting('core::site-description') ? setting('core::site-description') : 'Cryperr Trading';
@@ -123,8 +123,13 @@ $site_description = setting('core::site-description') ? setting('core::site-desc
         @endif
     </script>
 
-
-
+    <script>
+        window.translations = {
+            'auth' : @json(trans('auth')),
+            'wallet' : @json(trans('wallet')),
+        }
+    </script>
+    
 </body>
 
 </html>

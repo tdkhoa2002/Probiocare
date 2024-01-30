@@ -20,7 +20,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Currency</th>
+                    <th scope="col"> {{ trans('wallet.currency')}} </th>
                     <th scope="col">Amount</th>
                     <th scope="col" class="text-center">Action</th>
                 </tr>
@@ -84,6 +84,7 @@ export default {
     },
     data() {
         return {
+            translations:window.translations,
             searchCurrency: "",
             showZeroBalance: false,
             currencies: [],

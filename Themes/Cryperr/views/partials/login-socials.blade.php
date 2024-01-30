@@ -1,5 +1,5 @@
 <div class="login-with-socials">
-    <p class="description">Or continue with</p>
+    <p class="description">{{__('auth.social-btn')}}</p>
     <ul class="login-social-list">
         <li>
             <img src="{{ Theme::url('/images/phone.png') }}" />
