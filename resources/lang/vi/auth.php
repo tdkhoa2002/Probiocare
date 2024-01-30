@@ -6,7 +6,10 @@
         'no-account' => 'Bạn chưa có tài khoản?',
         'sign-up' => 'Đăng ký',
         'sign-in' => 'Đăng nhập',
+        'signin' => 'Đăng nhập', //Vue translations
         'social-btn' => 'Hoặc đăng nhập bằng',
+        'remember' => 'Ghi nhớ tôi',
+        'forgotpassword' => 'Quên mật khẩu?',
 
         //Quên mật khẩu
         'forgot-title' => 'Quên mật khẩu',

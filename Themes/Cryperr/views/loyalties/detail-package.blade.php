@@ -90,7 +90,7 @@ Package Detail | @parent
                             <span id="owner">{{ $customer->profile->full_name }}</span>
                         </div>
                         <div>
-                            <span>Bonus Credit</span>
+                            <span>Product Credit</span>
                             <span>{{ $bonusCredit }}%</span>
                         </div>
                         <div>
@@ -127,10 +127,10 @@ Package Detail | @parent
                     <span>Valid To</span>
                     <span>{{ $endDateFormatted }}</span>
                 </div>
-                <div>
+                {{-- <div>
                     <span>Loyalty Converted</span>
                     <span>{{ $rewardAmount }} {{ $currencyReward }}</span>
-                </div>
+                </div> --}}
                 <div>
                     <span>Earned Reward</span>
                     @if (!isset($order))

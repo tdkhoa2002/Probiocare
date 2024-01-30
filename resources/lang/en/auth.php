@@ -22,7 +22,10 @@ return [
     'no-account' => 'You don\'t have an account? ',
     'sign-up' => 'Sign up',
     'sign-in' => 'Sign in',
+    'signin' => 'Sign in', //for Vue translations
     'social-btn' => 'Or continue with',
+    'remember' => 'Remember Me',
+    'forgotpassword' => 'Forgot Password?',
 
     //Forgot account
     'forgot-title' => 'Forgot Password',

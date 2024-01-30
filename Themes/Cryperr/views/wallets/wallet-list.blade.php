@@ -6,7 +6,7 @@
 @extends('layouts.private')
 
 @section('title')
-Wallet | @parent
+{{__('wallet.wallet-tile')}} | @parent
 @stop
 @section('content')
 {{-- <wallet-my-assets></wallet-my-assets> --}}
@@ -14,17 +14,17 @@ Wallet | @parent
     <div class="wallet-head">
         <div class="left">
             <h1 class="page-title">
-                Balance (USD)
+                {{__('wallet.balance')}} (USD)
             </h1>
             <div class="balance">
                 $<span class="total_balance_usd"></span>
             </div>
         </div>
         <div class="actions-list ">
-            <a href="{{ route('fe.wallet.wallet.deposit') }}"><button class="btn btn-primary">Deposit</button></a>
-            <a href="{{ route('fe.wallet.wallet.withdraw') }}"><button class="btn btn-outline">Withdraw</button></a>
-            <a href="{{ route('fe.staking.staking.mystaking') }}"><button class="btn btn-outline">Earn</button></a>
-            <a href="{{ route('fe.wallet.wallet.history') }}"><button class="btn btn-outline">History</button></a>
+            <a href="{{ route('fe.wallet.wallet.deposit') }}"><button class="btn btn-primary"> {{__('wallet.deposit')}} </button></a>
+            <a href="{{ route('fe.wallet.wallet.withdraw') }}"><button class="btn btn-outline"> {{__('wallet.withdraw')}} </button></a>
+            <a href="{{ route('fe.staking.staking.mystaking') }}"><button class="btn btn-outline"> {{__('wallet.earn')}} </button></a>
+            <a href="{{ route('fe.wallet.wallet.history') }}"><button class="btn btn-outline"> {{__('wallet.history')}} </button></a>
         </div>
     </div>
     <wallet-list :wallets="{{ $wallets }}"></wallet-list>
