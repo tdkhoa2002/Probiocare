@@ -84,6 +84,7 @@ export default {
     },
     data() {
         return {
+            translations : window.translations,
             searchCurrency: "",
             showZeroBalance: false,
             currencies: [],

@@ -122,11 +122,17 @@ $site_description = setting('core::site-description') ? setting('core::site-desc
             toastr.warning("{{ session('warning') }}")
         @endif
     </script>
-    <script>
+    {{-- <script>
         window.translations = @json(trans('auth'));
+    </script> --}}
+
+    <script>
+        window.translations = {
+            "auth" : @json(trans('auth')),
+            "wallet": @json(trans('auth'))
+        }
     </script>
-
-
+    
 </body>
 
 </html>
