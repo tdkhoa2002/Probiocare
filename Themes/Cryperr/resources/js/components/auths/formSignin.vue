@@ -2,7 +2,7 @@
   <form class="row" action="#">
     <loading :active.sync="visibleLoading"></loading>
     <div class="col-12 mb-3">
-      <label for="email" class="form-label">Email</label>
+      <label for="email" class="form-label">{{ trans('auth.email') }}</label>
       <input
         type="email"
         class="form-control input"

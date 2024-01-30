@@ -29,7 +29,10 @@ $site_description = setting('core::site-description') ? setting('core::site-desc
     <link rel="canonical" href="{{ url()->current() }}" />
     <link rel="shortcut icon" href="{{ $favicon }}">
     <script>
-        window.translations = @json(trans('auth'))
+        window.translations = {
+            'auth' : @json(trans('auth')),
+            'wallet' : @json(trans('wallet')),
+        }
     </script>
     {{-- Font --}}
     <link
@@ -121,13 +124,6 @@ $site_description = setting('core::site-description') ? setting('core::site-desc
         @if (session('warning'))
             toastr.warning("{{ session('warning') }}")
         @endif
-    </script>
-
-    <script>
-        window.translations = {
-            'auth' : @json(trans('auth')),
-            'wallet' : @json(trans('wallet')),
-        }
     </script>
     
 </body>
