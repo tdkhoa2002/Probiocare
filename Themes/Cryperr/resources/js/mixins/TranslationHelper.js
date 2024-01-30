@@ -9,7 +9,7 @@ export default {
 
             const first = array.splice(0, 1),
                 key = array.join('.');
-            if (typeof translations[first][key] === undefined) {
+            if (translations[first][key] === undefined) {
                 return string;
             }
             return translations[first][key];
