@@ -7,6 +7,8 @@ import Paginate from 'vuejs-paginate'
 import VueQrcode from '@chenfengyuan/vue-qrcode';
 import FontAwesomeIcon from "./helpers/fontawesome";
 import { ValidationProvider } from "vee-validate";
+import TranslationHelper from './mixins/TranslationHelper';
+
 
 Vue.use(BootstrapVue)
 
@@ -16,7 +18,6 @@ const plugins = {
         Vue.prototype.$helpers = helpers;
     }
 }
-
 
 Vue.component(VueQrcode.name, VueQrcode);
 Vue.use(plugins);
@@ -54,14 +55,12 @@ Vue.component('request-kyc', require('./components/profiles/requestKyc.vue').def
 Vue.component('VerifyCodeInput', require('./components/VerifyCodeInput.vue').default);
 Vue.component('form-signin', require('./components/auths/formSignin.vue').default);
 
-
 //convert
 Vue.component('convert-index', require('./components/converts/index.vue').default);
 
 //Loyalties
 Vue.component('my-history', require('./components/loyalties/my-history.vue').default);
-
-
+Vue.mixin(TranslationHelper);
 new Vue({
     el: '#app',
 });
