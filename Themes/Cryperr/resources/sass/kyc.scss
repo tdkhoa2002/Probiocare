@@ -1,0 +1,33 @@
+@import "./variables.scss";
+
+.account-kyc {
+    .form-kyc {
+        .form-passport {
+            ul {
+                padding-left: 24px;
+                li {
+                    list-style: disc;
+                    font-weight: 300;
+                }
+            }
+        }
+        .box-upload-file {
+            color: #989898;
+            width: 100%;
+            min-height: 356px;
+            padding: 24px;
+            border: 1px dashed $span;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            .icon-upload {
+                max-width: 200px;
+                height: auto;
+            }
+        }
+
+    }
+}

@@ -1,0 +1,115 @@
+#detail-package {
+    margin: 0 50px 50px 50px;
+    padding: 10px;
+
+    #information-package {
+        display: flex;
+
+        #basic-info {
+            display: flex;
+            background-color: #EEF2F6;
+            border-radius: 8px;
+            border: 1px solid #989898;
+            padding: 24px;
+
+            #icon-package {
+                img {
+                    width: 198px;
+                    height: 198px;
+                }
+            }
+
+            #information {
+                padding: 10px;
+
+                span#title {
+                    font-size: 24px;
+                    font-weight: 500;
+                    line-height: 33.6px;
+                }
+
+                div#price-status {
+                    display: flex;
+
+                    div {
+                        padding: 8px 24px;
+                        border-radius: 8px;
+                        border: 1px solid #989898;
+                        margin: 10px 30px 10px 0;
+                        font-size: 18px;
+                        font-weight: 400;
+                        line-height: 26.91px;
+                    }
+                }
+
+                div#customer-package {
+                    margin-top: 30px;
+                    div {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 15px;
+                        
+                        span#owner {
+                            color: #333333;
+                        }
+                        span:nth-child(2) {
+                            color: #1A773B;
+                            font-weight: 500;
+                            font-size: 16px;
+                            line-height: 22.4px;
+                        }
+                    }
+                }
+            }
+        }
+
+        #summary {
+            background-color: #EEF2F6;
+            border-radius: 8px;
+            border: 1px solid #989898;
+            padding: 34px;
+            margin-left: 50px;
+
+            > div:first-child {
+                margin-bottom: 30px;
+                span {
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 23.92px;
+                }
+            }
+
+            div#content {
+                // width: 410px;
+                // height: 385px;
+
+                div {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 15px;
+                    width: 410px;
+
+                    span:nth-child(2) {
+                        color: #292929;
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 22.4px;
+                    }
+                }
+            }
+        }
+    }
+
+    #activities-package {
+        margin-top: 30px;
+        width: 1070px;
+
+        .table {
+            width: 100%;
+
+            th, td {
+                width: 25%;
+            }
+        }
+    }
+}

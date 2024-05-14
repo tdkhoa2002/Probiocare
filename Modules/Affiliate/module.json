@@ -1,0 +1,16 @@
+{
+    "name": "Affiliate",
+    "alias": "affiliate",
+    "version": "1.0.0",
+	"description": "",
+    "keywords": [],
+    "priority": 1,
+    "providers": [
+        "Modules\\Affiliate\\Providers\\AffiliateServiceProvider",
+        "Modules\\Affiliate\\Providers\\EventServiceProvider",
+        "Modules\\Affiliate\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

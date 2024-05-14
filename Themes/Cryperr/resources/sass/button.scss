@@ -1,0 +1,109 @@
+// btn
+.btn {
+    white-space: nowrap;
+    height: 43px;
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+.btn-text {
+    &,
+    &.active,
+    &:active,
+    &:focus {
+        border: unset !important;
+        // outline: unset !important;
+        // box-shadow: unset !important;
+    }
+}
+
+.btn-primary {
+    color: $text;
+    font-size: 18px;
+    font-weight: 400;
+    background: $primary;
+    border: 1px solid $primary;
+
+    &:hover,
+    &:active {
+        color: $text !important;
+        background: $primary !important;
+        border: 1px solid $primary !important;
+    }
+}
+
+.btn-secondary {
+    color: $text;
+    font-size: 18px;
+    font-weight: 400;
+    background-color: $secondary;
+    border: 1px solid $secondary;
+
+    &:hover,
+    &:active {
+        color: $text !important;
+        background-color: $secondary !important;
+        border: 1px solid $secondary !important;
+    }
+}
+
+.btn-green {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 400;
+    background-color: green;
+    border: 1px solid green;
+
+    &:hover,
+    &:active {
+        color: #fff !important;
+        background-color: green !important;
+        border: 1px solid green !important;
+    }
+}
+
+
+.btn-outline {
+    color: $text;
+    font-size: 18px;
+    font-weight: 400;
+    background: transparent;
+    border: 1px solid #989898;
+
+    &:hover,
+    &:active {
+        color: $text !important;
+        background: transparent !important;
+        border: 1px solid #989898 !important;
+    }
+}
+
+.btn-danger {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 400;
+    background-color: $warning;
+    border: 1px solid $warning;
+
+    &:hover,
+    &:active {
+        color: #fff !important;
+        background-color: $warning !important;
+        border: 1px solid $warning !important;
+    }
+}
+
+.btn-outline-danger {
+    color: $warning;
+    font-size: 18px;
+    font-weight: 400;
+    background-color: transparent;
+    border: 1px solid $warning;
+
+    &:hover,
+    &:active {
+        color: $warning !important;
+        background-color: transparent !important;
+        border: 1px solid $warning !important;
+    }
+}

@@ -1,0 +1,106 @@
+.back {
+  margin-top: 48px;
+  margin-left: 50px;
+  img {
+    width: 24px;
+    height: 24px;
+  }
+
+  a {
+    font-size: 24px;
+    line-height: 35.88px;
+    color: #333333;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.loyalties-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 48px 50px;
+
+  .loyalty-item {
+    width: 311px;
+    height: 453px;
+    margin: 50px;
+    border: 1px solid #989898;
+    padding: 24px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: #EEF2F6;
+
+    h4 {
+      margin: 20px 0;
+    }
+
+    > div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    img {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 10px;
+      margin: 0 22%;
+    }
+    
+    button {
+      margin: 30px 28% 0 28%;
+      width: 120px;
+      height: 43px;
+      border-radius: 8px;
+    }
+
+    div div div {
+      display: flex;
+      justify-content: space-between;
+
+      span {
+        font-size: 14px;
+        line-height: 19.6px;
+      }
+      span:nth-child(2) {
+          color: #1A773B;
+      }
+    }
+  }
+}
+
+// .loyalty-item div div div span {
+//     font-size: 14px;
+//     line-height: 19.6px;
+// }
+// .loyalty-item div div div span:nth-child(2) {
+//     color: #1A773B;
+// }
+
+// .loyalty-item > div {
+//   display: flex;
+//   flex-direction: column;
+// }
+
+// .loyalty-item h4 {
+//     margin: 20px 0;
+// }
+
+// .loyalty-item div div div {
+//   display: flex;
+//   justify-content: space-between;
+// }
+
+// .loyalty-item img {
+//   width: 150px;
+//   height: 150px;
+//   margin-bottom: 10px;
+//   margin: 0 22%;
+// }
+
+// .loyalty-item button {
+//   margin: 30px 28% 0 28%;
+//   width: 120px;
+//   height: 43px;
+//   border-radius: 8px;
+// }

@@ -1,0 +1,16 @@
+{
+    "name": "Shop",
+    "alias": "shop",
+    "version": "1.0.0",
+	"description": "",
+    "keywords": [],
+    "priority": 1,
+    "providers": [
+        "Modules\\Shop\\Providers\\ShopServiceProvider",
+        "Modules\\Shop\\Providers\\EventServiceProvider",
+        "Modules\\Shop\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

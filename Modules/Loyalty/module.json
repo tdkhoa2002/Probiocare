@@ -1,0 +1,16 @@
+{
+    "name": "Loyalty",
+    "alias": "loyalty",
+    "version": "1.0.0",
+	"description": "",
+    "keywords": [],
+    "priority": 1,
+    "providers": [
+        "Modules\\Loyalty\\Providers\\LoyaltyServiceProvider",
+        "Modules\\Loyalty\\Providers\\EventServiceProvider",
+        "Modules\\Loyalty\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

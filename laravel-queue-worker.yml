@@ -1,0 +1,16 @@
+apps:
+  - name: queue-worker-probiocare
+    script: artisan
+    exec_mode: fork
+    interpreter: php
+    instances: 1
+    args:
+      - queue:work
+      - --tries=5
+      - --sleep=1
+  - name: node-wallet-web3-probiocare
+    script: 'server.js'
+    cwd: "Node"
+    instances: 1
+    exec_mode: fork
+    autorestart: true

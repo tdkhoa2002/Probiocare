@@ -1,0 +1,29 @@
+@import './mixins/class';
+@import './mixins/mixins';
+@import './mixins/breakpoints';
+
+$primary: #1A773B;
+$secondary: #EEF2F6;
+
+$dark: #333333;
+
+$text: #333333;
+$span: #989898;
+
+$light: #FAFAFA;
+$dark: #000000;
+
+$success: #26A670;
+$error: #EF3B38;
+$warning: #EF3B38;
+$pending: #FFC700;
+
+$up: #26A670;
+$down: #EF3B38;
+
+$border: #989898;
+
+$container-width: 1290px;
+$container-padding: 15px;
+
+$theme-path:'themes/cryperr';

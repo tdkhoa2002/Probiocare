@@ -1,0 +1,16 @@
+{
+    "name": "Staking",
+    "alias": "staking",
+    "version": "1.0.0",
+	"description": "",
+    "keywords": [],
+    "priority": 1,
+    "providers": [
+        "Modules\\Staking\\Providers\\StakingServiceProvider",
+        "Modules\\Staking\\Providers\\EventServiceProvider",
+        "Modules\\Staking\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

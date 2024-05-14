@@ -1,0 +1,325 @@
+@import "./variables.scss";
+
+.p2p-tab-main {
+    .tabs-header {
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            border-bottom: 1px solid #989898;
+        }
+
+        .tab-main-list {
+            background-color: unset;
+
+            .nav-item {
+                .nav-link {
+                    position: relative;
+                    height: 40px;
+                    border-width: 1px 0px 0px 1px;
+                    border-style: solid;
+                    border-color: #989898;
+                    border-radius: 8px 8px 0px 0px;
+                    z-index: 1;
+
+                    &.active {
+                        background-color: $secondary;
+                        border-top-color: #989898;
+                        border-bottom-color: $secondary;
+                    }
+                }
+
+                &:last-child .nav-link {
+                    border-width: 1px 1px 0px 1px;
+                }
+            }
+        }
+    }
+}
+
+.p2p-bank {
+    .total-info {
+        width: 100%;
+
+        .card-total-info {
+            min-height: 108px;
+            background: #FAFAFA;
+            border-radius: 8px;
+            padding: 16px 24px;
+
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+
+    .merchant-view-market {
+        .tab-order {
+            .tabs-header {
+                &::before {
+                    display: none;
+                }
+
+                .tab-order-list {
+                    background-color: unset;
+
+                    .nav-item {
+                        .nav-link {
+                            position: relative;
+                            border-width: 1px 0px 0px 1px;
+                            border-style: solid;
+                            border-color: #989898;
+                            border-radius: 8px 8px 0px 0px;
+                            z-index: 1;
+
+                            &.active {
+                                background-color: $secondary;
+                                border-left: unset;
+                                border-right: unset;
+                                border-top: 1px solid #FFC700;
+                            }
+                        }
+
+                        &:last-child .nav-link {
+                            border-width: 1px 1px 0px 1px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .orders {
+        .tab-order {
+            .tabs-header {
+                &::before {
+                    display: none;
+                }
+
+                .tab-order-list {
+                    background-color: unset;
+
+                    .nav-item {
+                        .nav-link {
+                            position: relative;
+                            border-width: 1px 0px 0px 1px;
+                            border-style: solid;
+                            border-color: #989898;
+                            border-radius: 8px 8px 0px 0px;
+                            z-index: 1;
+
+                            &.active {
+                                background-color: $secondary;
+                                border-left: unset;
+                                border-right: unset;
+                                border-top: 1px solid #FFC700;
+                            }
+                        }
+
+                        &:last-child .nav-link {
+                            border-width: 1px 1px 0px 1px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.p2p-create-order {
+    .page-left, .page-right {
+        height: 100%;
+        padding: 16px 24px;
+        background: $secondary;
+        border-radius: 8px;
+        @include media-down(sm) {
+            background-color: unset;
+            padding: 0;
+        }
+    }
+    
+    .page-left {
+       
+    }
+}
+
+.modalSelectPayment {
+    .bank-list {
+        display: flex;
+        flex-direction: column;
+
+        .bank-item {
+            position: relative;
+            cursor: pointer;
+
+            &::before {
+                content: '';
+                width: 2px;
+                height: 24px;
+                background: $primary;
+                border-radius: 8px;
+                padding-right: 4px;
+
+                position: absolute;
+                left: 16px;
+                top: 50%;
+                bottom: 0;
+                transform: translateY(-50%);
+            }
+
+            &:hover {
+                background: $secondary;
+            }
+        }
+    }
+}
+
+.p2p-add-payment {
+    .card-add-payment {
+        max-width: 630px;
+        margin: auto;
+        border-radius: 8px;
+        background-color: $secondary;
+        padding: 32px 24px;
+
+        @include media-down(sm) {
+            padding: 24px 15px;
+        }
+
+        .card-title {
+            position: relative;
+            font-size: 24px;
+            font-weight: 400;
+            padding-left: 12px;
+
+            &::before {
+                content: '';
+                width: 2px;
+                height: 28px;
+                background: $primary;
+                border-radius: 8px;
+                padding-right: 4px;
+
+                position: absolute;
+                left: 0;
+                top: 50%;
+                bottom: 0;
+                transform: translateY(-50%);
+            }
+        }
+    }
+
+    .form-file {
+        .file-note {
+            list-style: disc;
+            padding-left: 24px;
+        }
+
+      
+    }
+}
+
+.p2p-create-ads {
+    .tab-ads {
+        .tab-list {
+            background-color: unset;
+            border-radius: unset;
+
+            .nav-item {
+                width: 100%;
+
+                .nav-link {
+                    background-color: #fff;
+                    border-style: solid;
+                    border-color: $border;
+
+                    &.active {
+                        background-color: $secondary;
+                    }
+                }
+
+                &:first-child .nav-link {
+                    border-width: 1px 0px 1px 1px;
+
+                    &.active {
+                        border-width: 1px 0px 1px 0px;
+                    }
+                }
+
+                &:last-child .nav-link {
+                    border-width: 1px 1px 1px 1px;
+
+                    &.active {
+                        border-width: 1px 0px 1px 1px;
+                    }
+                }
+
+            }
+        }
+
+        .tab-content {
+            width: 100%;
+            padding: 24px;
+            background-color: $secondary;
+            border-radius: 8px;
+
+            @include media-down(sm) {
+                padding: 15px;
+            }
+        }
+    }
+}
+
+.p2p-market {
+    .symbol-list {
+        display: flex;
+        align-items: center;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        &::-webkit-scrollbar-thumb {
+            display: none;
+        }
+
+        a {
+            min-width: 76px;
+            padding: 0;
+            text-align: center;
+            position: relative;
+            border: unset;
+            outline: unset;
+
+            @include media-down(sm) {
+                min-width: 64px;
+            }
+
+            &:active {
+                border: unset;
+            }
+            &.active {
+                border: unset;
+
+                &::after {
+                    content: "";
+                    display: inline-block;
+                    position: absolute;
+                    width: 80%;
+                    height: 3px;
+                    background-color: #FFC700;
+                    bottom: 2px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+        }
+    }
+}

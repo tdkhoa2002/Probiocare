@@ -1,0 +1,235 @@
+@import "./variables.scss";
+
+.wallet {
+    width: 100%;
+    min-height: 80vh;
+    padding: 24px;
+    padding-top: 48px;
+    position: relative;
+
+    @include media-down(md) {
+        padding: 32px 15px;
+    }
+
+    .wallet-head {
+        margin-bottom: 36px;
+        display: flex;
+        justify-content: space-between;
+        flex-flow: row wrap;
+        @include media-down(md) {
+            margin-bottom: 24px;
+        }
+        .left {
+            display: flex;
+            flex-direction: column;
+
+            @include media-down(md) {
+                margin-bottom: 24px;
+            }
+
+            .page-title {
+                color: $text;
+                font-weight: 400;
+                font-size: 24px;
+                line-height: 36px;
+                @include media-down(md) {
+                    margin-bottom: 0;
+                }
+            }
+
+            .balance {
+                font-weight: 500;
+                font-size: 32px;
+                line-height: 48px;
+            }
+        }
+
+        .actions-list {
+            display: flex;
+            flex-flow: row wrap;
+            row-gap: 16px;
+
+            button {
+                margin-left: 16px;
+                min-width: 130px;
+
+                @include media-down(sm) {
+                    margin-left: 0;
+                    margin-right: 16px;
+                }
+            }
+        }
+    }
+
+    .wallet-list {
+        .wallet-list-head {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+            margin-bottom: 16px;
+
+            @include media-down(md) {
+                flex-direction: column;
+            }
+
+            .table-title {
+                color: $text;
+                font-weight: 500;
+                font-size: 24px;
+
+                @include media-down(md) {
+                    margin-bottom: 16px;
+                }
+            }
+
+            .right-action {
+                display: flex;
+                align-items: center;
+
+                @include media-down(md) {
+                    justify-content: space-between;
+                }
+
+                .form-switch {
+                    margin-right: 24px;
+                    @include media-down(md) {
+                        margin-right: 16px;
+                    }
+
+                    .form-check-label {
+                        white-space: nowrap;
+                    }
+                }
+
+                .field-search {
+                    height: 40px;
+
+                    input {
+                        font-size: 16px;
+                        font-weight: 300;
+                        height: unset;
+                    }
+                }
+            }
+        }
+
+        table {
+            thead {
+                tr th {
+                    background-color: $secondary;
+                }
+            }
+
+            tbody {
+                tr {
+                    td {
+                        padding-top: 16px;
+                        padding-bottom: 16px;
+                        vertical-align: middle;
+                        cursor: pointer;
+
+                        &:last-child {
+                            max-width: 150px;
+                        }
+                    }
+                }
+
+                .actions {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    align-items: center;
+                    justify-content: center;
+
+                    .action {
+                        display: flex;
+                        align-items: center;
+                        cursor: pointer;
+                        margin-left: 24px;
+
+                        @include media-down(md) {
+                            margin-left: 0;
+                            margin-right: 16px;
+                        }
+
+                        .text {
+                            display: block;
+
+                            @include media-down(md) {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+.sider-token-info {
+    .card-info-token {
+        min-height: 69px;
+        background: #FAFAFA;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        .label {
+            color: #333333;
+            font-weight: 400;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 6px;
+        }
+
+        .value {
+            font-weight: 500;
+            text-align: center;
+        }
+    }
+
+    .trading-pair-title {
+        font-weight: 500;
+        font-size: 24px;
+        margin-bottom: 16px;
+    }
+
+    .trading-pair-list {
+        .item {
+            padding: 6px 0;
+            display: flex;
+            justify-content: space-between;
+
+            .left {
+                display: flex;
+                align-items: center;
+
+                .double-logo {
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        width: 24px;
+
+                        &:first-child {
+                            z-index: 1;
+                        }
+
+                        &:last-child {
+                            margin-left: -10px;
+                            z-index: 2;
+                        }
+                    }
+                }
+            }
+
+            .right {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+            }
+        }
+    }
+}

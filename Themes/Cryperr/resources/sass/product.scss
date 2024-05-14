@@ -1,0 +1,186 @@
+#toast-container {
+    .toast-message {
+        color: #fff;
+    }
+}
+.box-products {
+    .item-product {
+        .sumary {
+            margin-top: 15px;
+        }
+        .box-action {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+}
+.box-product-detail {
+    margin-bottom: 20px;
+    .box-top-product-detail {
+        .box-title {
+            .sumary {
+                margin-top: 20px;
+            }
+            .box-action {
+                margin-top: 15px;
+                display: flex;
+                align-items: center;
+                .btn-add-to-cart {
+                    border-color: $primary;
+                    margin-left: 15px;
+                    display: flex;
+                    align-items: center;
+                    span {
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
+    }
+    .box-content-product-detail {
+        margin-top: 20px;
+    }
+}
+.box-carts {
+    padding-bottom: 20px;
+    .box-order-status {
+        padding: 20px;
+        background-color: $secondary;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        .title {
+            margin-bottom: 20px;
+        }
+        .action {
+            margin-top: 20px;
+        }
+    }
+    .box-table-cart {
+        padding: 15px;
+        background-color: $secondary;
+        border-radius: 5px;
+        .table-title {
+            margin-bottom: 20px;
+            span {
+                font-size: 20px;
+                margin-left: 10px;
+            }
+        }
+        .box-form {
+            .error {
+                color: $error;
+            }
+            .form-check-label {
+                display: flex;
+                align-items: center;
+                img {
+                    height: 20px;
+                    width: auto;
+                    object-fit: contain;
+                    margin-right: 5px;
+                }
+            }
+        }
+        .box-table {
+            ul {
+                li {
+                    display: flex;
+                    flex-wrap: wrap;
+                    flex-direction: column;
+                    margin-bottom: 10px;
+                    > div {
+                        margin-bottom: 5px;
+                    }
+                    .thumb {
+                        display: flex;
+                        align-items: center;
+                        img {
+                            width: 100px;
+                        }
+                        .desc {
+                            h2 {
+                                font-size: 20px;
+                                color: $dark;
+                                margin-left: 10px;
+                            }
+                        }
+                    }
+                    .product-number {
+                        input {
+                            background-color: $secondary;
+                            width: 50px;
+                            text-align: center;
+                        }
+                        button {
+                            padding: 0;
+                        }
+                    }
+                    @media (min-width: 1024px) {
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+
+                        .thumb {
+                            flex: 0 0 55%;
+                        }
+                        .price-block {
+                            flex: 0 0 10%;
+                            text-align: center;
+                        }
+                        .product-number {
+                            flex: 0 0 15%;
+                            text-align: center;
+                        }
+                        .total-block {
+                            flex: 0 0 10%;
+                            text-align: center;
+                        }
+                        .remove {
+                            flex: 0 0 5%;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .box-info-cart {
+        padding: 15px;
+        background-color: $secondary;
+        border-radius: 5px;
+        .box-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        .action {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            .btn {
+                width: 150px;
+            }
+            a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }
+}
+
+.price-block {
+    .old-price {
+        text-decoration: line-through;
+    }
+    .price {
+        font-size: 18px;
+        font-weight: bold;
+    }
+}

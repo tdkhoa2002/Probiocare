@@ -1,0 +1,27 @@
+@import "./variables.scss";
+.box-wrap-pagination {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    li {
+        &.active {
+            color: $primary;
+            span {
+                color: $primary;
+            }
+        }
+        a {
+            color: $dark
+        }
+        margin: 0 5px;
+        &.disabled {
+            color: $border;
+            cursor: not-allowed;
+            pointer-events: all !important;
+            span {
+                color: $border;   
+            }
+        }
+
+    }
+}

@@ -1,0 +1,82 @@
+@import "./variables.scss";
+
+.trading {
+    width: 100%;
+
+    .trading-content {
+        .filter-header {
+            display: flex;
+            flex-flow: nowrap;
+            justify-content: space-between;
+            align-items: center;
+
+            a {
+                color: $span;
+                margin-right: 24px;
+
+                &.active {
+                    color: $text;
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .right-search {
+            .input-group {
+                height: 40px;
+
+                @include media-down(sm) {
+                    min-width: 32px;
+                    height: 32px;
+                    padding: 4px;
+                    background: transparent;
+                    border: 1px solid #989898;
+                    border-radius: 4px;
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: .3s ease;
+                }
+
+                img {
+                    @include media-down(sm) {
+                        width: 16px;
+                        height: auto;
+                    }
+                }
+
+                input {
+                    display: block;
+
+                    @include media-down(sm) {
+                        display: none;
+                        margin-left: 6px;
+                    }
+                }
+            }
+        }
+
+        .wrap-table {
+            display: block;
+
+            @include media-down(md) {
+                display: none;
+            }
+
+        }
+
+        .pair-list {
+            display: none;
+
+            @include media-down(md) {
+                display: block;
+            }
+
+            .pair-item {
+                padding: 16px 0;
+                border-bottom: 1px solid $span;
+            }
+        }
+    }
+}
