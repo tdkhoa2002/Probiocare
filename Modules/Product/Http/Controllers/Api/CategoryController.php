@@ -36,7 +36,7 @@ class CategoryController extends Controller
         return CategoryTransformer::collection($this->category->serverPaginationFilteringFor($request));
     }
 
-    public function store(CreateCategoryRequest $request)
+    public function store(Request $request)
     {
         $this->category->create($request->all());
 
@@ -63,9 +63,9 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function destroy(Category $category)
+    public function destroy(Category $categoryId)
     {
-        $this->category->destroy($category);
+        $this->category->destroy($categoryId);
         return response()->json([
             'errors' => false,
             'message' => trans('Product::messages.category deleted'),

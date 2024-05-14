@@ -29,6 +29,9 @@ return [
         'show_menu' => 'Show menu',
     ],
     'messages' => [
+        'category updated' => 'Category updated successfully.',
+        'category deleted' => 'Category deleted successfully.',
+        'category created' => 'Category created successfully.'
     ],
     'validation' => [
     ],

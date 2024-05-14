@@ -66,27 +66,27 @@
                 </el-table-column>
                 <el-table-column
                   :label="trans('categories.table.title')"
-                  prop="translations.title"
+                  prop=""
                 >
                   <template slot-scope="scope">
                     <a
                       :href="editRoute(scope.row.id)"
                       @click.prevent="goToEdit(scope.row.id)"
                     >
-                      {{ scope.row.translations.title }}
+                      {{ scope.row.title }}
                     </a>
                   </template>
                 </el-table-column>
                 <el-table-column
                   :label="trans('categories.table.slug')"
-                  prop="translations.slug"
+                  prop=""
                 >
                   <template slot-scope="scope">
                     <a
                       :href="editRoute(scope.row.id)"
                       @click.prevent="goToEdit(scope.row.id)"
                     >
-                      {{ scope.row.translations.slug }}
+                      {{ scope.row.slug }}
                     </a>
                   </template>
                 </el-table-column>
@@ -193,7 +193,6 @@ export default {
         order: this.order_meta.order,
         search: this.searchQuery,
       };
-
       axios
         .get(
           route("api.product.category.indexServerSide", {
@@ -202,6 +201,7 @@ export default {
           })
         )
         .then((response) => {
+          console.log(response.data.data);
           this.tableIsLoading = false;
           this.data = response.data.data;
           this.meta = response.data.meta;

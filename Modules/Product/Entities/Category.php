@@ -8,38 +8,16 @@ use Modules\Media\Support\Traits\MediaRelation;
 
 class Category extends Model
 {
-    use Translatable,MediaRelation;
+    use MediaRelation;
 
     protected $table = 'product__categories';
     public $translatedAttributes = [
-        'category_id',
-        'title',
-        'slug',
-        'sumary',
-        'body',
-        'meta_title',
-        'meta_description',
-        'og_title',
-        'og_description',
-        'og_image',
-        'og_type',
     ];
     protected $fillable = [
         'parent_id',
-        'status',
         'title',
-        'slug',
-        'show_homepage',
-        'show_sidebar',
-        'show_menu',
-        'sumary',
-        'body',
-        'meta_title',
-        'meta_description',
-        'og_title',
-        'og_description',
-        'og_image',
-        'og_type',
+        'status',
+        'description'
     ];
 
     public function getAvatar()

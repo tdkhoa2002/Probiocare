@@ -82,6 +82,9 @@ Loyalty | @parent
                     </div>
                 </div>
                 @foreach ($orders as $order)
+                    {{-- @php
+                    dd($order);
+                    @endphp --}}
                     @if ($order->term->package->id == $package->id)
                         @php
                             $subscribed = true;

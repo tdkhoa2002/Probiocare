@@ -23,7 +23,6 @@
         <div class="actions-list ">
             <a href="{{ route('fe.wallet.wallet.deposit') }}"><button class="btn btn-primary"> {{__('wallet.deposit')}} </button></a>
             <a href="{{ route('fe.wallet.wallet.withdraw') }}"><button class="btn btn-outline"> {{__('wallet.withdraw')}} </button></a>
-            <a href="{{ route('fe.staking.staking.mystaking') }}"><button class="btn btn-outline"> {{__('wallet.earn')}} </button></a>
             <a href="{{ route('fe.wallet.wallet.history') }}"><button class="btn btn-outline"> {{__('wallet.history')}} </button></a>
         </div>
     </div>

@@ -175,7 +175,7 @@ class ProfileController extends BasePublicController
             auth()->guard('customer')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-            return redirect()->route('homepage');
+            return redirect()->route('fe.customer.customer.login');
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
             return back();

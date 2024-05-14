@@ -88,7 +88,7 @@ class EloquentProductRepository extends EloquentBaseRepository implements Produc
     }
     public function getProductBestSelling()
     {
-        return $this->model->where('status', true)->where('is_best_selling', true)->limit(10)->orderBy('created_at', 'DESC')->get();
+        return $this->model->where('status', true)->where('is_best_selling', true)->limit(10)->orderBy('created_at', 'DESC')->paginate(2);
     }
 
     public function getProductByCategory($categoryId, $s)

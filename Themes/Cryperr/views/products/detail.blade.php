@@ -21,7 +21,7 @@ $urlImage = $image->path_string;
 <main>
     <div class="blog-detail container-custom">
         <div class="d-flex justify-content-between my-3">
-            <a class="backlink " href="{{ route('homepage') }}">
+            <a class="backlink " href="{{ route('fe.product.product.list') }}">
                 <img height="20px" class="me-3" src="{{ Theme::url('images/left-outline.png') }}" alt="" />
                 <div class="label">{{ __('products.detail') }}</div>
             </a>

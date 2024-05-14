@@ -1,8 +1,8 @@
 @php
 $lang = LaravelLocalization::setLocale() ? LaravelLocalization::setLocale() : 'vi';
 $favicon = setting('core::favicon') ? setting('core::favicon') : Theme::url('favicon.ico');
-$site_name = setting('core::site-name') ? setting('core::site-name') : 'Cryperr Trading';
-$site_description = setting('core::site-description') ? setting('core::site-description') : 'Cryperr Trading';
+$site_name = setting('core::site-name') ? setting('core::site-name') : 'Probiocare';
+$site_description = setting('core::site-description') ? setting('core::site-description') : 'Probiocare';
 @endphp
 
 <!DOCTYPE html>

@@ -3,7 +3,7 @@
     themeOption(setting('core::template', null, '').'::theme_primary_color') :"#0068a5";
     $lang = (LaravelLocalization::setLocale()) ? LaravelLocalization::setLocale() : "en";
     $logo = (setting('core::site-logo')) ? setting('core::site-logo') : Theme::url('images/logo.png');
-    $site_name = (setting('core::site-name')) ? setting('core::site-name') : "Cryperr Trading";
+    $site_name = (setting('core::site-name')) ? setting('core::site-name') : "Probiocare";
     @endphp
 
 <!DOCTYPE html>
@@ -48,7 +48,7 @@
             <tr>
                 <td>
                     <p>
-                        <strong>{{ $site_name }} Team</strong><br>
+                        <strong>Probiocare</strong><br>
                         This is automated message. Please do not reply!
                     </p>
                 </td>

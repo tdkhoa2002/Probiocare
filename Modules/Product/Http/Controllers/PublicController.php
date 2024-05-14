@@ -21,6 +21,15 @@ class PublicController extends BasePublicController
         $this->categoryRepository = $categoryRepository;
     }
 
+    public function list() {
+        $products = $this->productRepository->getProductBestSelling();
+        if($products) {
+            return view('products.list', compact('products'));
+        } else {
+            abort(404);
+        }
+    }
+
     public function getProductByCategory(Request $request, $slug)
     {
         $category = $this->categoryRepository->findBySlug($slug);

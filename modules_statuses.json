@@ -14,12 +14,13 @@
     "Cryperrswap": false,
     "Customer": true,
     "Wallet": true,
-    "Staking": true,
-    "Trade": true,
+    "Staking": false,
+    "Trade": false,
     "Peertopeer": true,
     "Logviewer": true,
     "Affiliate": true,
     "Product": true,
     "ShoppingCart": true,
-    "Loyalty": true
+    "Loyalty": true,
+    "Shop": false
 }

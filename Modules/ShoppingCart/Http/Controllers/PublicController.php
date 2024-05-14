@@ -14,6 +14,10 @@ use Modules\ShoppingCart\Facades\Cart;
 use Modules\ShoppingCart\Repositories\OrderRepository;
 use Modules\ShoppingCart\Repositories\OrderDetailRepository;
 use Modules\ShoppingCart\Services\Alepay;
+use Srmklive\PayPal\Services\Paypal as PayPalClient;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Http;
+
 
 class PublicController extends BasePublicController
 {
@@ -214,14 +218,22 @@ class PublicController extends BasePublicController
                         'total' => $cart->price * $cart->qty
                     ];
                     $this->orderDetailRepository->create($orderDetail);
+                    //
+                    $product = $this->productRepository->find($cart->id);
+                    $rq = [
+                        'total_sold' => $product->total_sold + $cart->qty
+                    ];
+                    
+                    $updatedProduct = $this->productRepository->update($product, $rq);
                 }
                 if ($request->payment_method == 3 || $request->payment_method == 2) {
                     return $this->hanldeCheckoutAlepay($order);
+                } elseif ($request->payment_method == 4) {
+                    return $this->processTransaction($order);
                 } else {
                     $email = new OrderConfirm($order);
                     Mail::to($request->email)->send($email);
                     Cart::destroy();
-
                     return response()->json(['error' => false, 'message' => trans('shoppingcart::orders.messages.order_success'), 'url' => route('fe.shoppingcart.getThankYou', $rand)]);
                 }
             } else {
@@ -231,6 +243,118 @@ class PublicController extends BasePublicController
             \Log::error($e->getMessage());
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
+    }
+
+    public function createTransaction() {
+        return view('shoppingCarts.paypal');
+    }
+
+    public function processTransaction() {
+        try {
+            $auth = auth()->guard('customer')->user();
+            $customer = $auth->profile;
+            $fullname = $auth->profile->getFullNameAttribute();
+            //
+            $count = Cart::count();
+            $total = Cart::total();
+            if ($count > 0 &&  $total > 0) {
+                $carts = Cart::content();
+                $rand = strtoupper(substr(uniqid(sha1(time())), 0, 10));
+                $subtotal = Cart::subtotalPrice();
+                $plc = 0;
+                $total = $subtotal + $plc;
+
+                $order = [
+                    'order_code' => $rand,
+                    'fullname' => $fullname,
+                    'email' => $auth->email,
+                    'phone_number' => $customer->phone_number,
+                    'address' => $customer->address,
+                    'note' => null,
+                    'total' => $total,
+                    'time_ship' => null,
+                    'payment_method' => 1,
+                    'delivery_method' => 1,
+                    'status' => StatusOrderEnum::PAYMENTING
+                ];
+                $order = $this->orderRepository->create($order);
+                foreach ($carts as $cart) {
+                    $orderDetail = [
+                        'order_id' => $order->id,
+                        'product_id' => $cart->id,
+                        'price' => $cart->price,
+                        'qty' => $cart->qty,
+                        'total' => $cart->price * $cart->qty
+                    ];
+                    $this->orderDetailRepository->create($orderDetail);
+                    //
+                    $product = $this->productRepository->find($cart->id);
+                    $rq = [
+                        'total_sold' => $product->total_sold + $cart->qty
+                    ];
+                    
+                    $updatedProduct = $this->productRepository->update($product, $rq);
+                }
+            }
+            $provider = new PayPalClient;
+            $provider->setApiCredentials(config('paypal'));
+            $paypalToken = $provider->getAccessToken();
+            $response = $provider->createOrder([
+                "intent" => "CAPTURE",
+                "application_context" => [
+                    "return_url" => route("fe.shoppingcart.successTransaction", ['order_code' => $order->order_code]),
+                    "cancel_url" => route("fe.shoppingcart.cancelTransaction"),
+                ],
+                "purchase_units" => [
+                    0 => [
+                        "amount" => [
+                            "currency_code" => "USD",
+                            "value" => 1 //$total
+                        ]
+                    ]
+                ]
+            ]);
+            
+            if(isset($response["id"]) && $response['id'] != null) {
+                foreach($response['links'] as $links) {
+                    if($links['rel'] == 'approve') {
+                        $approvalUrl = $links['href'];
+                        break;
+                    }
+                }
+                if($approvalUrl) {
+                    return redirect()->away($approvalUrl);
+                } else {
+                    return redirect()->route('fe.shoppingcart.getCart')->with('error', 'Something went wrong.');
+                }
+            } else {
+                return redirect()->route('fe.shoppingcart.getCart')->with('error', $response['message'] ?? 'Something went wrong.');
+            }
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function successTransaction($order_code, Request $request) {
+        // dd($request);
+        $provider = new PayPalClient;
+        $provider->setApiCredentials(config('paypal'));
+        $provider->getAccessToken();
+        $response = $provider->capturePaymentOrder($request['token']);
+        Cart::destroy();
+        $order = $this->orderRepository->findByAttributes(['order_code' => $order_code, 'status' => StatusOrderEnum::PAYMENTING]);
+        if(isset($response['status']) && $response['status'] == 'COMPLETED') {
+            $this->orderRepository->update($order, ['status' => StatusOrderEnum::PAYMENT_COMPLETED]);
+            return redirect()->route('fe.shoppingcart.getThankYou', $order_code)->with('success', 'Transaction complete.');
+        } else {
+            $this->orderRepository->update($order, ['status' => StatusOrderEnum::PAYMENT_FAILED]);
+            return response()->json(['error' => true, 'message' => trans('shoppingcart::orders.messages.order_payment_fail'), 'url' => route('fe.shoppingcart.alepayCheckoutFail', $order->order_code)]);
+        }
+    }
+
+    public function cancelTransaction(Request $request) {
+        return redirect()->route('fe.shoppingcart.getCart')->with('error', $response['message'] ?? 'You have canceled the transaction.');
     }
 
     private function hanldeCheckoutAlepay($order)
@@ -294,6 +418,74 @@ class PublicController extends BasePublicController
             return redirect()->route('fe.shoppingcart.getPaymentFail', $order_code)->withError(trans('shoppingcart::orders.messages.order_payment_fail'));
         } else {
             return redirect()->route('homepage')->withErrors(trans('shoppingcart::orders.messages.order_not_found'));
+        }
+    }
+
+    public function connectWallet() {
+        $response = Http::acceptJson()->get(config('wallet.api_connect_wallet'));
+        if ($response->successful()) {
+            return $response->json();
+        } else {
+            return false;
+        }
+    }
+
+    public function buyProductWeb3(Request $request) {
+        try {
+            $auth = auth()->guard('customer')->user();
+            $customer = $auth->profile;
+            $fullname = $auth->profile->getFullNameAttribute();
+            //
+            $count = Cart::count();
+            $total = Cart::total();
+            if ($count > 0 &&  $total > 0) {
+                $carts = Cart::content();
+                $rand = strtoupper(substr(uniqid(sha1(time())), 0, 10));
+                $subtotal = Cart::subtotalPrice();
+                $plc = 0;
+                $total = $subtotal + $plc;
+
+                $order = [
+                    'order_code' => $rand,
+                    'fullname' => $fullname,
+                    'email' => $auth->email,
+                    'phone_number' => $customer->phone_number,
+                    'address' => $customer->address,
+                    'note' => null,
+                    'total' => $total,
+                    'time_ship' => null,
+                    'payment_method' => 1,
+                    'delivery_method' => 1,
+                    'status' => StatusOrderEnum::PAYMENT_COMPLETED
+                ];
+                $order = $this->orderRepository->create($order);
+                foreach ($carts as $cart) {
+                    $orderDetail = [
+                        'order_id' => $order->id,
+                        'product_id' => $cart->id,
+                        'price' => $cart->price,
+                        'qty' => $cart->qty,
+                        'total' => $cart->price * $cart->qty
+                    ];
+                    $this->orderDetailRepository->create($orderDetail);
+                    //
+                    $product = $this->productRepository->find($cart->id);
+                    $rq = [
+                        'total_sold' => $product->total_sold + $cart->qty
+                    ];
+                    
+                    $updatedProduct = $this->productRepository->update($product, $rq);
+                }
+                if ($order) {
+                    Cart::destroy();
+                    return redirect()->route('fe.shoppingcart.getThankYou', $rand)->with('success', 'Transaction complete.');
+                } else {
+                    return redirect()->route('homepage');
+                }
+            }
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
     }
 }

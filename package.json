@@ -31,6 +31,8 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
+    "@inertiajs/inertia": "^0.11.1",
+    "@inertiajs/inertia-vue": "^0.8.0",
     "@riophae/vue-treeselect": "^0.4.0",
     "axios": "^0.18.0",
     "boostrap": "^2.0.0",
@@ -38,6 +40,7 @@
     "element-ui": "^2.4.7",
     "font-awesome": "^4.7.0",
     "form-backend-validation": "^2.3.3",
+    "inertia": "^0.0.7",
     "lodash": "^4.17.11",
     "moment": "^2.29.4",
     "typy": "^2.0.1",
@@ -48,6 +51,7 @@
     "vue-router": "^3.0.1",
     "vue-shortkey": "^3.1.6",
     "vue-simplemde": "^0.4.8",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "web3": "^4.7.0"
   }
 }

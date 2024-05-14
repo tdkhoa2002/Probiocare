@@ -18,8 +18,6 @@ class CreatePageRequest extends BaseFormRequest
     public function translationRules()
     {
         return [
-            'title' => 'required',
-            'slug' => 'required',
         ];
     }
 

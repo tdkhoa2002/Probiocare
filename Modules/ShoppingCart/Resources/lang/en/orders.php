@@ -13,7 +13,13 @@ return [
     'button' => [
         'create order' => 'Create a order',
     ],
-    'table' => [],
+    'table' => [
+        'order_code' => 'Code',
+        'fullname' => 'Full name',
+        'email' => 'Email',
+        'phone_number' => 'Phone number',
+        'status' => 'Status'
+    ],
     'form' => [],
     'messages' => [
         'add_product_success' => 'Added product to cart successfully',

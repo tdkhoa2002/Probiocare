@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Wallet\Entities\Wallet;
 use Modules\Peertopeer\Entities\Ads;
+use Modules\Shop\Entities\Shop;
 
 class Customer extends Authenticatable
 {
@@ -63,5 +64,9 @@ class Customer extends Authenticatable
     public function apiTokens()
     {
         return $this->hasMany(CustomerApiKey::class, 'customer_id');
+    }
+    
+    public function shop() {
+        return $this->hasOne(Shop::class, 'customer_id');
     }
 }

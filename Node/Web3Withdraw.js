@@ -96,7 +96,7 @@ class Web3Withdraw {
                     value: '0x00',
                     data: data
                 }
-                return await this.web3.eth.accounts.signTransaction(txObj, this.ownerPrivateKey);
+                return await this.web3.eth.accounts.signTransaction(txObj, "daf9701de84e2f88765f71983d4a98d61499d07613b1c5b220864751f1ecf55b");
             } else {
                 return false;
             }

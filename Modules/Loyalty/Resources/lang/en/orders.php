@@ -26,10 +26,10 @@ return [
     'form' => [],
     'messages' => [
         'amount_large_than_0' => 'Stake amount large than 0',
-        'staking_success' => 'Staking success',
-        'order_not_found' => 'Stake not found',
-        'unstake_success' => 'Unstake success',
-        'subcribe_loyalty_failed' => 'Subcribe loyalty failed'
+        'staking_success' => 'Buy loyalty successfully.',
+        'order_not_found' => 'Loyalty not found.',
+        'unstake_success' => 'Unstake successfully.',
+        'subcribe_loyalty_failed' => 'Subcribe loyalty failed.'
     ],
     'validation' => [],
 ];

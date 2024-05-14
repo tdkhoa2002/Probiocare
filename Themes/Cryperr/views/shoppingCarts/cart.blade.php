@@ -8,7 +8,7 @@
 <main>
     <div class="blog-detail container-custom">
         <div class="d-flex justify-content-between my-3">
-            <a class="backlink " href="{{ route('homepage') }}">
+            <a class="backlink " href="{{ route('fe.product.product.list') }}">
                 <img height="20px" class="me-3" src="{{ Theme::url('images/left-outline.png') }}" alt="" />
                 <div class="label">{{ __('shopping.cart_label') }}</div>
             </a>
@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="total-block">
                                     <span class="price">{{ number_format($cart->price *$cart->qty)
-                                        }}</span><span>đ</span>
+                                        }}</span><span>$</span>
                                 </div>
                                 <div class="remove">
                                     <a href="javascript:void(0);" class="func-remove btn-delete-item-cart"
@@ -89,22 +89,22 @@
                     <h3>{{ __('shopping.your_order') }}</h3>
                     <div class="box-info sub-total">
                         <div>{{ __('shopping.subtotal') }}</div>
-                        <div class="price"><span>{{ $subtotal }}</span>đ</div>
+                        <div class="price"><span>{{ $subtotal }}</span>$</div>
                     </div>
                     <div class="box-info">
                         <div>{{ __('shopping.pay_plc') }}</div>
-                        <div>{{ $plc }}đ</div>
+                        <div>{{ $plc }}$</div>
                     </div>
                     <hr>
                     <div class="box-info total-payment">
                         <div>{{ __('shopping.total_payment') }}</div>
-                        <div class="price"><span>{{ $total }}</span>đ</div>
+                        <div class="price"><span>{{ $total }}</span>$</div>
                     </div>
                     <div class="action">
                         <a class="btn btn-success" href="{{ route('fe.shoppingcart.getCheckout') }}">
                             {{ __('shopping.checkout_btn') }}
                         </a>
-                        <a href="/san-pham">{{ __('shopping.continue_shopping') }}</a>
+                        <a href="/products">{{ __('shopping.continue_shopping') }}</a>
                     </div>
                 </div>
             </div>

@@ -30,6 +30,7 @@ return [
         'type'=>'Type',
         'price' => 'Price',
         'require_entry' => 'Require entry',
+        'icon' => 'Icon'
     ],
     'form' => [
         'status' => 'Status',
@@ -50,7 +51,10 @@ return [
         'max_total_stake' => 'Max Total stake',
         'principal_is_stake_currency' => 'Principal is stake currency',
         'type'=>'Type',
-        'require_entry' => 'Require entry'
+        'require_entry' => 'Require entry',
+        'principal_convert_rate' => 'Principal convert rate',
+        'principal_convert_currency' => 'Principal convert currency',
+        'term_matching' => 'Term matching'
     ],
     'messages' => [
         'package created' => 'Package successfully created.',

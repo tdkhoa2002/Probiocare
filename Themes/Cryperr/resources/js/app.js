@@ -53,6 +53,7 @@ Vue.component('trading-pair-orderbook', require('./components/spot-trade/trading
 Vue.component('change-password', require('./components/profiles/changePassword.vue').default);
 Vue.component('request-kyc', require('./components/profiles/requestKyc.vue').default);
 Vue.component('VerifyCodeInput', require('./components/VerifyCodeInput.vue').default);
+Vue.component('connect-wallet', require('./components/ConnectWallet.vue').default);
 Vue.component('form-signin', require('./components/auths/formSignin.vue').default);
 
 //convert

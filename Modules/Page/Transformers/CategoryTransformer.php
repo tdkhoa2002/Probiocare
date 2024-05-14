@@ -17,12 +17,13 @@ class CategoryTransformer extends JsonResource
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->title,
+            'description' => $this->resource->description,
             'status' => (bool) $this->resource->status,
             'created_at' => $this->resource->created_at->format('d-m-Y'),
-            'translations' => [
-                'title' => optional($this->resource->translate(locale()))->title,
-                'slug' => optional($this->resource->translate(locale()))->slug,
-            ],
+            // 'translations' => [
+            //     'title' => optional($this->resource->translate(locale()))->title,
+            //     'slug' => optional($this->resource->translate(locale()))->slug,
+            // ],
             'urls' => [
                 'delete_url' => route('api.post.category.destroy', $this->resource->id),
             ],

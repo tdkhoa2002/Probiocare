@@ -45,6 +45,10 @@ if ($checkAuth) {
         'as' => 'fe.shoppingcart.getThankYou',
         'uses' => 'PublicController@getThankYou'
     ])->middleware('check-auth');
+    $router->get('api/checkout', [
+        'as' => 'api.fe.shoppingcart.getCartInfo',
+        'uses' => 'PublicApiController@getCartInfo'
+    ])->middleware('check-auth');
 } else {
     $router->get(trans('shoppingcart::shoppingcarts.router.carts'), [
         'as' => 'fe.shoppingcart.getCart',
@@ -62,6 +66,10 @@ if ($checkAuth) {
         'as' => 'fe.shoppingcart.getPaymentFail',
         'uses' => 'PublicController@getPaymentFail'
     ]);
+    $router->get('api/checkout', [
+        'as' => 'api.fe.shoppingcart.getCartInfo',
+        'uses' => 'PublicApiController@getCartInfo'
+    ]);
 }
 
 $router->get('testAlepay', [
@@ -78,5 +86,35 @@ $router->group(['prefix' => '/alepay'], function (Router $router) {
     $router->get('order-fail/{code}', [
         'as' => 'fe.shoppingcart.alepayCheckoutFail',
         'uses' => 'PublicController@alepayCheckoutFail'
+    ]);
+});
+
+$router->group(['prefix' => '/paypal'], function (Router $router) {
+    $router->get('create-transaction', [
+        'as' => 'fe.shoppingcart.createTransaction',
+        'uses' => 'PublicController@createTransaction'
+    ]);
+    $router->get('process-transaction', [
+        'as' => 'fe.shoppingcart.processTransaction',
+        'uses' => 'PublicController@processTransaction'
+    ]);
+    $router->get('success-transaction/{order_code}', [
+        'as' => 'fe.shoppingcart.successTransaction',
+        'uses' => 'PublicController@successTransaction'
+    ]);
+    $router->get('cancel-transaction', [
+        'as' => 'fe.shoppingcart.cancelTransaction',
+        'uses' => 'PublicController@cancelTransaction'
+    ]);
+});
+
+$router->group(['prefix' => '/web3'], function (Router $router) {
+    $router->get('connect-wallet', [
+        'as' => 'fe.shoppingcart.connectWallet',
+        'uses' => 'PublicController@connectWallet'
+    ]);
+    $router->post('buy-product', [
+        'as' => 'fe.shoppingcart.buyProductWeb3',
+        'uses' => 'PublicController@buyProductWeb3'
     ]);
 });

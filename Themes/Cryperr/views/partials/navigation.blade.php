@@ -2,7 +2,7 @@
     <div class="container">
         <div class="docs-header-content">
             <div class="docs-logo">
-                <a href="{{ route('homepage') }}">
+                <a href="{{ route('fe.product.product.list') }}">
                     <img class="navbar__logo" src="@setting('core::logo')" alt="@setting('core::site-name')">
                 </a>
             </div>

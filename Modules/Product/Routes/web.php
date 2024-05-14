@@ -6,3 +6,7 @@ $router->get('/' . trans('product::products.router.product') . '/' . trans('prod
 ]);
 $router->get('/' . trans('product::products.router.product') . '/{slug}', ['as' => 'fe.product.product.detail', 'uses' => 'PublicController@detail']);
 $router->get('/' . trans('product::products.router.category') . '/{slug}', ['as' => 'fe.product.product.category', 'uses' => 'PublicController@getProductByCategory']);
+$router->get('/products', [
+    'as' => 'fe.product.product.list',
+    'uses' => 'PublicController@list'
+]);

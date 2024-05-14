@@ -15,8 +15,6 @@ class UpdateCategoryRequest extends BaseFormRequest
     {
 
         return [
-            'title' => 'required',
-            'slug' => ['required', Rule::unique('product__category_translations', 'slug')->ignore($this->id)],
         ];
     }
 

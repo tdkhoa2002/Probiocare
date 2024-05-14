@@ -114,7 +114,7 @@ $profile = $customer->profile;
             </div>
         </a>
 
-        <a href="{{ route('fe.wallet.wallet.list') }}">
+        {{-- <a href="{{ route('fe.wallet.wallet.list') }}">
             <div class="box-wallet bg-secondary rounded px-4 py-3 mt-4">
                 <div class="d-flex align-items-center mb-2">
                     <img class="me-2" width="24px" src="{{ Theme::url('images/icons/wallet.png') }}" alt="">
@@ -125,7 +125,7 @@ $profile = $customer->profile;
                         use.</div>
                 </div>
             </div>
-        </a>
+        </a> --}}
     </div>
 </div>
 @stop

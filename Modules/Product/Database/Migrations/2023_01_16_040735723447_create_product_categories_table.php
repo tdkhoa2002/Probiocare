@@ -15,11 +15,13 @@ class CreateProductCategoriesTable extends Migration
         Schema::create('product__categories', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->string('title');
+            $table->longText('description');
             $table->integer('parent_id')->nullable()->default(0);
             $table->boolean('status')->default(true);
-            $table->boolean('show_homepage')->default(true);
-            $table->boolean('show_sidebar')->default(false);
-            $table->boolean('show_menu')->default(false);
+            // $table->boolean('show_homepage')->default(true);
+            // $table->boolean('show_sidebar')->default(false);
+            // $table->boolean('show_menu')->default(false);
             $table->timestamps();
         });
     }

@@ -28,7 +28,7 @@ $balance_usd += $wallet->balance * $wallet->currency->usd_rate;
 <nav class="home-nav-bar navbar navbar-expand-lg">
     <div class="container-fluid">
         <div class="nav-body">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="/products">
                 <img src="{{ $logo }}" alt="" />
             </a>
             <div class="right-nav-mobile">
@@ -54,13 +54,18 @@ $balance_usd += $wallet->balance * $wallet->currency->usd_rate;
                     </div>
                     @else
                     <div class="d-flex align-items-center">
-                        <div>
+                        {{-- <div>
                             <button type="button" style="width:120px; height: 43px" class="btn btn-success">
                                 $<span class="total_balance_usd" style="color: #fff;">
                                 </span>
                                 <img class="pointer" style="filter: brightness(0) invert(1);" width="20px"
                                     src="{{ Theme::url('images/icons/eye.png') }}" alt="">
                             </button>
+                        </div> --}}
+                        <div>
+                            <a href="{{ route('fe.shoppingcart.getCart') }}" style="color: black">
+                                <img class="pointer" src="{{ Theme::url('images/icons/icon-shop.png') }}" alt="">
+                            </a>
                         </div>
                         <div class="ms-3">
                             <a href="{{route('fe.customer.customer.account')}}">

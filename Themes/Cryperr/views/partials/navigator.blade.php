@@ -1,4 +1,4 @@
-<div class="navigator">
+{{-- <div class="navigator">
     <div class="navigator-list">
         <a class="navigator-item {{ Route::currentRouteName() =='fe.wallet.wallet.list' ?'active':"" }} " href="{{route('fe.wallet.wallet.list')}}">
             <img width="24px" height="24px" src="{{ Theme::url('images/navigator/wallet.png') }}" alt="">
@@ -7,10 +7,6 @@
         <a class="navigator-item {{ Route::currentRouteName() =='fe.wallet.wallet.convert' ?'active':"" }}" href="{{route('fe.wallet.wallet.convert')}}">
             <img width="24px" height="24px" src="{{ Theme::url('images/menu/convert.png') }}" alt="">
             <div class="label">Convert</div>
-        </a>
-        <a class="navigator-item {{ Route::currentRouteName() =='fe.staking.staking.mystaking' ?'active':"" }}" href="{{route('fe.staking.staking.mystaking')}}">
-            <img width="24px" height="24px" src="{{ Theme::url('images/navigator/staking.png') }}" alt="">
-            <div class="label">Staking</div>
         </a>
         <a class="navigator-item {{ Route::currentRouteName() =='fe.customer.customer.account' ?'active':"" }}" href="{{route('fe.customer.customer.account')}}">
             <img width="24px" height="24px" src="{{ Theme::url('images/navigator/account.png') }}" alt="">
@@ -25,4 +21,4 @@
             <div class="label">Setting</div>
         </a>
     </div>
-</div>
+</div> --}}

@@ -118,7 +118,7 @@
             <tr>
               <th scope="col">Time</th>
               <th scope="col">Action</th>
-              <th scope="col">Network</th>
+              <!-- <th scope="col">Network</th> -->
               <th scope="col">Amount</th>
               <th scope="col">Currency</th>
               <th scope="col">Txh</th>
@@ -131,7 +131,7 @@
                 <div class="text">{{ item.created_at }}</div>
               </td>
               <td>{{ item.action }}</td>
-              <td>{{ item.blockchain.title }}</td>
+              <!-- <td>{{ item.blockchain.title }}</td> -->
               <td>{{ item.amount }}</td>
               <td class="row-name">
                 <div class="d-flex align-items-center">

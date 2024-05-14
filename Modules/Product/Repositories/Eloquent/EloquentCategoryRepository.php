@@ -43,21 +43,17 @@ class EloquentCategoryRepository extends EloquentBaseRepository implements Categ
 
     public function serverPaginationFilteringFor(Request $request): LengthAwarePaginator
     {
-        $categorys = $this->allWithBuilder();
+        $categories = $this->allWithBuilder();
         if ($request->get('search') !== null) {
             $term = $request->get('search');
-            $categorys->whereHas('translations', function ($query) use ($term) {
-                $query->where('title', 'LIKE', "%{$term}%");
-                $query->orWhere('slug', 'LIKE', "%{$term}%");
-            })->orWhere('id', $term);
         }
 
         if ($request->get('order_by') !== null && $request->get('order') !== 'null') {
             $order = $request->get('order') === 'ascending' ? 'asc' : 'desc';
-            $categorys->orderBy($request->get('order_by'), $order);
+            $categories->orderBy($request->get('order_by'), $order);
         }
 
-        return $categorys->paginate($request->get('per_page', 10));
+        return $categories->paginate($request->get('per_page', 10));
     }
 
     public function getCategoryHomepage()

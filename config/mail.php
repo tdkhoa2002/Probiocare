@@ -85,8 +85,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'contact@cryperr.com'),
-        'name' => env('MAIL_FROM_NAME', 'Cryperr Trading'),
+        'address' => env('MAIL_FROM_ADDRESS', 'tdkhoa1101@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Probiocare'),
     ],
 
     /*

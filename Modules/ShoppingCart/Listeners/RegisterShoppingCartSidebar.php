@@ -36,7 +36,7 @@ class RegisterShoppingCartSidebar implements \Maatwebsite\Sidebar\SidebarExtende
      */
     public function extendWith(Menu $menu)
     {
-        $menu->group(trans('core::sidebar.content'), function (Group $group) {
+        $menu->group(trans('core::sidebar.cryperr_manager'), function (Group $group) {
             $group->item(trans('shoppingcart::shoppingcarts.title.shoppingcarts'), function (Item $item) {
                 $item->icon('fa fa-copy');
                 $item->weight(10);
