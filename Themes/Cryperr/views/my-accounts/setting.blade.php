@@ -117,7 +117,7 @@ Setting | @parent
                     Delete!
                 </button>
             </div> --}}
-            <div class="d-flex justify-content-between align-items-center pb-3 pb-md-4">
+            {{-- <div class="d-flex justify-content-between align-items-center pb-3 pb-md-4">
                 <div class="d-flex flex-column">
                     <div class="fs-6 fs-md-5 mb-2">Api Management</div>
                     <div class="fs-7 fs-md-6 fw-light pe-4">
@@ -127,7 +127,7 @@ Setting | @parent
                 <a class="btn btn-primary " style="min-width: 120px" href="{{ route('fe.customer.customer.apiManagement') }}">
                     Manage
                 </a>
-            </div>
+            </div> --}}
             <div class="d-flex justify-content-between align-items-center pb-3 pb-md-4">
                 <div class="d-flex flex-column">
                     <div class="fs-6 fs-md-5 mb-2">Logout Account</div>
