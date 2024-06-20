@@ -28,4 +28,5 @@ enum TypeTransactionActionEnum: string
     case COMMISSION_LOYALTY = "COMMISSION_LOYALTY";
     case SUBCRIBE_LOYALTY = "SUBCRIBE_LOYALTY";
     case REWARD_LOYALTY = "REWARD_LOYALTY";
+    case VOUCHER_REFUND = "VOUCHER_REFUND";
 }

@@ -54,10 +54,12 @@ class ApiLoginController extends BaseApiController
                     if ($customer->status_gg_auth == 2) {
                         $isEmail = false;
                     }
-                    if ($isEmail) {
-                        JobSendEmailCodeLogin::dispatch($customer);
-                    }
-                    return $this->respondWithSuccess(['message' => trans('customer::customers.messages.send_email_code_login_success'), 'isEmail' => $isEmail]);
+                    // if ($isEmail) {
+                    //     JobSendEmailCodeLogin::dispatch($customer);
+                    // }
+                    // return $this->respondWithSuccess(['message' => trans('customer::customers.messages.send_email_code_login_success'), 'isEmail' => $isEmail]);
+                    auth()->guard('customer')->login($customer);
+                    return $this->respondWithSuccess(['message' => trans('customer::customers.messages.login_success'), 'url' => route('fe.wallet.wallet.list')]);
                 } else {
                     return $this->respondWithError(trans('customer::customers.messages.email_or_password_wrong'));
                 }
@@ -77,29 +79,31 @@ class ApiLoginController extends BaseApiController
             if ($customer->status == false) {
                 return $this->respondWithError(trans('customer::customers.messages.customer_not_active'));
             } else {
-                $code = $this->customerCodeRepository->findByAttributes(
-                    [
-                        'customer_id' => $customer->id,
-                        'code' => $request->get('code'),
-                        'type' => TypeEmailEnum::LOGIN
-                    ]
-                );
-                if ($code) {
-                    $now = now();
-                    $expired_at = Carbon::parse($code->expired_at);
-                    DB::table('customer__customercodes')
-                        ->where('type', TypeEmailEnum::LOGIN)
-                        ->where('customer_id', $customer->id)
-                        ->delete();
-                    if ($now > $expired_at) {
-                        return $this->respondWithError(trans('customer::customers.messages.verify_code_expired'));
-                    } else {
-                        auth()->guard('customer')->login($customer);
-                        return $this->respondWithSuccess(['message' => trans('customer::customers.messages.login_success'), 'url' => route('fe.wallet.wallet.list')]);
-                    }
-                } else {
-                    return $this->respondWithError(trans('customer::customers.messages.verify_code_expired'));
-                }
+                auth()->guard('customer')->login($customer);
+                return $this->respondWithSuccess(['message' => trans('customer::customers.messages.login_success'), 'url' => route('fe.wallet.wallet.list')]);
+                // $code = $this->customerCodeRepository->findByAttributes(
+                //     [
+                //         'customer_id' => $customer->id,
+                //         'code' => $request->get('code'),
+                //         'type' => TypeEmailEnum::LOGIN
+                //     ]
+                // );
+                // if ($code) {
+                //     $now = now();
+                //     $expired_at = Carbon::parse($code->expired_at);
+                //     DB::table('customer__customercodes')
+                //         ->where('type', TypeEmailEnum::LOGIN)
+                //         ->where('customer_id', $customer->id)
+                //         ->delete();
+                //     if ($now > $expired_at) {
+                //         return $this->respondWithError(trans('customer::customers.messages.verify_code_expired'));
+                //     } else {
+                //         auth()->guard('customer')->login($customer);
+                //         return $this->respondWithSuccess(['message' => trans('customer::customers.messages.login_success'), 'url' => route('fe.wallet.wallet.list')]);
+                //     }
+                // } else {
+                //     return $this->respondWithError(trans('customer::customers.messages.verify_code_expired'));
+                // }
             }
         } catch (\Exception $e) {
             \Log::error($e->getMessage());

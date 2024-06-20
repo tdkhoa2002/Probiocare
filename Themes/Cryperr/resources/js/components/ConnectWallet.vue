@@ -28,13 +28,15 @@ let amount;
 onMounted(async () => {
     isMetamaskSupported.value = window.ethereum !== 'undefined';
     await Axios.get('/api/checkout').then(response => {
-        subtotal.value = parseInt(response.data.data.subtotal.replace(/,/g, ""), 10);
+        subtotal.value = parseInt(response.data.data.total.replace(/,/g, ""), 10);
+        console.log(response.data.data);
+        
     }).catch(error => {
         console.error('Error fetching subtotal:', error);
     });
     const web3 = new Web3("https://data-seed-prebsc-2-s2.bnbchain.org:8545");
     amount = web3.utils.toWei(subtotal.value, 'ether');
-    const contractAddress = '0x6d36E17C52ecd0eB028010f70a40724b4736ea80';
+    const contractAddress = '0x02b717aA57EA74c547FA58890043e1EDc57c9657';
     var abi = 
         [
             {
@@ -121,12 +123,12 @@ onMounted(async () => {
             address.value = accounts[0];
             const account = address.value;
             const transaction = contract.methods.buyProduct(amount).encodeABI();
-            
+            console.log(amount);
             await window.ethereum.request({ 
                 "method": "eth_sendTransaction",
                 "params": [
                     {
-                    "to": "0x6d36E17C52ecd0eB028010f70a40724b4736ea80",
+                    "to": "0x02b717aA57EA74c547FA58890043e1EDc57c9657",
                     "from": account,
                     "data": transaction,
                     }

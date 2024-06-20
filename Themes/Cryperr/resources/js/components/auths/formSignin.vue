@@ -53,11 +53,11 @@
         Sign in
       </button>
     </div>
-    <ModalVerifyLogin
+    <!-- <ModalVerifyLogin
       @closeModal="closeModal"
       :objectData="dataRequest"
       :modalShowConfirmCode="modalShowConfirmCode"
-    ></ModalVerifyLogin>
+    ></ModalVerifyLogin> -->
   </form>
 </template>
 <script>
@@ -92,7 +92,7 @@ export default {
         remember: false,
       },
     };
-  },
+  }, 
   methods: {
     closeModal() {
       this.modalShowConfirmCode = false;
@@ -110,14 +110,42 @@ export default {
               solid: true,
               noCloseButton: true,
             });
+            console.log(response);
+            window.location.href = response.data.url;
           } else {
             this.modalShowConfirmCode = true;
+            console.log(response);
+            window.location.href = response.data.url;
           }
         })
         .catch((error) => {
           this.visibleLoading = false;
           console.log(error);
         });
+      // this.form
+      //   .post("/customer/handle-login")
+      //   .then((response) => {
+      //     console.log(response);
+      //     if (response.error == true) {
+      //       this.$bvToast.toast(response.message, {
+      //         variant: "danger",
+      //         solid: true,
+      //         noCloseButton: true,
+      //       });
+      //       console.log(response);
+      //       window.location.href = response.data.url;
+      //     } else {
+      //       this.$bvToast.toast(response.data.message, {
+      //         variant: "success",
+      //         solid: true,
+      //         noCloseButton: true,
+      //       });
+      //       window.location.href = response.data.url;
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
     },
   },
 };

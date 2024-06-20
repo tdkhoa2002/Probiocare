@@ -22,7 +22,8 @@ return [
     ],
     'form' => [],
     'messages' => [
-        'add_product_success' => 'Added product to cart successfully',
+        'order_cancelled' => 'Order successfully cancelled.',
+        'add_product_success' => 'Added product to cart successfully.',
         'order_success' => 'Order success'
     ],
     'validation' => [],

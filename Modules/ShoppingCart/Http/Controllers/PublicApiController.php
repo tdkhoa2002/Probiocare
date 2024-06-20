@@ -51,13 +51,22 @@ class PublicApiController extends BaseApiController
 
     public function getCartInfo() {
         try {
+            $customer = auth()->guard('customer')->user();
             $count = Cart::count();
             if ($count == 0) {
                 return $this->respondWithError(trans('staking::packages.messages.package_not_found'));
             } else {
-                $plc = 0;
                 $subtotal = Cart::subtotalPrice();
-                $total = $subtotal + $plc;
+                $wallet = $this->walletRepository->findByAttributes([
+                    'customer_id' => $customer->id,
+                    'currency_id' => 2
+                ]);
+                if(!$wallet) {
+                    $plc = 0;
+                } else {
+                    $plc = $wallet->balance;
+                }
+                $total = $subtotal - $plc;
                 $carts = Cart::content();
                 return $this->respondWithData([
                     'subtotal' => number_format($subtotal),

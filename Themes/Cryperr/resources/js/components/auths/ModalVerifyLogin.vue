@@ -61,9 +61,9 @@ export default {
   },
   methods: {
     submitVerifyCode() {
-      if (this.code == "") {
-        return false;
-      }
+      // if (this.code == "") {
+      //   return false;
+      // }
       let dataRequest = this.objectData;
       dataRequest.code = this.code;
       this.form = new Form(dataRequest);
@@ -76,6 +76,8 @@ export default {
               solid: true,
               noCloseButton: true,
             });
+            console.log(response);
+            window.location.href = response.data.url;
           } else {
             this.$bvToast.toast(response.data.message, {
               variant: "success",

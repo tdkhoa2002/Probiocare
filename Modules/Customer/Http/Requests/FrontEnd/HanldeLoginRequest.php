@@ -9,7 +9,7 @@ class HanldeLoginRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'code' => 'required',
+            // 'code' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:8',
         ];

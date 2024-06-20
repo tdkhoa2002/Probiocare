@@ -5,6 +5,7 @@ namespace Modules\ShoppingCart\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Modules\Core\Http\Controllers\BasePublicController;
+use Modules\Customer\Jobs\JobSendEmailCodeLogin;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Product\Repositories\CategoryRepository;
 use Modules\ShoppingCart\CartItem;
@@ -13,6 +14,8 @@ use Modules\ShoppingCart\Enums\StatusOrderEnum;
 use Modules\ShoppingCart\Facades\Cart;
 use Modules\ShoppingCart\Repositories\OrderRepository;
 use Modules\ShoppingCart\Repositories\OrderDetailRepository;
+use Modules\Customer\Repositories\CustomerRepository;
+use Modules\Wallet\Repositories\WalletRepository;
 use Modules\ShoppingCart\Services\Alepay;
 use Srmklive\PayPal\Services\Paypal as PayPalClient;
 use Inertia\Inertia;
@@ -28,17 +31,23 @@ class PublicController extends BasePublicController
     private $categoryRepository;
     private $orderRepository;
     private $orderDetailRepository;
+    private $customerRepository;
+    private $walletRepository;
 
     public function __construct(
         ProductRepository $productRepository,
         CategoryRepository $categoryRepository,
         OrderRepository $orderRepository,
-        OrderDetailRepository $orderDetailRepository
+        OrderDetailRepository $orderDetailRepository,
+        CustomerRepository $customerRepository,
+        WalletRepository $walletRepository
     ) {
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
         $this->orderRepository = $orderRepository;
         $this->orderDetailRepository = $orderDetailRepository;
+        $this->customerRepository = $customerRepository;
+        $this->walletRepository = $walletRepository;
     }
 
     public function quickBuy(Request $request)
@@ -130,9 +139,18 @@ class PublicController extends BasePublicController
 
     public function getCart()
     {
-        $plc = 0;
+        $customer = auth()->guard('customer')->user();
+        $wallet = $this->walletRepository->findByAttributes([
+            'customer_id' => $customer->id,
+            'currency_id' => 2
+        ]);
+        if(!$wallet) {
+            $plc = 0;
+        } else {
+            $plc = $wallet->balance;
+        }
         $subtotal = Cart::subtotalPrice();
-        $total = $subtotal + $plc;
+        $total = $subtotal - $plc;
         $carts = Cart::content();
         return view('shoppingCarts.cart', ['carts' => $carts, 'plc' => $plc, 'total' => number_format($total), 'subtotal' => number_format($subtotal)]);
     }
@@ -171,13 +189,22 @@ class PublicController extends BasePublicController
 
     public function getCheckout()
     {
+        $customer = auth()->guard('customer')->user();
         $count = Cart::count();
         if ($count == 0) {
             return redirect()->route('fe.shoppingcart.getCart')->withErrors(['message' => 'Giỏ hàng của bạn chưa có sản phẩm nào.']);
         } else {
-            $plc = 0;
+            $wallet = $this->walletRepository->findByAttributes([
+                'customer_id' => $customer->id,
+                'currency_id' => 2
+            ]);
+            if(!$wallet) {
+                $plc = 0;
+            } else {
+                $plc = $wallet->balance;
+            }
             $subtotal = Cart::subtotalPrice();
-            $total = $subtotal + $plc;
+            $total = $subtotal - $plc;
             $carts = Cart::content();
             return view('shoppingCarts.checkout', ['carts' => $carts, 'plc' => $plc, 'total' => number_format($total), 'subtotal' => number_format($subtotal)]);
         }
@@ -186,14 +213,23 @@ class PublicController extends BasePublicController
     public function checkout(Request $request)
     {
         try {
+            $customer = $customer = auth()->guard('customer')->user();
             $count = Cart::count();
             $total = Cart::total();
             if ($count > 0 &&  $total > 0) {
                 $carts = Cart::content();
                 $rand = strtoupper(substr(uniqid(sha1(time())), 0, 10));
                 $subtotal = Cart::subtotalPrice();
-                $plc = 0;
-                $total = $subtotal + $plc;
+                $wallet = $this->walletRepository->findByAttributes([
+                    'customer_id' => $customer->id,
+                    'currency_id' => 2
+                ]);
+                if(!$wallet) {
+                    $plc = 0;
+                } else {
+                    $plc = $wallet->balance;
+                }
+                $total = $subtotal - $plc;
 
                 $order = [
                     'order_code' => $rand,
@@ -251,18 +287,38 @@ class PublicController extends BasePublicController
 
     public function processTransaction() {
         try {
+            
             $auth = auth()->guard('customer')->user();
             $customer = $auth->profile;
+            // dd($auth);
             $fullname = $auth->profile->getFullNameAttribute();
             //
             $count = Cart::count();
             $total = Cart::total();
             if ($count > 0 &&  $total > 0) {
+                //Send email when pay
+                // $isEmail = true;
+                // $customerEmail = $this->customerRepository->findByAttributes(['email' => $auth["email"]]);
+                // if ($customerEmail->status_gg_auth == 2) {
+                //     $isEmail = false;
+                // }
+                // if ($isEmail) {
+                //     JobSendEmailCodeLogin::dispatch($customerEmail);
+                // }
+                //
                 $carts = Cart::content();
                 $rand = strtoupper(substr(uniqid(sha1(time())), 0, 10));
                 $subtotal = Cart::subtotalPrice();
-                $plc = 0;
-                $total = $subtotal + $plc;
+                $wallet = $this->walletRepository->findByAttributes([
+                    'customer_id' => $auth->id,
+                    'currency_id' => 2
+                ]);
+                if(!$wallet) {
+                    $plc = 0;
+                } else {
+                    $plc = $wallet->balance;
+                }
+                $total = $subtotal - $plc;
 
                 $order = [
                     'order_code' => $rand,
@@ -275,7 +331,7 @@ class PublicController extends BasePublicController
                     'time_ship' => null,
                     'payment_method' => 1,
                     'delivery_method' => 1,
-                    'status' => StatusOrderEnum::PAYMENTING
+                    'status' => StatusOrderEnum::PAYMENT_COMPLETED
                 ];
                 $order = $this->orderRepository->create($order);
                 foreach ($carts as $cart) {
@@ -442,8 +498,16 @@ class PublicController extends BasePublicController
                 $carts = Cart::content();
                 $rand = strtoupper(substr(uniqid(sha1(time())), 0, 10));
                 $subtotal = Cart::subtotalPrice();
-                $plc = 0;
-                $total = $subtotal + $plc;
+                $wallet = $this->walletRepository->findByAttributes([
+                    'customer_id' => $auth->id,
+                    'currency_id' => 2
+                ]);
+                if(!$wallet) {
+                    $plc = 0;
+                } else {
+                    $plc = $wallet->balance;
+                }
+                $total = $subtotal - $plc;
 
                 $order = [
                     'order_code' => $rand,
